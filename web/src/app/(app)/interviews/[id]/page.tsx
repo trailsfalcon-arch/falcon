@@ -22,7 +22,6 @@ import {
   Volume2,
   VolumeX,
   X,
-  ExternalLink,
 } from 'lucide-react';
 import {
   api,
@@ -30,6 +29,7 @@ import {
   openBinary,
   type InterviewDetail,
   type InterviewQuestionItem,
+  candidateInvite,
 } from '@/lib/api';
 import { Panel, PanelBody, PanelHeader, PanelTitle } from '@/components/ui/panel';
 import { Button } from '@/components/ui/button';
@@ -53,6 +53,7 @@ export default function InterviewDetailPage() {
 
   // Copy candidate link state
   const [copied, setCopied] = useState(false);
+  const [invite, setInvite] = useState<{ accessCode: string; loginUrl: string; message: string } | null>(null);
 
   // Live AI session modal
   const [sessionOpen, setSessionOpen] = useState(false);
@@ -70,6 +71,16 @@ export default function InterviewDetailPage() {
   useEffect(() => {
     load();
   }, [load]);
+
+  const ivId = iv?.id;
+  const ivName = iv?.candidateName;
+  const ivRole = iv?.role;
+  useEffect(() => {
+    if (!ivId || !ivName || !ivRole) return;
+    candidateInvite({ id: ivId, candidateName: ivName, role: ivRole })
+      .then(setInvite)
+      .catch(() => setInvite(null));
+  }, [ivId, ivName, ivRole]);
 
   async function patch(body: Record<string, unknown>) {
     setBusy(true);
@@ -112,23 +123,19 @@ export default function InterviewDetailPage() {
     }
   }
 
-  // Copy Candidate Direct Link
+  // Copy the candidate invite (login link + access code)
   function copyCandidateLink() {
-    if (typeof window === 'undefined') return;
-    const url = `${window.location.origin}/interview/session/${id}`;
-    navigator.clipboard.writeText(url);
+    if (!invite) return;
+    navigator.clipboard.writeText(invite.message);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   }
 
   // WhatsApp Candidate Invite
   function openWhatsAppInvite() {
-    if (!iv) return;
+    if (!iv || !invite) return;
     const cleanPhone = iv.candidatePhone.replace(/[^0-9]/g, '');
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://ladakhvacation.in';
-    const link = `${origin}/interview/session/${iv.id}`;
-    const message = `Hello ${iv.candidateName}, greetings from Ladakh Vacation! We invite you to complete your friendly AI interview session for the position of "${iv.role}".\n\nPlease click this link to begin in simple English:\n${link}\n\nAll the best!`;
-    const waUrl = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${encodeURIComponent(message)}`;
+    const waUrl = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${encodeURIComponent(invite.message)}`;
     window.open(waUrl, '_blank');
   }
 
@@ -213,7 +220,7 @@ export default function InterviewDetailPage() {
             variant="secondary"
             size="sm"
             onClick={copyCandidateLink}
-            title="Copy direct session link for the candidate"
+            title="Copy the candidate invite with login link and access code"
           >
             {copied ? (
               <>
@@ -321,7 +328,7 @@ export default function InterviewDetailPage() {
 
         <div className="space-y-6">
           <RatingPanel iv={iv} busy={busy} onSave={patch} onRunAi={runAiEvaluation} />
-          <CandidatePortalAccessCard iv={iv} onCopy={copyCandidateLink} onWhatsApp={openWhatsAppInvite} />
+          <CandidatePortalAccessCard invite={invite} onCopy={copyCandidateLink} onWhatsApp={openWhatsAppInvite} />
         </div>
       </div>
 
@@ -773,51 +780,45 @@ function RatingPanel({
 /* ------------------------------------------------------------------ */
 
 function CandidatePortalAccessCard({
-  iv,
+  invite,
   onCopy,
   onWhatsApp,
 }: {
-  iv: InterviewDetail;
+  invite: { accessCode: string; loginUrl: string } | null;
   onCopy: () => void;
   onWhatsApp: () => void;
 }) {
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  const portalUrl = `${origin}/interview/session/${iv.id}`;
-
   return (
     <Panel className="border-ink-800">
       <PanelHeader>
         <PanelTitle className="text-xs uppercase tracking-wider text-ink-400">
-          Candidate Portal Link
+          Candidate Portal Access
         </PanelTitle>
       </PanelHeader>
       <PanelBody className="space-y-3 p-4">
         <p className="text-xs text-ink-400 leading-relaxed">
-          Send this link to the candidate so they can take the AI interview from their phone or laptop.
+          The candidate opens the login page and enters their mobile number and this access code.
+          Send it only to the candidate.
         </p>
 
         <div className="rounded-lg border border-ink-800 bg-ink-950/80 p-2 text-[11px] text-ink-400 break-all select-all font-mono">
-          {portalUrl}
+          {invite ? invite.loginUrl : 'Loading…'}
+        </div>
+        <div className="flex items-center justify-between rounded-lg border border-ink-800 bg-ink-950/80 px-3 py-2">
+          <span className="text-[11px] uppercase tracking-wider text-ink-500">Access code</span>
+          <span className="font-mono text-base tracking-[0.3em] text-gold-400 select-all">
+            {invite ? invite.accessCode : '••••••'}
+          </span>
         </div>
 
         <div className="flex gap-2">
-          <Button variant="secondary" size="sm" onClick={onCopy} className="flex-1 text-xs">
-            <Copy className="size-3.5" /> Copy
+          <Button variant="secondary" size="sm" onClick={onCopy} disabled={!invite} className="flex-1 text-xs">
+            <Copy className="size-3.5" /> Copy invite
           </Button>
-          <Button variant="secondary" size="sm" onClick={onWhatsApp} className="flex-1 text-xs">
+          <Button variant="secondary" size="sm" onClick={onWhatsApp} disabled={!invite} className="flex-1 text-xs">
             <MessageCircle className="size-3.5 text-[#25D366]" /> WhatsApp
           </Button>
         </div>
-
-        <a
-          href={`/interview/session/${iv.id}`}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex w-full items-center justify-center gap-1.5 text-[11.5px] text-gold-400 hover:text-gold-300 pt-1"
-        >
-          <span>Preview Candidate Portal</span>
-          <ExternalLink className="size-3" />
-        </a>
       </PanelBody>
     </Panel>
   );

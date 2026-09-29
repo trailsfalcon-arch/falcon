@@ -2,21 +2,22 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Mountain, Phone, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
-import { api, ApiError } from '@/lib/api';
+import { Mountain, Phone, KeyRound, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { api, ApiError, candidateTokenStore } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
 
 export default function CandidateLoginPage() {
   const router = useRouter();
   const [phone, setPhone] = useState('');
+  const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!phone.trim()) {
-      setError('Please enter your mobile phone number.');
+    if (!phone.trim() || !code.trim()) {
+      setError('Please enter your mobile number and the access code from HR.');
       return;
     }
 
@@ -28,9 +29,11 @@ export default function CandidateLoginPage() {
         interviewId: string;
         candidateName: string;
         role: string;
-      }>('/interviews/candidate/login', { phone: phone.trim() });
+        token: string;
+      }>('/interviews/candidate/login', { phone: phone.trim(), code: code.trim() });
 
-      if (res?.interviewId) {
+      if (res?.interviewId && res.token) {
+        candidateTokenStore.set(res.interviewId, res.token);
         router.push(`/interview/session/${res.interviewId}`);
       } else {
         setError('No interview found. Please check your number.');
@@ -39,7 +42,7 @@ export default function CandidateLoginPage() {
       setError(
         err instanceof ApiError
           ? err.message
-          : 'Could not find your interview session. Please check your mobile number or contact HR.',
+          : 'Could not open your interview. Please check your mobile number and access code, or contact HR.',
       );
     } finally {
       setBusy(false);
@@ -67,7 +70,7 @@ export default function CandidateLoginPage() {
             AI Interview Portal
           </div>
           <p className="mt-3 text-sm text-ink-400">
-            Welcome! Enter your registered mobile number to access your friendly AI interview session.
+            Welcome! Enter your mobile number and the 6-digit access code HR sent you.
           </p>
         </div>
 
@@ -102,6 +105,35 @@ export default function CandidateLoginPage() {
               </p>
             </div>
 
+            <div>
+              <Label htmlFor="code" className="text-xs font-medium text-ink-300">
+                Access Code
+              </Label>
+              <div className="relative mt-1.5">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-400">
+                  <KeyRound className="size-4" />
+                </div>
+                <Input
+                  id="code"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  required
+                  disabled={busy}
+                  value={code}
+                  onChange={(e) => {
+                    setCode(e.target.value.replace(/[^0-9]/g, ''));
+                    if (error) setError(null);
+                  }}
+                  placeholder="6 digits"
+                  className="pl-9 text-base tracking-widest bg-ink-950/60 border-ink-700/60 text-ink-100 placeholder:text-ink-600 focus:border-gold-500 focus:ring-gold-500/20"
+                />
+              </div>
+              <p className="mt-1.5 text-[11.5px] text-ink-500">
+                HR sent this code with your interview message.
+              </p>
+            </div>
+
             {error && (
               <div
                 role="alert"
@@ -113,7 +145,7 @@ export default function CandidateLoginPage() {
 
             <Button
               type="submit"
-              disabled={busy || !phone.trim()}
+              disabled={busy || !phone.trim() || code.length !== 6}
               className="w-full bg-gold-500 text-ink-950 hover:bg-gold-400 font-semibold shadow-lg shadow-gold-500/20 h-11"
             >
               {busy ? (

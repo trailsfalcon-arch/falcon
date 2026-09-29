@@ -2,6 +2,7 @@
 
 import { use, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Mountain,
   Mic,
@@ -20,7 +21,7 @@ import {
   Clock,
   Briefcase,
 } from 'lucide-react';
-import { api, ApiError, type InterviewAiSession, type InterviewQuestionItem } from '@/lib/api';
+import { candidateApi, ApiError, type InterviewAiSession, type InterviewQuestionItem } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/select';
 
@@ -30,6 +31,7 @@ export default function CandidateInterviewSessionPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
+  const router = useRouter();
 
   const [session, setSession] = useState<InterviewAiSession | null>(null);
   const [loading, setLoading] = useState(true);
@@ -66,7 +68,7 @@ export default function CandidateInterviewSessionPage({
     setLoading(true);
     setError(null);
     try {
-      const data = await api.get<InterviewAiSession>(`/interviews/candidate/${id}/session`);
+      const data = await candidateApi.get<InterviewAiSession>(id, `/interviews/candidate/${id}/session`);
       setSession(data);
       if (data.isCompleted) {
         setIsCompleted(true);
@@ -80,6 +82,10 @@ export default function CandidateInterviewSessionPage({
         setAnswerText(data.questions[targetIdx]?.answer || '');
       }
     } catch (err) {
+      if (err instanceof ApiError && err.status === 401) {
+        router.replace('/interview/login');
+        return;
+      }
       setError(
         err instanceof ApiError
           ? err.message
@@ -88,7 +94,7 @@ export default function CandidateInterviewSessionPage({
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, router]);
 
   useEffect(() => {
     loadSession();
@@ -189,13 +195,13 @@ export default function CandidateInterviewSessionPage({
     setError(null);
 
     try {
-      const res = await api.post<{
+      const res = await candidateApi.post<{
         success: boolean;
         feedback: string;
         nextIndex: number | null;
         nextQuestion: string | null;
         isCompleted: boolean;
-      }>(`/interviews/candidate/${id}/answer`, {
+      }>(id, `/interviews/candidate/${id}/answer`, {
         questionIndex: currentIdx,
         answer: answerText.trim(),
       });
@@ -360,7 +366,7 @@ export default function CandidateInterviewSessionPage({
                   <CheckCircle2 className="size-4" /> Next Steps
                 </div>
                 <p className="text-xs text-ink-400 leading-relaxed">
-                  Our recruitment team in Leh will review your interview transcript and answers. If your profile matches our requirements, we will reach out to you via WhatsApp or phone at <strong className="text-ink-200">{session.candidatePhone}</strong>.
+                  Our recruitment team in Leh will review your interview transcript and answers. If your profile matches our requirements, we will reach out to you via WhatsApp or phone on the number you gave us.
                 </p>
               </div>
 

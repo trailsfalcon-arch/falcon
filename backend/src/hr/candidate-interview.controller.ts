@@ -1,46 +1,44 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Public } from '../common/decorators/public.decorator';
 import { InterviewAiService } from './interview-ai.service';
 
+/**
+ * Candidate-facing AI interview. Public to the staff JWT guard, but every
+ * session route needs the scoped token issued by `login`, and that token only
+ * opens the one interview it was issued for.
+ */
 @Public()
 @Controller('interviews/candidate')
 export class CandidateInterviewController {
   constructor(private readonly aiService: InterviewAiService) {}
 
-  /**
-   * Candidate login by mobile phone number.
-   * Finds the latest interview scheduled for this phone number.
-   */
+  /** Mobile number + six-digit access code from HR -> candidate token. */
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('login')
-  login(@Body() body: { phone: string }) {
-    return this.aiService.loginCandidateByPhone(body.phone);
+  login(@Body() body: { phone?: unknown; code?: unknown }) {
+    return this.aiService.loginCandidateByPhone(body?.phone, body?.code);
   }
 
-  /**
-   * Candidate retrieves interview session details and existing progress.
-   */
   @Get(':id/session')
-  getSession(@Param('id') id: string) {
-    return this.aiService.startAiSession(id);
-  }
-
-  /**
-   * Candidate starts or generates the 5 easy-English questions for their role.
-   */
-  @Post(':id/start')
-  startSession(@Param('id') id: string) {
-    return this.aiService.startAiSession(id);
-  }
-
-  /**
-   * Candidate submits their answer for question #questionIndex.
-   * Returns warm turn feedback and the next question, or triggers evaluation if finished.
-   */
-  @Post(':id/answer')
-  submitAnswer(
+  async getSession(
     @Param('id') id: string,
-    @Body() body: { questionIndex: number; answer: string },
+    @Headers('x-candidate-token') token?: string,
   ) {
-    return this.aiService.submitAnswer(id, body.questionIndex, body.answer);
+    await this.aiService.verifyCandidateToken(token, id);
+    return this.aiService.candidateSession(id);
+  }
+
+  @Throttle({ default: { limit: 20, ttl: 60000 } })
+  @Post(':id/answer')
+  async submitAnswer(
+    @Param('id') id: string,
+    @Headers('x-candidate-token') token: string | undefined,
+    @Body() body: { questionIndex?: unknown; answer?: unknown },
+  ) {
+    await this.aiService.verifyCandidateToken(token, id);
+    return this.aiService.submitAnswer(id, body?.questionIndex, body?.answer, {
+      candidate: true,
+    });
   }
 }

@@ -215,13 +215,14 @@ export class HrController {
     const iv = await this.hr.findInterview(id);
     const questions = (iv.questionnaire as any) ?? [];
     const evaluation = await this.aiService.evaluateInterview(iv.role, iv.candidateName, questions);
-    return this.hr.updateInterview(id, {
-      overallRating: evaluation.overallRating,
-      strengths: evaluation.strengths,
-      concerns: evaluation.concerns,
-      outcome: evaluation.outcome,
-      outcomeNote: evaluation.outcomeNote,
-    } as any);
+    return this.hr.updateInterview(id, this.aiService.evaluationUpdate(evaluation) as any);
+  }
+
+  /** Six-digit code the candidate enters with their mobile number. */
+  @Get('interviews/:id/candidate-access')
+  async candidateAccess(@Param('id') id: string) {
+    await this.hr.findInterview(id);
+    return { accessCode: this.aiService.accessCode(id), loginPath: '/interview/login' };
   }
 
   @Post('interviews/:id/ai/reset')
@@ -238,4 +239,3 @@ export class HrController {
     } as any);
   }
 }
-

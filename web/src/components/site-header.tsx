@@ -7,6 +7,7 @@ import { Menu, X, Phone, ChevronDown, ArrowRight } from 'lucide-react';
 import { SITE, inr } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
+import { REVIEWS } from '@/lib/reviews';
 import { Wordmark } from './logo';
 
 type Drop = 'destinations' | 'styles' | null;
@@ -106,15 +107,18 @@ export function SiteHeader() {
               onEnter={() => setDrop('styles')}
               onToggle={() => setDrop(drop === 'styles' ? null : 'styles')}
             />
-            <Link href="/reviews" className={linkBase}>
-              Reviews
-            </Link>
+            {REVIEWS.length > 0 && (
+              <Link href="/reviews" className={linkBase}>
+                Reviews
+              </Link>
+            )}
             <Link href="/about" className={linkBase}>
               About
             </Link>
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
+            {SITE.phone.tel && (
             <a
               href={`tel:${SITE.phone.tel}`}
               className="group flex items-center gap-2 rounded-full border border-paper-300 px-3.5 py-2 text-[13px] font-medium text-ink-700 transition-colors duration-200 hover:border-gold-400 hover:bg-gold-50 hover:text-gold-700"
@@ -122,6 +126,7 @@ export function SiteHeader() {
               <Phone className="size-3.5 transition-transform duration-300 group-hover:rotate-12" strokeWidth={2} />
               {SITE.phone.display}
             </a>
+            )}
             <Link href="/plan-my-trip" className="btn btn-gold btn-shine">
               Plan my trip
             </Link>
@@ -235,7 +240,7 @@ export function SiteHeader() {
               <div className="mt-2 space-y-0.5">
                 {[
                   ['/packages', 'All packages'],
-                  ['/reviews', 'Reviews'],
+                  ...(REVIEWS.length > 0 ? [['/reviews', 'Reviews']] : []),
                   ['/about', 'About us'],
                   ['/partner-with-us', 'Travel agent partners'],
                   ['/contact', 'Contact'],
@@ -254,10 +259,12 @@ export function SiteHeader() {
                 <Link href="/plan-my-trip" className="btn btn-gold w-full">
                   Plan my trip
                 </Link>
+                {SITE.phone.tel && (
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost w-full">
                   <Phone className="size-4" strokeWidth={2} />
                   {SITE.phone.display}
                 </a>
+                )}
               </div>
             </nav>
           </div>

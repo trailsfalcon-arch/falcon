@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
 import { pdfStyles, brand } from './theme';
 import { BrandHeader, BrandFooter, GoldRule, shortDate } from './primitives';
+import { brand as currentBrand, brandContactLine } from '../../common/brand';
 
 export interface HotelVoucherInput {
   voucherNumber: string;
@@ -99,15 +100,15 @@ const voucherStyles = StyleSheet.create({
 export function HotelVoucherDocument({ v }: { v: HotelVoucherInput }) {
   const billingNote =
     v.billingInstruction ??
-    'Direct Billing to Ladakh Vacation as per approved B2B supplier contract. All personal extras (laundry, room heaters, oxygen cylinders, beverages, room service) must be settled directly by the guest upon checkout.';
-  const helpline = v.emergencyContact ?? '+91 94191 78901 / ops@ladakhvacation.in';
+    `Direct Billing to ${currentBrand().brandName} as per approved B2B supplier contract. All personal extras (laundry, room heaters, oxygen cylinders, beverages, room service) must be settled directly by the guest upon checkout.`;
+  const helpline = v.emergencyContact ?? brandContactLine();
 
   return (
     <Document
       title={`Hotel Voucher ${v.voucherNumber}`}
-      author="Ladakh Vacation"
+      author={currentBrand().brandName}
       subject={`Accommodation Voucher for ${v.guestName} at ${v.hotelName}`}
-      creator="Ladakh Vacation CRM"
+      creator={`${currentBrand().brandName} CRM`}
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader
@@ -221,10 +222,10 @@ export function HotelVoucherDocument({ v }: { v: HotelVoucherInput }) {
             • Valid Government-issued Photo ID (Aadhaar / Passport / Voter ID) is mandatory for all adult guests at check-in.
           </Text>
           <Text style={voucherStyles.instructionsText}>
-            • In Ladakh's high-altitude environment, hot water timings and central heating may be limited to designated morning and evening hours as per property guidelines.
+            • In mountain and high-altitude destinations, hot water timings and central heating may be limited to designated morning and evening hours as per property guidelines.
           </Text>
           <Text style={voucherStyles.instructionsText}>
-            • For emergency check-in assistance, room changes, or weather delays, contact Ladakh Vacation 24/7 Operations Desk at{' '}
+            • For emergency check-in assistance, room changes, or weather delays, contact {currentBrand().brandName} 24/7 Operations Desk at{' '}
             <Text style={{ fontFamily: 'Helvetica-Bold' }}>{helpline}</Text>.
           </Text>
         </View>

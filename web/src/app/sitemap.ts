@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/site';
+import { REVIEWS } from '@/lib/reviews';
 import { DESTINATIONS } from '@/lib/destinations';
 import { PACKAGES } from '@/lib/packages';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
@@ -15,7 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.domain}/packages`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE.domain}/plan-my-trip`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE.domain}/partner-with-us`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${SITE.domain}/reviews`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    ...(REVIEWS.length > 0
+      ? [{ url: `${SITE.domain}/reviews`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6 }]
+      : []),
     { url: `${SITE.domain}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE.domain}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE.domain}/faq`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },

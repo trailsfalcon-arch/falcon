@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import { pdfStyles, pdfFonts, brand } from '../../pdf/templates/theme';
 import { BrandHeader, BrandFooter, GoldRule, inr, shortDate } from '../../pdf/templates/primitives';
+import { brand as currentBrand } from '../../common/brand';
 
 export interface SalarySlipInput {
   employee: {
@@ -63,8 +64,8 @@ export function SalarySlipDocument({ employee: e, slip: s }: SalarySlipInput) {
   return (
     <Document
       title={`Salary slip — ${e.fullName} — ${monthLabel}`}
-      author="Ladakh Vacation"
-      creator="Ladakh Vacation CRM"
+      author={currentBrand().brandName}
+      creator={`${currentBrand().brandName} CRM`}
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader docLabel="Salary slip" docNumber={monthLabel} />

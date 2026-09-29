@@ -306,7 +306,7 @@ function AddUserDialog({ onCreated }: { onCreated: () => void }) {
               <Input
                 id="au-email" type="email" required
                 value={email} onChange={(e) => setEmail(e.target.value.toLowerCase())}
-                placeholder="zaid@www.ladakhvacation.in"
+                placeholder="name@company.com"
               />
             </div>
             <div className="space-y-1">

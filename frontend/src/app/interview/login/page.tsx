@@ -6,6 +6,7 @@ import { Mountain, Phone, KeyRound, ArrowRight, Sparkles, CheckCircle2, ShieldCh
 import { api, ApiError, candidateTokenStore } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
+import { BrandName } from '@/components/brand-name';
 
 export default function CandidateLoginPage() {
   const router = useRouter();
@@ -63,7 +64,7 @@ export default function CandidateLoginPage() {
             <Mountain className="size-7" strokeWidth={1.75} />
           </div>
           <h1 className="mt-4 text-2xl font-bold tracking-tight text-ink-50 sm:text-3xl">
-            Ladakh Vacation
+            <BrandName />
           </h1>
           <div className="mt-1 flex items-center justify-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gold-400">
             <Sparkles className="size-3.5" />
@@ -182,7 +183,9 @@ export default function CandidateLoginPage() {
         {/* Security & HR Footer */}
         <div className="mt-6 flex items-center justify-center gap-2 text-center text-xs text-ink-500">
           <ShieldCheck className="size-4 text-ink-400" />
-          <span>Ladakh Vacation Travel Pvt Ltd · Leh, Ladakh</span>
+          <span>
+            <BrandName /> · Candidate interview
+          </span>
         </div>
       </div>
     </div>

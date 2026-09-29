@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import { pdfStyles, pdfFonts, brand } from './theme';
 import { BrandHeader, BrandFooter, GoldRule, SellerIdentity, inr, shortDate } from './primitives';
+import { brand as currentBrand, brandAddressLine } from '../../common/brand';
 
 /**
  * Input shape for a formal GST invoice PDF. Mirrors the Invoice + InvoiceLineItem
@@ -40,6 +41,7 @@ export interface FormalInvoiceInput {
     address?: string | null;
     city?: string | null;
     state?: string | null;
+    stateCode?: string | null;
     pincode?: string | null;
     phone?: string | null;
     email?: string | null;
@@ -47,6 +49,7 @@ export interface FormalInvoiceInput {
     accountNumber?: string | null;
     ifscCode?: string | null;
     accountHolder?: string | null;
+    upiId?: string | null;
   } | null;
 }
 
@@ -57,20 +60,37 @@ export interface FormalInvoiceInput {
  */
 export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
   const comp = inv.companyProfile;
-  const brandName = comp?.brandName ?? 'Ladakh Vacation';
-  const address = comp?.address
-    ? `${comp.address}, ${comp.city ?? 'Leh'}, ${comp.state ?? 'Ladakh'} - ${comp.pincode ?? '194101'}`
-    : 'Main Bazaar, Leh, UT of Ladakh — 194101';
-  const email = comp?.email ?? 'bookings@ladakhvacation.com';
-  const gstin = comp?.gstin ?? '38AABCL1234F1Z5';
-  const pan = comp?.pan ?? 'AABCL1234F';
+  // Everything comes from Settings → Company profile. No invented GSTIN, PAN
+  // or bank account: a missing value is left off the invoice, not faked.
+  const b = currentBrand();
+  const brandName = comp?.brandName || b.brandName;
+  const address = brandAddressLine({
+    ...b,
+    address: comp?.address ?? b.address,
+    city: comp?.city ?? b.city,
+    state: comp?.state ?? b.state,
+    pincode: comp?.pincode ?? b.pincode,
+  });
+  const email = comp?.email || b.email;
+  const gstin = comp?.gstin || b.gstin;
+  const pan = comp?.pan || b.pan;
+  const state = comp?.state || b.state;
+  const stateCode = comp?.stateCode || b.stateCode;
+  const bank = {
+    holder: comp?.accountHolder || b.accountHolder || brandName,
+    name: comp?.bankName || b.bankName,
+    account: comp?.accountNumber || b.accountNumber,
+    ifsc: comp?.ifscCode || b.ifscCode,
+    upi: comp?.upiId || b.upiId,
+  };
+  const hasBank = Boolean(bank.name && bank.account && bank.ifsc);
 
   return (
     <Document
       title={`Invoice ${inv.invoiceNumber}`}
-      author="Ladakh Vacation"
+      author={currentBrand().brandName}
       subject="GST Invoice"
-      creator="Ladakh Vacation CRM"
+      creator={`${currentBrand().brandName} CRM`}
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader
@@ -93,14 +113,22 @@ export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
             <Text style={{ ...pdfStyles.para, fontWeight: 700, color: brand.ink }}>
               {brandName}
             </Text>
-            <Text style={pdfStyles.small}>{address}</Text>
-            <Text style={pdfStyles.small}>Email: {email}</Text>
-            <Text style={pdfStyles.small}>GSTIN: {gstin}  |  PAN: {pan}</Text>
+            {address ? <Text style={pdfStyles.small}>{address}</Text> : null}
+            {email ? <Text style={pdfStyles.small}>Email: {email}</Text> : null}
+            {gstin || pan ? (
+              <Text style={pdfStyles.small}>
+                {[gstin && `GSTIN: ${gstin}`, pan && `PAN: ${pan}`].filter(Boolean).join('  |  ')}
+              </Text>
+            ) : null}
             <Text style={pdfStyles.small}>SAC Code: 998555 (Tour Operator Services)</Text>
-            <Text style={pdfStyles.small}>Place of Supply: UT of Ladakh (Code: 38)</Text>
-            {comp?.bankName && comp?.accountNumber && (
+            {state ? (
+              <Text style={pdfStyles.small}>
+                Place of Supply: {state}{stateCode ? ` (Code: ${stateCode})` : ''}
+              </Text>
+            ) : null}
+            {hasBank && (
               <Text style={{ ...pdfStyles.small, marginTop: 4, fontFamily: 'Helvetica-Bold' }}>
-                Bank: {comp.bankName} | A/C: {comp.accountNumber} | IFSC: {comp.ifscCode}
+                Bank: {bank.name} | A/C: {bank.account} | IFSC: {bank.ifsc}
               </Text>
             )}
           </View>
@@ -225,7 +253,8 @@ export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
           </View>
         </View>
 
-        {/* Bank Transfer & Payment Details */}
+        {/* Bank Transfer & Payment Details — only what Settings holds */}
+        {hasBank && (
         <View
           style={{
             marginBottom: 16,
@@ -239,25 +268,28 @@ export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
           <Text style={{ ...pdfStyles.sectionLabel, marginBottom: 4 }}>Bank Transfer / NEFT / RTGS Details</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
             <Text style={pdfStyles.small}>Beneficiary Name:</Text>
-            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>Ladakh Vacation</Text>
+            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>{bank.holder}</Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
             <Text style={pdfStyles.small}>Bank Name:</Text>
-            <Text style={{ ...pdfStyles.small, color: brand.ink }}>State Bank of India</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
-            <Text style={pdfStyles.small}>Branch:</Text>
-            <Text style={{ ...pdfStyles.small, color: brand.ink }}>Main Branch, Leh, Ladakh</Text>
+            <Text style={{ ...pdfStyles.small, color: brand.ink }}>{bank.name}</Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
             <Text style={pdfStyles.small}>Account Number:</Text>
-            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>38910029384</Text>
+            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>{bank.account}</Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
             <Text style={pdfStyles.small}>IFSC Code:</Text>
-            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>SBIN0001365</Text>
+            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>{bank.ifsc}</Text>
           </View>
+          {bank.upi ? (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
+              <Text style={pdfStyles.small}>UPI:</Text>
+              <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>{bank.upi}</Text>
+            </View>
+          ) : null}
         </View>
+        )}
 
         {inv.notes && (
           <View style={{ marginTop: 4, marginBottom: 12 }}>

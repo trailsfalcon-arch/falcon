@@ -32,6 +32,7 @@ import { tokenStore, type SessionUser } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CommandPalette } from '@/components/command-palette';
+import { BrandWordmark } from '@/components/brand-name';
 
 /**
  * Per-role visibility for sidebar + route guard. Single source of truth.
@@ -79,7 +80,7 @@ const NAV_GROUPS: NavGroup[] = [
         roles: ['OWNER','SUPER_ADMIN','SALES_MANAGER','SALES_EXEC','OPERATIONS'] },
       { href: '/fleet',             label: 'Fleet & Cabs',   icon: Car,
         roles: ['OWNER','SUPER_ADMIN','SALES_MANAGER','OPERATIONS'] },
-      { href: '/permits',           label: 'Ladakh Permits', icon: FileCheck,
+      { href: '/permits',           label: 'Permits', icon: FileCheck,
         roles: ['OWNER','SUPER_ADMIN','SALES_MANAGER','OPERATIONS'] },
       { href: '/vendors',           label: 'Suppliers',      icon: Building2,
         roles: ['OWNER','SUPER_ADMIN','SALES_MANAGER','SALES_EXEC','ACCOUNTS','OPERATIONS'] },
@@ -192,10 +193,10 @@ export default function AppLayout({
     <>
       <div className="border-b border-ink-800/60 px-5 py-4">
         <div className="flex items-baseline gap-1.5 font-semibold tracking-tight">
-          <span className="text-[17px] text-brand-500 display">Ladakh</span>
-          <span className="text-[13px] uppercase tracking-[0.14em] text-signal-600">
-            Vacation
-          </span>
+          <BrandWordmark
+            firstClassName="text-[17px] text-brand-500 display"
+            restClassName="text-[13px] uppercase tracking-[0.14em] text-signal-600"
+          />
         </div>
       </div>
 
@@ -290,10 +291,10 @@ export default function AppLayout({
           <Menu className="size-5" strokeWidth={1.75} />
         </button>
         <div className="flex items-baseline gap-1 font-semibold tracking-tight">
-          <span className="text-[15px] text-brand-500 display">Ladakh</span>
-          <span className="text-[11px] uppercase tracking-[0.14em] text-signal-600">
-            Vacation
-          </span>
+          <BrandWordmark
+            firstClassName="text-[15px] text-brand-500 display"
+            restClassName="text-[11px] uppercase tracking-[0.14em] text-signal-600"
+          />
         </div>
         <button
           aria-label="Search"

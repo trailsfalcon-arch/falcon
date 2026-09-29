@@ -1,25 +1,52 @@
-# Ladakh Vacation
+# Falcon Trails
 
-The Ladakh Vacation CRM, its backend and the public website, in one repo.
-Built from the Glitz Holidays stack and laid out the same way: three apps,
-with one combined Vercel deployment from `web` and the API on Render.
+The Falcon Trails CRM, its backend and the public website at falcontrails.in,
+in one repo. Cloned from the Ladakh Vacation CRM and laid out the same way:
+three apps, with one combined Vercel deployment from `web` and the API on
+Render.
+
+## Branding (Settings, not code)
+
+Everything the CRM and backend print about the business comes from
+**Settings → Company profile** (the `CompanyProfile` row): name, legal name,
+address, phone, WhatsApp, email, website, landing-page URL, operating region,
+document number prefix (`FT-INV-2026-0001`), GSTIN, PAN, bank details and
+social links. PDFs, emails, WhatsApp templates, AI prompts, SEO checks and
+CRM screens read it through `backend/src/common/brand.ts` (refreshed every
+minute and on save) and `GET /api/brand` (public fields only). A licensed
+install is rebranded by filling in that screen.
+
+Invoices print a GSTIN, PAN or bank block only when the profile has one. There
+are no sample tax or bank values anywhere.
+
+The public website in `web/` is Falcon Trails' own marketing site and reads
+`web/src/lib/site.ts`, with contact details from build-time variables:
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_SITE_PHONE` | Public phone/WhatsApp, e.g. `+91 98765 43210`. Call and WhatsApp buttons hide while unset. |
+| `NEXT_PUBLIC_SITE_EMAIL` | Defaults to `info@falcontrails.in`. |
+| `NEXT_PUBLIC_SITE_STREET` | Street line of the Srinagar office, optional. |
+| `NEXT_PUBLIC_SITE_URL` | CRM's idea of the public site, defaults to `https://falcontrails.in`. |
+| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container, optional. |
 The `frontend` folder remains the CRM source; `web/scripts/sync-crm.mjs` copies
 its routes and utilities into the combined app before each build.
 
 ```
 backend/    NestJS 11 + Prisma 6 API           -> Render   <service>.onrender.com
 frontend/   Next.js CRM source (staff only)    -> copied into web before build
-web/        Website + CRM                      -> Vercel   ladakhvacation.in and /login
+web/        Website + CRM                      -> Vercel   falcontrails.in and /login
 mobile/     reserved (Capacitor wrap of the CRM, later)
 packages/   reserved (shared TS types)
 seo/        generate-manifest.mjs (pages the CRM's SEO dashboard audits)
 
-Desktop\ladakh-vacation-site   (NOT in this repo)
-            static Google Ads landers          -> GoDaddy  go.ladakhvacation.in
+(NOT in this repo)
+            Google Ads landing pages           ->          go.falcontrails.in
 ```
 
-The database and file storage are on Neon (Postgres database `ladakh_crm`,
-object-storage bucket `uploads`).
+The database and file storage are on Neon (a Postgres database of its own,
+object-storage bucket `uploads`). Use a new database for Falcon Trails; never
+point this deployment at the Ladakh Vacation database.
 
 Each app installs and runs inside its own folder. There is no workspace
 tooling.
@@ -61,7 +88,7 @@ Render asks for these on the first deploy (they are `sync: false`):
 
 | Key | Value |
 |---|---|
-| `DATABASE_URL` | Neon pooled connection string for `ladakh_crm` (host has `-pooler`) |
+| `DATABASE_URL` | Neon pooled connection string for the Falcon Trails database (host has `-pooler`) |
 | `DIRECT_URL` | Neon direct connection string (no `-pooler`), used by migrations |
 | `AWS_ENDPOINT_URL_S3` | Neon object storage endpoint |
 | `AWS_REGION` | Neon storage region |
@@ -94,10 +121,9 @@ Optional `NEXT_PUBLIC_WAKE_PING_URL=off` disables the wake request. Changing any
 `NEXT_PUBLIC_*` variable requires a new build. Set Render `CRM_BASE_URL` to the
 same website origin so password-reset links lead to its `/reset-password` page.
 
-The newer GitHub configuration names `ladakhvacationecosystem.onrender.com` as
-the backend. Both `/api/health` and `/api/health/db` responded successfully on 23 September
-2026. This does not verify that the new audit fixes have deployed, or establish
-which Neon database its environment selects.
+`NEXT_PUBLIC_LEAD_CAPTURE_URL` has no fallback: without it the enquiry forms
+show an error instead of posting anywhere. It must point at the Falcon Trails
+backend, never at another company's.
 
 ### DNS (Cloudflare)
 
@@ -107,16 +133,16 @@ the zone's SSL/TLS mode: it also governs the live landers.
 
 ### Ads landers (GoDaddy)
 
-`Desktop\ladakh-vacation-site` stays on GoDaddy at `go.ladakhvacation.in`.
+The landing pages live at `go.falcontrails.in`.
 Its `assets/js/lead.js` sends a visit beacon to `/api/visits` and every
 enquiry to `/api/leads/capture` on the Render backend. After changing it, run
 `node build/build.js` there and upload the folder except `build/` and the zip.
 
 ## Content
 
-The website's packages, destinations, city pages and FAQs are built from the
-landers' own content (`build/pages.js` in the landers folder), so both sites
-sell the same eleven trips at the same prices. After adding or renaming a
+The website's packages, destinations, city pages and FAQs were inherited from
+the Ladakh Vacation site. Their itineraries, inclusions and prices must be
+replaced with Falcon Trails' own before launch. After adding or renaming a
 website page, run `node seo/generate-manifest.mjs` so the CRM's SEO dashboard
 audits the new URL.
 
@@ -153,4 +179,4 @@ recipient outcomes. Sleeping or restarting hosting is not a durable job queue.
 
 Dedicated traveller/permit management, altitude validation, generated white-label
 B2B quotes, and a mobile app remain outside the implemented modules. Provider
-delivery and hosting must be checked with the actual Ladakh accounts.
+delivery and hosting must be checked with the actual Falcon Trails accounts.

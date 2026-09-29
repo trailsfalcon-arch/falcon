@@ -11,7 +11,7 @@ export class HealthController {
   root() {
     return {
       status: 'ok',
-      service: 'ladakh-vacation-backend',
+      service: 'travel-crm-backend',
       ts: new Date().toISOString(),
     };
   }

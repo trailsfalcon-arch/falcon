@@ -5,13 +5,13 @@ import { randomBytes } from 'crypto';
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = process.env.SEED_ADMIN_EMAIL ?? 'admin@ladakhvacation.in';
+  const email = process.env.SEED_ADMIN_EMAIL ?? 'info@falcontrails.in';
   // No well-known default password. When SEED_ADMIN_PASSWORD is unset or
   // empty, the owner gets a random one nobody sees; set the real one with
   // `npm run set-login`.
   const password =
     process.env.SEED_ADMIN_PASSWORD || randomBytes(24).toString('base64url');
-  const name = process.env.SEED_ADMIN_NAME ?? 'Ladakh Vacation Owner';
+  const name = process.env.SEED_ADMIN_NAME ?? 'Falcon Trails Owner';
 
   const passwordHash = await bcrypt.hash(password, 10);
 

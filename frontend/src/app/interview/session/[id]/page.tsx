@@ -24,6 +24,7 @@ import {
 import { candidateApi, ApiError, type InterviewAiSession, type InterviewQuestionItem } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/select';
+import { BrandName } from '@/components/brand-name';
 
 export default function CandidateInterviewSessionPage({
   params,
@@ -303,7 +304,7 @@ export default function CandidateInterviewSessionPage({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-sm tracking-tight text-ink-50">
-                  Ladakh Vacation
+                  <BrandName />
                 </span>
                 <span className="rounded bg-gold-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-gold-400 uppercase tracking-wider">
                   AI Interview
@@ -358,7 +359,7 @@ export default function CandidateInterviewSessionPage({
                 Interview Completed! 🎉
               </h2>
               <p className="mt-2 text-sm text-ink-300 max-w-md mx-auto">
-                Thank you so much, <strong className="text-gold-400">{session.candidateName}</strong>! All your answers have been submitted directly to Ladakh Vacation HR.
+                Thank you so much, <strong className="text-gold-400">{session.candidateName}</strong>! All your answers have been submitted directly to <BrandName /> HR.
               </p>
 
               <div className="mt-6 rounded-xl border border-ink-800 bg-ink-950/70 p-4 text-left">
@@ -561,7 +562,7 @@ export default function CandidateInterviewSessionPage({
 
       {/* Footer */}
       <footer className="relative border-t border-ink-800/80 bg-ink-900/40 px-4 py-3 text-center text-xs text-ink-500">
-        Ladakh Vacation Travel Pvt Ltd · AI Candidate Portal · Very Easy English Mode
+        <BrandName /> · AI Candidate Portal · Very Easy English Mode
       </footer>
     </div>
   );

@@ -25,6 +25,7 @@ import { withNumberRetry } from '../common/sequence';
 import { OfflineConversionsService } from '../attribution/offline-conversions.service';
 import type { HotelVoucherInput } from '../pdf/templates/hotel-voucher';
 import type { DriverVoucherInput } from '../pdf/templates/driver-voucher';
+import { brand } from '../common/brand';
 
 @Injectable()
 export class BookingsService {
@@ -71,7 +72,7 @@ export class BookingsService {
 
   private async nextBookingNumber(db: Prisma.TransactionClient = this.prisma): Promise<string> {
     const year = new Date().getFullYear();
-    const prefix = `LV-B-${year}-`;
+    const prefix = `${brand().documentPrefix}-B-${year}-`;
     const last = await db.booking.findFirst({
       where: { bookingNumber: { startsWith: prefix } },
       orderBy: { bookingNumber: 'desc' },

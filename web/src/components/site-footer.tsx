@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Star } from 'lucide-react';
-import { SITE } from '@/lib/site';
+import { SITE, addressLine } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
 import { PACKAGES } from '@/lib/packages';
@@ -30,10 +30,12 @@ export function SiteFooter() {
             <Link href="/contact" className="btn btn-gold btn-shine">
               Plan my trip
             </Link>
+            {SITE.phone.tel && (
             <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost-light">
               <Phone className="size-4" strokeWidth={2} />
               {SITE.phone.display}
             </a>
+            )}
           </div>
         </div>
       </div>
@@ -43,27 +45,15 @@ export function SiteFooter() {
         <div className="md:col-span-4">
           <Wordmark light />
           <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed text-paper-200/70">
-            A Ladakh-registered tour operator with an office in Leh, running
-            Ladakh journeys since {SITE.founded}. The people planning your trip
-            are the people running it.
+            A Srinagar-based tour operator for Kashmir, Ladakh and Jammu. The
+            people planning your trip are the people running it.
           </p>
-
-          <div className="mt-5 flex items-center gap-2">
-            <div className="flex gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="size-3.5 fill-gold-400 text-gold-400" strokeWidth={0} />
-              ))}
-            </div>
-            <span className="text-[12.5px] text-paper-200/70">
-              {SITE.stats.rating} from {SITE.stats.reviewCount} reviews
-            </span>
-          </div>
 
           <div className="mt-5 flex gap-2.5">
             {[
               [SITE.social.instagram, Instagram, 'Instagram'],
               [SITE.social.facebook, Facebook, 'Facebook'],
-            ].map(([href, Icon, label]) => {
+            ].filter(([href]) => Boolean(href)).map(([href, Icon, label]) => {
               const I = Icon as typeof Instagram;
               return (
                 <a
@@ -124,6 +114,7 @@ export function SiteFooter() {
             Reach us
           </h3>
           <ul className="mt-3 space-y-2.5 text-[13px]">
+            {SITE.phone.tel && (
             <li>
               <a
                 href={`tel:${SITE.phone.tel}`}
@@ -133,6 +124,7 @@ export function SiteFooter() {
                 {SITE.phone.display}
               </a>
             </li>
+            )}
             <li>
               <a
                 href={`mailto:${SITE.email}`}
@@ -144,11 +136,7 @@ export function SiteFooter() {
             </li>
             <li className="flex gap-2.5 text-paper-200/60">
               <MapPin className="mt-0.5 size-3.5 shrink-0" strokeWidth={1.8} />
-              <span>
-                {SITE.address.street}, {SITE.address.city}
-                <br />
-                {SITE.address.region} {SITE.address.postalCode}
-              </span>
+              <span>{addressLine()}</span>
             </li>
           </ul>
         </div>
@@ -175,7 +163,7 @@ export function SiteFooter() {
             <Link href="/contact" className="transition-colors hover:text-gold-300">
               Contact
             </Link>
-            <span>Planned in Leh, Ladakh.</span>
+            <span>Planned in Srinagar, Kashmir.</span>
           </div>
         </div>
       </div>

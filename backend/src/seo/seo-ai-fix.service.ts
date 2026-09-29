@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { decryptSecret } from '../common/crypto';
+import { brand } from '../common/brand';
 
 export interface GenerateSeoFixDto {
   checkId: string;
@@ -66,8 +67,8 @@ export class SeoAiFixService {
           } else if (integration.provider === 'openrouter') {
             const model = creds.model || 'meta-llama/llama-3.3-70b-instruct:free';
             liveFix = await this.callOpenAiCompatible('https://openrouter.ai/api/v1', key, model, dto, pageTitle, keyword, {
-              'HTTP-Referer': 'https://ladakhvacation.in',
-              'X-Title': 'Ladakh Vacation CRM',
+              'HTTP-Referer': brand().website,
+              'X-Title': `${brand().brandName} CRM`,
             });
           } else if (integration.provider === 'mistral') {
             const model = creds.model || 'mistral-small-latest';
@@ -170,7 +171,7 @@ While ${destination} is one of the most striking places in the Himalaya, we want
 <div className="relative h-96 w-full overflow-hidden rounded-2xl shadow-lg">
   <Image
     src="/images/packages/${destSlug}-tour.jpg"
-    alt="${destination}, Ladakh: high-altitude desert landscape photographed on a Ladakh Vacation trip"
+    alt="${destination}: landscape photographed on a ${brand().brandName} trip"
     fill
     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
     priority
@@ -189,8 +190,8 @@ While ${destination} is one of the most striking places in the Himalaya, we want
       }
 
       case 'meta-description': {
-        const desc1 = `${destination} tour packages from a Leh-based team: altitude-first itineraries, private 4×4 with a Ladakhi driver, all permits and oxygen on board.`;
-        const desc2 = `Book ${destination} with Ladakh Vacation from ₹14,500. Hotels and camps, environmental fee and permits handled, private cab and 24×7 support from Leh. WhatsApp us.`;
+        const desc1 = `${destination} tour packages from ${brand().brandName}: day-by-day itineraries, private transfers and permits handled.`;
+        const desc2 = `Book ${destination} with ${brand().brandName}. Hotels, transfers and permits planned for you${brand().city ? ` by our ${brand().city} team` : ''}. WhatsApp us.`;
         const desc3 = `Plan ${destination} with local experts in Leh. Itemised quotes, custom itineraries sequenced by altitude, and no-cost EMI. Get your itinerary today.`;
 
         return {
@@ -219,8 +220,8 @@ While ${destination} is one of the most striking places in the Himalaya, we want
       case 'title':
       case 'title-unique':
       case 'query-coverage': {
-        const title1 = `${destination} Tour Packages 2026: Itineraries, Best Deals & Stays | Ladakh Vacation`;
-        const title2 = `${destination} Tour Packages from ₹14,500 | Ladakh Vacation`;
+        const title1 = `${destination} Tour Packages 2026: Itineraries, Best Deals & Stays | ${brand().brandName}`;
+        const title2 = `${destination} Tour Packages from ₹14,500 | ${brand().brandName}`;
         const title3 = `${keyword.replace(/\b\w/g, (c) => c.toUpperCase())} — Custom Itineraries & Local Guides`;
 
         return {
@@ -302,15 +303,15 @@ Every itinerary is a starting point, reshaped around your dates, your group and 
           rationale:
             "Google's Search Quality Evaluator Guidelines emphasize Experience, Expertise, Authoritativeness, and Trustworthiness (E-E-A-T). Naming an authentic travel specialist demonstrates real human curation.",
           suggestion: `<!-- Visual Byline Component. Replace [Author name] and [Role] with a real
-     member of the Leh team before publishing: a named person who actually
+     member of the team before publishing: a named person who actually
      plans these trips is the point of this check. -->
 <div className="flex items-center gap-3 py-4 my-6 border-y border-slate-200">
   <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center font-bold text-slate-800">
-    LV
+    ${brand().brandName.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase()}
   </div>
   <div>
     <p className="text-xs font-semibold text-slate-900">
-      Planned by [Author name] · [Role], Ladakh Vacation, Leh
+      Planned by [Author name] · [Role], ${brand().brandName}${brand().city ? `, ${brand().city}` : ''}
     </p>
     <p className="text-[11px] text-slate-500">
       Last reviewed: ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
@@ -328,7 +329,7 @@ Every itinerary is a starting point, reshaped around your dates, your group and 
     "@type": "Person",
     "name": "[Author name]",
     "jobTitle": "[Role]",
-    "worksFor": { "@type": "Organization", "name": "Ladakh Vacation" }
+    "worksFor": { "@type": "Organization", "name": "${brand().brandName}" }
   }
 }
 </script>`,
@@ -550,7 +551,7 @@ Every itinerary is a starting point, reshaped around your dates, your group and 
   }
 
   private buildAiPrompt(dto: GenerateSeoFixDto, pageTitle: string, keyword: string): string {
-    return `You are a world-class Technical SEO & Helpful Content specialist for Ladakh Vacation, a Leh-based Ladakh tour operator (Leh, Nubra, Pangong, Hanle, Tso Moriri, and the Manali and Srinagar roads into Ladakh). Its itineraries are sequenced by altitude. Indian guests pay the Ladakh environmental fee (there is no Inner Line Permit for Indian tourists). Foreign nationals need a Protected Area Permit, which the operator arranges. Every vehicle is a private 4×4 with a Ladakhi driver and oxygen on board. Never invent prices, awards, statistics or staff names.
+    return `You are a world-class Technical SEO & Helpful Content specialist for ${brand().brandName}, a ${brand().city || brand().state}-based tour operator covering ${brand().operatingRegion}. For Ladakh, Indian guests pay the environmental fee (there is no Inner Line Permit for Indian tourists) and foreign nationals need a Protected Area Permit. Do not promise specific vehicles, inclusions or support hours. Never invent prices, awards, statistics or staff names.
 
 A page audit flagged an SEO issue that needs an immediate, actionable fix:
 - Check ID: "${dto.checkId}" (${dto.label || ''})

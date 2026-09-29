@@ -4,6 +4,7 @@ import { createHash } from 'crypto';
 import { ActivityType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { decryptSecret } from '../common/crypto';
+import { brand } from '../common/brand';
 
 export interface BookingConversionPayload {
   bookingId: string;
@@ -72,7 +73,7 @@ export class OfflineConversionsService {
                   event_name: 'Purchase',
                   event_id: payload.bookingId,
                   event_time: Math.floor(Date.now() / 1000),
-                  event_source_url: 'https://ladakhvacation.in',
+                  event_source_url: brand().website,
                   action_source: 'website',
                   user_data: {
                     fbc: `fb.1.${Date.now()}.${lead.fbclid}`,

@@ -2,7 +2,7 @@
  * Origin-city landing pages — "Ladakh tour packages from {city}".
  *
  * The eight cities, travel times and FAQs are the same ones the Ads landers
- * at go.ladakhvacation.in carry (ladakh-tour-from-<city>), so the organic and
+ * at go.falcontrails.in carry (ladakh-tour-from-<city>), so the organic and
  * paid pages never disagree about how to reach Leh.
  *
  * THE HONESTY RULE FOR THIS FILE
@@ -55,7 +55,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Delhi that is the shortest hop to Leh in the country.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Delhi that is the shortest hop to Leh in the country.",
     "body": [
       "Direct flights to Leh most mornings, roughly 1 hr 20 min in the air. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -83,7 +83,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -107,7 +107,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Mumbai that is an early Delhi connection and you land in Leh before lunch.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Mumbai that is an early Delhi connection and you land in Leh before lunch.",
     "body": [
       "One stop, almost always through Delhi — about 5 hrs door to door including the connection. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -135,7 +135,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -159,7 +159,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Bengaluru that is one connection and a morning arrival.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Bengaluru that is one connection and a morning arrival.",
     "body": [
       "One stop via Delhi, about 6 hrs in total. Take the first Bengaluru departure to make the Leh connection. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -187,7 +187,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -211,7 +211,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Hyderabad that is one connection through Delhi.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Hyderabad that is one connection through Delhi.",
     "body": [
       "One stop via Delhi, roughly 5 hrs 30 min including the connection. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -239,7 +239,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -263,7 +263,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Chennai that is an overnight-free single connection.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Chennai that is an overnight-free single connection.",
     "body": [
       "One stop via Delhi, about 6 hrs 30 min in total. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -291,7 +291,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -315,7 +315,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Pune that is one connection and you are on the Indus.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Pune that is one connection and you are on the Indus.",
     "body": [
       "One stop via Delhi, about 5 hrs door to door. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -343,7 +343,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -367,7 +367,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Kolkata that is a single Delhi connection.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Kolkata that is a single Delhi connection.",
     "body": [
       "One stop via Delhi, roughly 5 hrs 30 min including the connection. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -395,7 +395,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -419,7 +419,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       "7-nights-ladakh-tour",
       "8-nights-ladakh-tour"
     ],
-    "summary": "Everything on the ground is handled by our team in Leh — permits, vehicle, stays and support. All you book is the flight, and from Ahmedabad that is one of the quicker one-stop routes to Leh.",
+    "summary": "Everything on the ground is handled by our team — permits, vehicle, stays and support. All you book is the flight, and from Ahmedabad that is one of the quicker one-stop routes to Leh.",
     "body": [
       "One stop via Delhi, about 4 hrs 45 min in total — among the quicker one-stop routes. We time your airport pickup to your actual arrival, and if your connection slips we simply move the pickup. There is no charge for that.",
       "However you get here, you land at 3,500 m, and a flight gets you there far faster than your body can adjust. That is why the first afternoon on every itinerary below is deliberately empty, the second day stays low, and the high passes start on day three. It costs one sightseeing afternoon and it is what makes the rest of the trip work.",
@@ -447,7 +447,7 @@ export const ORIGIN_CITIES: OriginCity[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",

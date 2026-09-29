@@ -9,7 +9,7 @@ import { PackageCard, SectionHead, Faq, JsonLd } from '@/components/cards';
 import { PageHero, FactStrip } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 import { StickyMobileCta } from '@/components/sticky-mobile-cta';
-import { SITE, inr, whatsAppLink } from '@/lib/site';
+import { SITE, addressLine, inr, whatsAppLink } from '@/lib/site';
 
 type Params = Promise<{ city: string }>;
 
@@ -295,13 +295,15 @@ export default async function PackagesFromCity({ params }: { params: Params }) {
                     >
                       Get a quote on WhatsApp
                     </a>
+                    {SITE.phone.tel && (
                     <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost w-full">
                       Call {SITE.phone.display}
                     </a>
+                    )}
                   </div>
 
                   <p className="mt-4 text-center text-[11.5px] leading-relaxed text-ink-500">
-                    Answered from Leh by the planner who will run your trip.
+                    Answered by the planner who will run your trip.
                   </p>
                 </div>
               </div>
@@ -352,13 +354,12 @@ export default async function PackagesFromCity({ params }: { params: Params }) {
             <p className="lede mt-5 max-w-md !text-paper-200/75">
               Send us your dates and the shape of the trip you are imagining.
               You will get a real itinerary and an itemised quote from a planner
-              in Leh, usually the same day.
+              in Srinagar, usually the same day.
             </p>
             <div className="mt-8">
               <MapPin className="mb-3 size-5 text-gold-300" strokeWidth={1.8} />
               <p className="text-[13.5px] leading-relaxed text-paper-200/60">
-                {SITE.address.street}, {SITE.address.city} — {SITE.stats.rating}★ from{' '}
-                {SITE.stats.reviewCount.toLocaleString('en-IN')}+ Google reviews.
+                {addressLine()}
               </p>
             </div>
           </div>

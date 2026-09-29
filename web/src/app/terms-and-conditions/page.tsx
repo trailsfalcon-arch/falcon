@@ -4,9 +4,9 @@ import { JsonLd } from '@/components/cards';
 import { SITE } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — Ladakh Vacation',
+  title: 'Terms & Conditions — Falcon Trails',
   description:
-    'Review booking terms, payment schedules, permits, altitude advisories, and service guidelines for tour packages operated by Ladakh Vacation.',
+    'Review booking terms, payment schedules, permits, altitude advisories, and service guidelines for tour packages operated by Falcon Trails.',
   alternates: { canonical: '/terms-and-conditions' },
 };
 
@@ -14,8 +14,8 @@ export default function TermsPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Terms and Conditions — Ladakh Vacation',
-    description: 'Commercial booking terms and conditions for Ladakh Vacation.',
+    name: 'Terms and Conditions — Falcon Trails',
+    description: 'Commercial booking terms and conditions for Falcon Trails.',
     url: `${SITE.domain}/terms-and-conditions`,
     publisher: { '@id': `${SITE.domain}/#org` },
   };
@@ -27,7 +27,7 @@ export default function TermsPage() {
       <PageHero
         kicker="Commercial Policies"
         title="Terms & Conditions"
-        lede="Clear, honest terms for booking your Ladakh journey with Ladakh Vacation."
+        lede="Clear, honest terms for booking your Ladakh journey with Falcon Trails."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Terms & Conditions' },
@@ -62,7 +62,7 @@ export default function TermsPage() {
                 Ladakh’s passes and lakes (Khardung La, Chang La, Pangong Tso, Hanle, Umling La and the Manali and Srinagar roads) are subject to sudden weather changes, snow, landslides and road closures by the local administration.
               </p>
               <ul className="mt-3 list-disc pl-6 space-y-1.5 text-[14.5px] text-ink-700">
-                <li>If a road or pass closes, our coordinator in Leh will reroute the trip or substitute sightseeing where it is safe to do so.</li>
+                <li>If a road or pass closes, our coordinator will reroute the trip or substitute sightseeing where it is safe to do so.</li>
                 <li>Every itinerary is sequenced by altitude. If a traveller shows signs of acute mountain sickness, we may change the plan on the day for their safety; every vehicle carries oxygen and an oximeter.</li>
               </ul>
             </div>
@@ -70,7 +70,7 @@ export default function TermsPage() {
             <div className="border-t border-paper-300 pt-8">
               <h2 className="display d3 text-ink-950">4. Identification & Permits</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-700">
-                All Indian guests must carry original government-issued photo IDs (Aadhaar / Voter ID / Passport / Driving License). Indian travellers do not need an Inner Line Permit. For protected areas (Nubra, Pangong, Hanle, Tso Moriri and Umling La), Ladakh Vacation pays the Ladakh environmental fee and the daily wildlife fee and prints the receipt before you arrive. Foreign nationals need a Protected Area Permit for those areas, which we arrange, and must hold a valid Indian visa or e-visa. Leh town and the Sham Valley need neither.
+                All Indian guests must carry original government-issued photo IDs (Aadhaar / Voter ID / Passport / Driving License). Indian travellers do not need an Inner Line Permit. For protected areas (Nubra, Pangong, Hanle, Tso Moriri and Umling La), Falcon Trails pays the Ladakh environmental fee and the daily wildlife fee and prints the receipt before you arrive. Foreign nationals need a Protected Area Permit for those areas, which we arrange, and must hold a valid Indian visa or e-visa. Leh town and the Sham Valley need neither.
               </p>
             </div>
 

@@ -185,7 +185,7 @@ export class WhatsAppService {
         components: [
           {
             type: 'BODY',
-            text: 'Greetings {{1}}! Ladakh Vacation has launched new curated tours for the upcoming holiday season. Click here to check the details.',
+            text: 'Greetings {{1}}! We have launched new curated tours for the upcoming holiday season. Click here to check the details.',
           },
         ],
       },

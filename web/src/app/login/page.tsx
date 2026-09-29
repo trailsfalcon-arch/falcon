@@ -7,6 +7,8 @@ import { api, tokenStore, ApiError, type SessionUser } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Input, Label } from '@/components/ui/input';
+import { BrandWordmark } from '@/components/brand-name';
+import { useBrand } from '@/lib/brand';
 
 /**
  * Login is the only page a not-yet-authenticated visitor sees. It carries
@@ -17,6 +19,7 @@ import { Input, Label } from '@/components/ui/input';
  * bundle tiny and re-tints instantly with any brand tweak.
  */
 export default function LoginPage() {
+  const brand = useBrand();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -108,12 +111,10 @@ export default function LoginPage() {
         <div className="relative flex h-full flex-col justify-between p-12">
           {/* Wordmark — same treatment as the sidebar */}
           <div className="flex items-baseline gap-1.5">
-            <span className="display text-[22px] font-semibold text-brand-400">
-              Ladakh
-            </span>
-            <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-ink-950/85">
-              Vacation
-            </span>
+            <BrandWordmark
+              firstClassName="display text-[22px] font-semibold text-brand-400"
+              restClassName="text-[13px] font-semibold uppercase tracking-[0.18em] text-ink-950/85"
+            />
           </div>
 
           <div className="max-w-md">
@@ -169,12 +170,10 @@ export default function LoginPage() {
         <div className="relative w-full max-w-[360px]">
           {/* Compact wordmark for narrow viewports where the left panel is hidden. */}
           <div className="mb-8 flex items-baseline gap-1.5 lg:hidden">
-            <span className="display text-[20px] font-semibold text-brand-600">
-              Ladakh
-            </span>
-            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-signal-600">
-              Vacation
-            </span>
+            <BrandWordmark
+              firstClassName="display text-[20px] font-semibold text-brand-600"
+              restClassName="text-[12px] font-semibold uppercase tracking-[0.18em] text-signal-600"
+            />
           </div>
 
           <h1 className="display text-[28px] font-semibold leading-tight tracking-tight text-ink-100">
@@ -194,7 +193,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && signIn()}
-                placeholder="you@ladakhvacation.in"
+                placeholder="you@company.com"
               />
             </div>
 
@@ -238,10 +237,10 @@ export default function LoginPage() {
 
             <p className="pt-4 text-center text-[11.5px] text-ink-500">
               <a
-                href="https://ladakhvacation.in"
+                href={brand.website}
                 className="hover:text-brand-500 transition-colors"
               >
-                ← Back to ladakhvacation.in
+                ← Back to {brand.host}
               </a>
             </p>
           </div>

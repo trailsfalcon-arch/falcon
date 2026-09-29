@@ -1,0 +1,21 @@
+-- AlterTable
+ALTER TABLE "CompanyProfile" ADD COLUMN     "country" TEXT NOT NULL DEFAULT 'India',
+ADD COLUMN     "documentPrefix" TEXT NOT NULL DEFAULT 'FT',
+ADD COLUMN     "facebookUrl" TEXT,
+ADD COLUMN     "instagramUrl" TEXT,
+ADD COLUMN     "landerUrl" TEXT,
+ADD COLUMN     "logoUrl" TEXT,
+ADD COLUMN     "operatingRegion" TEXT NOT NULL DEFAULT 'Kashmir, Ladakh & Jammu',
+ADD COLUMN     "tagline" TEXT,
+ADD COLUMN     "whatsapp" TEXT,
+ALTER COLUMN "legalName" SET DEFAULT 'Falcon Trails',
+ALTER COLUMN "brandName" SET DEFAULT 'Falcon Trails',
+ALTER COLUMN "address" SET DEFAULT '',
+ALTER COLUMN "city" SET DEFAULT 'Srinagar',
+ALTER COLUMN "state" SET DEFAULT 'Jammu & Kashmir',
+ALTER COLUMN "stateCode" SET DEFAULT '01',
+ALTER COLUMN "pincode" SET DEFAULT '190001',
+ALTER COLUMN "phone" SET DEFAULT '',
+ALTER COLUMN "email" SET DEFAULT 'info@falcontrails.in',
+ALTER COLUMN "website" SET DEFAULT 'https://falcontrails.in';
+

@@ -3,9 +3,11 @@
  *
  * NOTE ON TOKEN STORAGE: the JWT lives in localStorage. That is readable by
  * any script running on the page, so it is only acceptable because this is an
- * internal tool on a domain you control. If Ladakh Vacation ever becomes a product sold
- * to other DMCs, move to an httpOnly cookie set by the backend.
+ * internal tool on a domain you control. Before this CRM is licensed to other
+ * agencies, move to an httpOnly cookie set by the backend.
  */
+
+import { getBrand } from './brand';
 
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api';
@@ -208,7 +210,7 @@ export async function candidateInvite(iv: { id: string; candidateName: string; r
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const loginUrl = `${origin}${loginPath}`;
   const message =
-    `Hello ${iv.candidateName}, greetings from Ladakh Vacation! ` +
+    `Hello ${iv.candidateName}, greetings from ${getBrand().brandName}! ` +
     `Please take your short AI interview for the "${iv.role}" job in simple English.\n\n` +
     `1. Open: ${loginUrl}\n` +
     `2. Enter this mobile number\n` +
@@ -418,8 +420,8 @@ export const WEB_PROPERTY_LABELS: Record<WebProperty, string> = {
 };
 
 export const WEB_PROPERTY_HOSTS: Record<WebProperty, string> = {
-  LANDERS: 'go.ladakhvacation.in',
-  WEBSITE: 'ladakhvacation.in',
+  LANDERS: 'go.falcontrails.in',
+  WEBSITE: 'falcontrails.in',
   CRM: 'staff app, not visitor facing',
 };
 

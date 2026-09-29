@@ -4,9 +4,9 @@ import { JsonLd } from '@/components/cards';
 import { SITE } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Cancellation & Refund Policy — Ladakh Vacation',
+  title: 'Cancellation & Refund Policy — Falcon Trails',
   description:
-    'Review transparent cancellation timelines, refund deductions, and weather contingency policies for travel packages with Ladakh Vacation.',
+    'Review transparent cancellation timelines, refund deductions, and weather contingency policies for travel packages with Falcon Trails.',
   alternates: { canonical: '/cancellation-and-refund-policy' },
 };
 
@@ -14,8 +14,8 @@ export default function CancellationPolicyPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Cancellation & Refund Policy — Ladakh Vacation',
-    description: 'Cancellation and refund guidelines for Ladakh Vacation.',
+    name: 'Cancellation & Refund Policy — Falcon Trails',
+    description: 'Cancellation and refund guidelines for Falcon Trails.',
     url: `${SITE.domain}/cancellation-and-refund-policy`,
     publisher: { '@id': `${SITE.domain}/#org` },
   };
@@ -40,7 +40,7 @@ export default function CancellationPolicyPage() {
             <div>
               <h2 className="display d3 text-ink-950">1. Standard Cancellation Slabs</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-700">
-                If you need to cancel your trip, notice must be received in writing via email ({SITE.email}) or our official WhatsApp ({SITE.phone.display}). Refund percentages are calculated on total tour cost:
+                If you need to cancel your trip, notice must be received in writing via email ({SITE.email}){SITE.phone.display ? ` or our official WhatsApp (${SITE.phone.display})` : ''}. Refund percentages are calculated on total tour cost:
               </p>
               <div className="mt-5 overflow-hidden rounded-2xl border border-paper-300">
                 <table className="w-full text-left text-[14px]">
@@ -87,7 +87,7 @@ export default function CancellationPolicyPage() {
             <div className="border-t border-paper-300 pt-8">
               <h2 className="display d3 text-ink-950">3. Flight Disruptions & Force Majeure</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-700">
-                If a flight into Leh is cancelled for weather, or a pass or road closes because of snow, landslides or an administrative order, Ladakh Vacation will reschedule stays without penalty wherever suppliers permit and reroute the trip where it is safe to do so. Any unused transport days will be adjusted or refunded.
+                If a flight into Leh is cancelled for weather, or a pass or road closes because of snow, landslides or an administrative order, Falcon Trails will reschedule stays without penalty wherever suppliers permit and reroute the trip where it is safe to do so. Any unused transport days will be adjusted or refunded.
               </p>
             </div>
 

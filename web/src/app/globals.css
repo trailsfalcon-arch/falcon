@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 /* ============================================================================
-   LADAKH VACATION — DESIGN SYSTEM
-   Premium editorial. Brand palette sampled from the Ladakh Vacation logo and
+   FALCON TRAILS — DESIGN SYSTEM
+   Premium editorial. Brand palette sampled from the Falcon Trails logo and
    the live landers: royal blue banner, deep navy, muted gold border, paper.
    Token NAMES are inherited from the Glitz system (pine = the primary dark
    brand scale, gold = accent) so every component keeps working; the VALUES
@@ -120,7 +120,7 @@
   color-scheme: light;
 
   /* Surfaces — the landers' paper, not a cold slate. White panels sit on it. */
-  --color-ink-950: #f7f5f0;  /* canvas: paper, as on go.ladakhvacation.in */
+  --color-ink-950: #f7f5f0;  /* canvas: paper, as on go.falcontrails.in */
   --color-ink-900: #ffffff;  /* panel surface */
   --color-ink-850: #f1eee7;  /* hover / chip surface */
   --color-ink-800: #e4dfd4;  /* hairline divider */

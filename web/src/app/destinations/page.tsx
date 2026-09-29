@@ -27,7 +27,7 @@ export default function DestinationsIndex() {
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'Himalayan destinations by Ladakh Vacation',
+      name: 'Himalayan destinations by Falcon Trails',
       itemListElement: DESTINATIONS.map((d, i) => ({
         '@type': 'ListItem',
         position: i + 1,

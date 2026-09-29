@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /*
-  LADAKH VACATION — operations desk.
+  CRM — operations desk.
 
-  Colour system from the Ladakh Vacation logo: royal blue and muted gold on
+  Colour system inherited from the original template: royal blue and muted gold on
   paper, deep navy for text. Inherited from the Glitz desk, token NAMES
   unchanged so every `bg-ink-900` / `text-signal-500` in the code keeps
   working; only the values are Ladakh's.
@@ -15,7 +15,7 @@
 */
 @theme {
   /* Surfaces — the landers' paper, not a cold slate. White panels sit on it. */
-  --color-ink-950: #f7f5f0;  /* canvas: paper, as on go.ladakhvacation.in */
+  --color-ink-950: #f7f5f0;  /* canvas: paper, as on the landing pages */
   --color-ink-900: #ffffff;  /* panel surface */
   --color-ink-850: #f1eee7;  /* hover / chip surface */
   --color-ink-800: #e4dfd4;  /* hairline divider */

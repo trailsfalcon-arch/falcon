@@ -30,45 +30,45 @@ export const metadata = {
 };
 
 const TRUST = [
-  'Leh-based, not a reseller',
-  `${SITE.stats.guests} travellers hosted`,
-  'Environmental fee and permits handled',
-  'Oxygen in every vehicle',
-  'Stays we have slept in',
-  '24×7 support from Leh',
-  'Itemised quotes, no-cost EMI',
+  'Srinagar-based, not a reseller',
+  'Kashmir, Ladakh & Jammu',
+  'Ladakh permits handled',
+  'Private transfers for your group',
+  'Stays we know first-hand',
+  'One planner, start to finish',
+  'Itemised quotes, no hidden extras',
 ];
 
 const WHY = [
   {
     icon: ShieldCheck,
-    title: 'Altitude comes first, always',
-    body: 'We refuse to sell a Pangong-on-day-two itinerary. Our routes are sequenced by elevation, with an empty first afternoon in Leh and the high passes from day three, and oxygen in every vehicle.',
+    title: 'Paced for the mountains',
+    body: 'Itineraries are built around travel time, weather and altitude, not a checklist. In Ladakh that means acclimatising around Leh before the high passes and lakes.',
   },
   {
     icon: MapPin,
-    title: 'No middlemen in the chain',
-    body: 'We own the relationships with drivers, camps and hotels directly. That is why the same trip costs less, and why the people serving you are paid properly.',
+    title: 'Planned locally',
+    body: 'We work with drivers, hotels, houseboats and camps directly from Srinagar, so your quote reflects real local costs and real availability.',
   },
   {
     icon: Car,
-    title: 'Private 4×4, Ladakhi driver',
-    body: 'An Innova Crysta or Xylo with a Ladakhi driver who has run these passes for years. Never a shared cab, never a stranger’s schedule.',
+    title: 'Your own vehicle and driver',
+    body: 'Private transfers for your group, with drivers who know the routes. Never a shared cab on someone else’s schedule.',
   },
   {
     icon: BedDouble,
-    title: 'Stays we have slept in',
-    body: 'Centrally located 3★ and 4★ hotels in Leh, and deluxe camps at Nubra and Pangong with attached bathrooms, heating and hot water. Every one personally inspected.',
+    title: 'Stays chosen on purpose',
+    body: 'Hotels, houseboats and camps picked for location, comfort and value, and matched to your budget rather than to whoever pays the highest commission.',
   },
   {
     icon: Headphones,
     title: 'One named planner, start to finish',
-    body: 'The person who writes your itinerary is the person who answers at 11pm from Leh when a pass closes. No handovers, no ticket numbers.',
+    body: 'The person who writes your itinerary stays with you through the trip. No handovers, no ticket numbers.',
   },
   {
     icon: Receipt,
-    title: 'Transparent pricing and EMI',
-    body: 'An itemised quote showing exactly what each night and each vehicle costs. A 25% deposit confirms your dates, and no-cost EMI is available on cards.',
+    title: 'Transparent pricing',
+    body: 'An itemised quote showing what each night and each transfer costs, and exactly what is and is not included.',
   },
 ];
 
@@ -119,25 +119,24 @@ export default function HomePage() {
 
         <div className="wrap relative w-full pb-16 pt-32 md:pb-24 md:pt-40">
           <p className="anim-fade kicker kicker-light">
-            Leh-based Ladakh specialists · Since {SITE.founded}
+            Srinagar-based · Kashmir, Ladakh &amp; Jammu
           </p>
 
           <h1 className="display d1 mt-5 max-w-[19ch] text-paper-50">
             <span className="mask">
-              <span style={{ animationDelay: '80ms' }}>Ladakh,</span>
+              <span style={{ animationDelay: '80ms' }}>Kashmir &amp; Ladakh,</span>
             </span>
             <span className="mask">
               <span style={{ animationDelay: '200ms' }}>
-                planned by <em className="text-gold-grad not-italic">Ladakhis.</em>
+                planned <em className="text-gold-grad not-italic">properly.</em>
               </span>
             </span>
           </h1>
 
           <p className="anim-rise d-4 lede mt-7 max-w-xl !text-paper-200/85">
-            Every route is built around altitude, not a checklist &mdash;
-            permits handled, private 4×4s with Ladakhi drivers, oxygen on board,
-            and stays we have personally slept in. One planner in Leh from your
-            first message to your flight home.
+            Houseboats on Dal Lake, the meadows of Gulmarg and Pahalgam, and the
+            high roads into Ladakh &mdash; planned day by day by one planner in
+            Srinagar, from your first message to your flight home.
           </p>
 
           <div className="anim-rise d-5 mt-9 flex flex-wrap gap-3">
@@ -150,20 +149,6 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* floating stat strip */}
-          <div className="anim-rise d-5 mt-14 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-paper-100/12 bg-paper-100/8 backdrop-blur-md sm:grid-cols-4">
-            {[
-              [SITE.stats.guests, 'guests hosted'],
-              [`${SITE.stats.rating}★`, `${SITE.stats.reviewCount.toLocaleString('en-IN')}+ reviews`],
-              [`${SITE.stats.years} yrs`, 'in Ladakh'],
-              ['24×7', 'on-trip support'],
-            ].map(([k, v]) => (
-              <div key={v} className="bg-ink-950/25 px-5 py-4">
-                <p className="display text-[24px] leading-none text-gold-300">{k}</p>
-                <p className="mt-1.5 text-[11.5px] text-paper-200/65">{v}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -183,9 +168,8 @@ export default function HomePage() {
           </div>
         </div>
         <p className="sr-only">
-          Leh-based Ladakh tour operator since {SITE.founded}. {SITE.stats.guests} travellers
-          hosted. Environmental fee and permits handled. Oxygen in every vehicle. 24×7
-          on-ground support from Leh.
+          Srinagar-based tour operator for Kashmir, Ladakh and Jammu. Private transfers,
+          Ladakh permits handled, itemised quotes and one planner from enquiry to return.
         </p>
       </section>
 
@@ -257,13 +241,13 @@ export default function HomePage() {
         <div className="wrap relative">
           <SectionHead
             light
-            kicker="Why Ladakh Vacation"
+            kicker={`Why ${SITE.name}`}
             title={
               <>
-                Run by Ladakhis. Not by a <em className="text-gold-grad not-italic">call centre</em>.
+                Run by locals. Not by a <em className="text-gold-grad not-italic">call centre</em>.
               </>
             }
-            lede="Six reasons travellers book a Leh-based team directly, rather than a portal that forwards their enquiry to one."
+            lede="Six reasons travellers book a local team directly, rather than a portal that forwards their enquiry to one."
           />
 
           <div data-reveal-group className="mt-14 grid gap-x-10 gap-y-11 md:grid-cols-2 lg:grid-cols-3">
@@ -352,7 +336,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════ REVIEWS */}
+      {/* ══════════════════════════════════ REVIEWS (hidden until real ones exist) */}
+      {REVIEWS.length > 0 && (
       <section className="section">
         <div className="wrap">
           <div className="flex flex-wrap items-end justify-between gap-6">
@@ -360,21 +345,6 @@ export default function HomePage() {
               kicker="What guests say"
               title="The reviews are the itinerary."
             />
-            <div data-reveal="right" className="flex items-center gap-3">
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-5 fill-gold-400 text-gold-400" strokeWidth={0} />
-                ))}
-              </div>
-              <div>
-                <p className="display text-[21px] leading-none text-ink-900">
-                  {SITE.stats.rating} / 5
-                </p>
-                <p className="text-[12px] text-ink-500">
-                  {SITE.stats.reviewCount.toLocaleString('en-IN')}+ reviews on Google
-                </p>
-              </div>
-            </div>
           </div>
 
           <div data-reveal-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -391,6 +361,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ══════════════════════════════════ ENQUIRY */}
       <section className="mesh-pine grain section relative isolate overflow-hidden">
@@ -407,7 +378,7 @@ export default function HomePage() {
             </h2>
             <p className="lede mt-5 max-w-md !text-paper-200/75">
               Send us your dates and the shape of the trip you are imagining.
-              You will get a real itinerary from a real planner in Leh &mdash;
+              You will get a real itinerary from a real planner in Srinagar &mdash;
               usually the same day.
             </p>
 

@@ -1,17 +1,16 @@
 /**
- * Canonical public site. The business moved from www.ladakhvacation.in (the legacy
- * PHP site, est. 2013) to the hyphenated domain — see migration/README.md.
- * The legacy host now 301s everything here, so any stored URL still pointing
- * at it produces a redirect hop and shows the old site in the SEO dashboard.
+ * Canonical public site, set per install with NEXT_PUBLIC_SITE_URL. The www
+ * host redirects here, so a stored URL still pointing at it produces a
+ * redirect hop and shows a second copy of the site in the SEO dashboard.
  *
  * Anything that builds a public URL must go through here rather than
  * hardcoding a host, which is how the two domains drifted apart in the first
  * place.
  */
-export const SITE_DOMAIN = 'https://ladakhvacation.in';
+export const SITE_DOMAIN = (process.env.NEXT_PUBLIC_SITE_URL || 'https://falcontrails.in').replace(/\/+$/, '');
 
 /** Hosts that have been retired in favour of SITE_DOMAIN. */
-export const LEGACY_HOSTS = ['www.ladakhvacation.in', 'www.ladakhvacation.in'];
+export const LEGACY_HOSTS = [`www.${new URL(SITE_DOMAIN).hostname}`];
 
 /**
  * Resolve a manifest path against a site URL, forcing the canonical host.

@@ -11,6 +11,7 @@
 import { JWT } from 'google-auth-library';
 import { buildAuthClient, describeTokenError, resolveAuthConfig } from '../seo/search-console-auth';
 import { normalisePropertyUrl } from '../seo/search-console-mapping';
+import { brand } from '../common/brand';
 
 export interface ProbeResult {
   ok: boolean;
@@ -469,7 +470,7 @@ async function probePageSpeed(c: any): Promise<ProbeResult> {
   const key = String(c.apiKey ?? '').trim();
   if (!key) return { ok: false, message: 'API key is required.' };
   const r = await safeFetch(
-    `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://ladakhvacation.in&key=${encodeURIComponent(key)}&strategy=mobile&category=performance`,
+    `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(brand().website)}&key=${encodeURIComponent(key)}&strategy=mobile&category=performance`,
     { method: 'GET' },
     15000,
   );

@@ -61,6 +61,7 @@ import {
   DEFAULT_FX_RATES,
 } from '@/lib/format';
 import { BOOKING_STATUSES, PAYMENT_MODES, humanise } from '@/lib/constants';
+import { getBrand } from '@/lib/brand';
 
 type TabKey =
   | 'overview'
@@ -144,7 +145,7 @@ export default function BookingDetailPage() {
 
   function handleCopyReminder() {
     if (!booking) return;
-    const text = `Namaste ${booking.lead.name}! Greetings from Ladakh Vacation. Regarding your upcoming Ladakh tour (${booking.packageName ?? booking.bookingNumber}), here is your payment summary:
+    const text = `Namaste ${booking.lead.name}! Greetings from ${getBrand().brandName}. Regarding your upcoming tour (${booking.packageName ?? booking.bookingNumber}), here is your payment summary:
 
 Total Package: ${money(booking.totalSell)}
 Amount Received: ${money(booking.financials.totalReceived)}

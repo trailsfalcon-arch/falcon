@@ -4,7 +4,7 @@
  * everywhere.
  *
  * Font strategy:
- *   Prefer Cormorant Garamond + Plus Jakarta Sans (the Ladakh Vacation brand
+ *   Prefer Cormorant Garamond + Plus Jakarta Sans (the inherited brand
  *   pairing, as on the website and landers). Fall back to the built-in
  *   PDF-14 fonts (Times-Roman + Helvetica) when the .ttf files aren't
  *   present. See src/pdf/fonts/README.md for the two-minute upgrade.
@@ -64,7 +64,7 @@ function resolveFonts(): FontResolution {
 const F = resolveFonts();
 
 /**
- * Palette pulled straight from the Ladakh Vacation logo. Kept here (not
+ * Palette inherited from the original template; brand colours are not yet a Settings field. Kept here (not
  * imported from the frontend's globals.css) because the two apps deploy
  * independently. Key names are inherited from the Glitz templates: `teal*`
  * is the brand blue, `gold*` the accent.

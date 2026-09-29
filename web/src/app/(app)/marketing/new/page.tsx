@@ -25,6 +25,8 @@ import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
 import { Chip } from '@/components/ui/badge';
 import { money } from '@/lib/format';
+import { getBrand } from '@/lib/brand';
+import { BrandName } from '@/components/brand-name';
 
 const ALL_STATUSES = [
   'NEW',
@@ -69,9 +71,9 @@ export default function NewCampaignWizardPage() {
   // Template State
   const [waTemplates, setWaTemplates] = useState<any[]>([]);
   const [selectedWaTemplate, setSelectedWaTemplate] = useState<string>('ladakh_seasonal_offer');
-  const [emailSubject, setEmailSubject] = useState('Special Holiday Offer from Ladakh Vacation');
+  const [emailSubject, setEmailSubject] = useState(() => `Special Holiday Offer from ${getBrand().brandName}`);
   const [emailHtml, setEmailHtml] = useState(
-    `<p>Hello {{name}},</p>\n<p>We have refreshed holiday packages for <strong>{{destination}}</strong> with special seasonal pricing.</p>\n<p>Reply to this email or contact your Ladakh Vacation travel advisor to plan your getaway.</p>`,
+    () => `<p>Hello {{name}},</p>\n<p>We have refreshed holiday packages for <strong>{{destination}}</strong> with special seasonal pricing.</p>\n<p>Reply to this email or contact your ${getBrand().brandName} travel advisor to plan your getaway.</p>`,
   );
 
   // Scheduling State
@@ -553,7 +555,7 @@ export default function NewCampaignWizardPage() {
                   <div className="mt-2 max-w-md rounded-2xl border border-healthy-500/35 bg-[#0B141A] p-4 font-sans text-white shadow-lg">
                     <div className="flex items-center gap-2 border-b border-healthy-500/40 pb-2 text-[12px] font-semibold text-healthy-500">
                       <MessageSquare className="size-4" />
-                      Ladakh Vacation (Verified Business)
+                      <BrandName /> (Verified Business)
                     </div>
 
                     <div className="mt-3 rounded-xl bg-[#202C33] p-3 text-[13px] leading-relaxed text-ink-850">

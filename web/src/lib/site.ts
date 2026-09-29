@@ -2,75 +2,64 @@
  * Single source of truth for public-facing brand facts.
  * Change here → propagates through header, footer, WhatsApp CTAs, JSON-LD,
  * sitemap, robots. Never hardcode any of these anywhere else.
+ *
+ * Contact details come from build-time env vars so no number or address is
+ * published until it is real. Keep them identical to Settings → Company
+ * profile in the CRM and to the Google Business Profile (local SEO needs the
+ * name, address and phone to match character for character).
+ *
+ *   NEXT_PUBLIC_SITE_PHONE    e.g. +91 98765 43210   (hidden when unset)
+ *   NEXT_PUBLIC_SITE_EMAIL    default info@falcontrails.in
+ *   NEXT_PUBLIC_SITE_STREET   street line, optional
+ *   NEXT_PUBLIC_GTM_ID        Google Tag Manager container, optional
  */
-export const SITE = {
-  name: 'Ladakh Vacation',
-  legalName: 'Ladakh Vacation',
-  tagline: 'Discover Ladakh · Experience Life',
-  domain: 'https://ladakhvacation.in',
-  landerDomain: 'https://go.ladakhvacation.in',
+const phoneDisplay = (process.env.NEXT_PUBLIC_SITE_PHONE ?? '').trim();
+const phoneDigits = phoneDisplay.replace(/[^0-9]/g, '');
 
-  /**
-   * NAP (name / address / phone). Local SEO depends on these matching the
-   * Google Business Profile character-for-character across every citation.
-   * Phone and email are the ones on the live landers; the street line has
-   * not been checked against the GBP yet, so confirm it before launch. If
-   * the GBP is ever edited, edit here in the same sitting.
-   */
-  founded: '2012',
+export const SITE = {
+  name: 'Falcon Trails',
+  legalName: 'Falcon Trails',
+  tagline: 'Kashmir, Ladakh & Jammu, planned properly',
+  domain: 'https://falcontrails.in',
+  landerDomain: 'https://go.falcontrails.in',
 
   phone: {
-    display: '+91 96229 55386',
-    tel: '+919622955386',
-    wa: '919622955386',
+    /** Empty until NEXT_PUBLIC_SITE_PHONE is set; call buttons hide. */
+    display: phoneDisplay,
+    tel: phoneDigits ? `+${phoneDigits}` : '',
+    wa: phoneDigits,
   },
-  email: 'ladakhvacation@gmail.com',
+  email: (process.env.NEXT_PUBLIC_SITE_EMAIL ?? '').trim() || 'info@falcontrails.in',
 
   address: {
-    street: 'Main Bazaar',
-    city: 'Leh',
-    region: 'Ladakh',
-    postalCode: '194101',
+    street: (process.env.NEXT_PUBLIC_SITE_STREET ?? '').trim(),
+    city: 'Srinagar',
+    region: 'Jammu & Kashmir',
+    postalCode: '190001',
     country: 'IN',
   },
 
-  /** Approximate office coords (Main Bazaar, Leh) — for LocalBusiness JSON-LD. */
-  geo: { lat: 34.1642, lng: 77.5848 },
+  /** Srinagar city centre, until the office pin is confirmed. */
+  geo: { lat: 34.0837, lng: 74.7973 },
 
   hours: 'Mon–Sun, 09:00–20:00 IST',
 
-  /** The Google Business Profile reviews link the landers use. */
-  googleReviews: 'https://share.google/597twcuknHlL2iW1e',
+  /** Google Business Profile review link. Empty until the profile exists. */
+  googleReviews: '',
 
+  /** Social profiles. Empty entries are not linked. */
   social: {
-    instagram: 'https://instagram.com/ladakhvacation',
-    facebook: 'https://facebook.com/ladakhvacation',
+    instagram: '',
+    facebook: '',
   },
 
-  /**
-   * Carried over from the live ladakhvacation.in site and landers (4.9 ★ /
-   * 3,300+ reviews, 2,400+ travellers, est. 2012).
-   *
-   * The rating and reviewCount feed AggregateRating JSON-LD. Publishing
-   * numbers that do not match the GBP is a structured-data violation, so
-   * re-check these whenever the GBP count moves materially.
-   */
-  stats: {
-    guests: '2,400+',
-    rating: '4.9',
-    reviewCount: 3300,
-    years: String(Math.max(13, new Date().getFullYear() - 2012)),
-  },
-
-  /** Google Tag Manager container. Empty until Ladakh Vacation has its own:
-   *  the layout only loads GTM when this is set. (Glitz's container ID must
-   *  never be reused here, it would send these visits into Glitz analytics.) */
-  gtmId: '',
+  /** Google Tag Manager container; the layout only loads GTM when set. */
+  gtmId: (process.env.NEXT_PUBLIC_GTM_ID ?? '').trim(),
 
   /** Backend endpoint that accepts public lead captures. */
-  leadCaptureUrl:
-    process.env.NEXT_PUBLIC_LEAD_CAPTURE_URL ??
-    'https://ladakhvacationecosystem.onrender.com/api/leads/capture',
+  // No fallback host: a missing env var must fail visibly, never send this
+  // site's enquiries into another company's backend.
+  leadCaptureUrl: process.env.NEXT_PUBLIC_LEAD_CAPTURE_URL ?? '',
 
   /**
    * Cheap health endpoint used to wake the Render free-tier backend.
@@ -79,7 +68,7 @@ export const SITE = {
    */
   wakePingUrl:
     process.env.NEXT_PUBLIC_WAKE_PING_URL === 'off' ? '' :
-      (process.env.NEXT_PUBLIC_WAKE_PING_URL || process.env.NEXT_PUBLIC_LEAD_CAPTURE_URL?.replace(/\/leads\/capture\/?$/, '/health') || 'https://ladakhvacationecosystem.onrender.com/api/health'),
+      (process.env.NEXT_PUBLIC_WAKE_PING_URL || process.env.NEXT_PUBLIC_LEAD_CAPTURE_URL?.replace(/\/leads\/capture\/?$/, '/health') || ''),
 } as const;
 
 /**
@@ -87,8 +76,16 @@ export const SITE = {
  * consistent and the sales team can tell which page the chat came from.
  */
 export function whatsAppLink(context: string): string {
-  const msg = `Hi Ladakh Vacation, I'm enquiring about ${context}.`;
+  const msg = `Hi ${SITE.name}, I'm enquiring about ${context}.`;
+  // No number configured yet: send people to the enquiry form instead.
+  if (!SITE.phone.wa) return '/contact';
   return `https://wa.me/${SITE.phone.wa}?text=${encodeURIComponent(msg)}`;
+}
+
+/** "Street, Srinagar, Jammu & Kashmir 190001" without blank parts. */
+export function addressLine(): string {
+  const { street, city, region, postalCode } = SITE.address;
+  return [[street, city, region].filter(Boolean).join(', '), postalCode].filter(Boolean).join(' ');
 }
 
 /** ₹ with Indian digit grouping. 18500 → "₹18,500" */

@@ -24,8 +24,9 @@ const { DESTINATIONS } = await lib('destinations.ts');
 const { COLLECTIONS } = await lib('collections.ts');
 const { ORIGIN_CITIES } = await lib('origin-cities.ts');
 const { TRAVEL_STYLES } = await lib('travel-styles.ts');
+const { REVIEWS } = await lib('reviews.ts');
 
-const BRAND = ' | Ladakh Vacation';
+const BRAND = ' | Falcon Trails';
 const pages = [];
 const push = (p) => pages.push({ ...p, impr: null, clicks: null, conv: null, words: null });
 
@@ -88,12 +89,13 @@ for (const s of TRAVEL_STYLES) {
 for (const [url, h1, primary] of [
   ['/packages', 'Every package, honestly priced.', 'ladakh tour packages'],
   ['/destinations', 'Four Ladakhs, one journey.', 'ladakh destinations'],
-  ['/about', 'Ladakh, planned by Ladakhis.', 'travel agency in leh'],
-  ['/reviews', 'Reviews', 'ladakh vacation reviews'],
+  ['/about', 'Planned by people who live here.', 'travel agency in srinagar'],
+  // The reviews page is noindex until it has genuine reviews.
+  ...(REVIEWS.length > 0 ? [['/reviews', 'Reviews', 'falcon trails reviews']] : []),
   ['/faq', 'Frequently asked questions', 'ladakh trip faq'],
-  ['/contact', 'Talk to someone who is actually in Ladakh.', 'ladakh tour operator contact'],
+  ['/contact', 'Talk to someone who is actually in Kashmir.', 'kashmir tour operator contact'],
   ['/plan-my-trip', 'Custom Holiday Planner', 'plan ladakh trip'],
-  ['/partner-with-us', 'Your ground team in Ladakh', 'ladakh dmc for travel agents'],
+  ['/partner-with-us', 'Your ground team in Kashmir & Ladakh', 'kashmir ladakh dmc for travel agents'],
 ]) {
   push({ tier: 6, family: 'core', url, h1, title: `${h1}${BRAND}`, primary });
 }

@@ -2,6 +2,7 @@ import { Injectable, Logger, Inject, forwardRef } from '@nestjs/common';
 import { ActivityType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { WhatsAppService } from '../integrations/whatsapp.service';
+import { brand } from '../common/brand';
 
 export interface NurtureLeadPayload {
   id: string;
@@ -41,14 +42,15 @@ export class LeadNurturingService {
       return { dispatched: false, reason: 'Invalid phone number format' };
     }
 
-    const dest = lead.destination || 'Ladakh';
+    const b = brand();
+    const dest = lead.destination || 'your';
     const firstName = lead.name?.split(' ')[0] || 'Traveler';
 
     const message =
-      `Julley ${firstName}! 🏔️ Thank you for enquiring with Ladakh Vacation about your ${dest} trip.\n\n` +
-      `A planner in our Leh office has your details and is putting together your day-by-day itinerary. ` +
-      `You can also browse our packages here: https://ladakhvacation.in/packages\n\n` +
-      `If you have dates, flight times or must-see places (Nubra, Pangong, Hanle, Turtuk), just reply to this message.`;
+      `Hello ${firstName}! 🏔️ Thank you for enquiring with ${b.brandName} about your ${dest} trip.\n\n` +
+      `A planner${b.city ? ` in our ${b.city} office` : ''} has your details and is putting together your day-by-day itinerary. ` +
+      `You can also browse our packages here: ${b.website}/packages\n\n` +
+      `If you have dates, flight times or must-see places, just reply to this message.`;
 
     // Check if WhatsApp integration is active
     let isConfigured = false;

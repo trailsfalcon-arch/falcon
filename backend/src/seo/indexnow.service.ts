@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { decryptSecret } from '../common/crypto';
 import { HOMEPAGE_ENTRY, MANIFEST } from './seo-manifest';
+import { brand } from '../common/brand';
 
 export interface IndexNowCredentials {
   host: string;
@@ -67,7 +68,7 @@ export class IndexNowService {
     const envKey = process.env.INDEXNOW_KEY || process.env.INDEXNOW_API_KEY;
     if (envKey) {
       return {
-        host: process.env.INDEXNOW_HOST || 'ladakhvacation.in',
+        host: process.env.INDEXNOW_HOST || brand().host,
         apiKey: envKey.trim(),
         keyLocation: process.env.INDEXNOW_KEY_LOCATION,
       };

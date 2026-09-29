@@ -92,7 +92,7 @@ describe('SeoAiFixService', () => {
       expect(res.checkId).toBe('author');
       expect(res.fixType).toBe('editorial');
       expect(res.suggestion).toContain('[Author name]');
-      expect(res.suggestion).toContain('Ladakh Vacation');
+      expect(res.suggestion).toContain('Falcon Trails');
       expect(res.suggestion).toContain('schema.org');
     });
   });

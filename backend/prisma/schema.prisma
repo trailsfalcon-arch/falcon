@@ -1821,20 +1821,37 @@ model MediaAsset {
   @@index([uploadedById])
 }
 
+/// The business this CRM is running for. Every brand fact the app prints
+/// (PDFs, emails, WhatsApp text, AI prompts, SEO checks, CRM screens) comes
+/// from this row, so a licensed install is rebranded in Settings, not code.
 model CompanyProfile {
   id            String   @id @default("default")
-  legalName     String   @default("Ladakh Vacation Private Limited")
-  brandName     String   @default("Ladakh Vacation")
+  legalName     String   @default("Falcon Trails")
+  brandName     String   @default("Falcon Trails")
+  tagline       String?
   gstin         String?
   pan           String?
-  address       String   @default("Main Bazaar Road, Near SBI Bank")
-  city          String   @default("Leh")
-  state         String   @default("Ladakh (UT)")
-  stateCode     String   @default("38")
-  pincode       String   @default("194101")
-  phone         String   @default("+91 94191 78901")
-  email         String   @default("reservations@ladakhvacation.in")
-  website       String   @default("https://ladakhvacation.com")
+  address       String   @default("")
+  city          String   @default("Srinagar")
+  state         String   @default("Jammu & Kashmir")
+  stateCode     String   @default("01")
+  pincode       String   @default("190001")
+  country       String   @default("India")
+  phone         String   @default("")
+  /// WhatsApp number in international digits, e.g. 919876543210.
+  whatsapp      String?
+  email         String   @default("info@falcontrails.in")
+  /// Public website, e.g. https://falcontrails.in
+  website       String   @default("https://falcontrails.in")
+  /// Ads landing pages host, e.g. https://go.falcontrails.in
+  landerUrl     String?
+  /// Where the business operates, used in AI prompts and page copy.
+  operatingRegion String @default("Kashmir, Ladakh & Jammu")
+  /// Prefix for booking, invoice, itinerary and employee numbers (FT-INV-2026-0001).
+  documentPrefix String  @default("FT")
+  logoUrl       String?
+  instagramUrl  String?
+  facebookUrl   String?
   bankName      String?
   accountNumber String?
   ifscCode      String?

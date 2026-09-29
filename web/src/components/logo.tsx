@@ -1,19 +1,27 @@
+import { SITE } from '@/lib/site';
+
 /**
- * Brand mark: the real Ladakh Vacation emblem (the royal-blue banner in the
- * gold square), the same file the Ads landers use. Served from /public, so it
- * costs one small cached request (~8 KB webp).
+ * Brand mark: a placeholder "FT" monogram until the real Falcon Trails logo
+ * exists. Inline SVG, so it costs no request. Replace this component and
+ * src/app/icon.svg / apple-icon.png together when the logo is ready.
  */
 export function Mark({ className = 'size-9' }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/lv-emblem.webp"
-      alt=""
-      width={115}
-      height={120}
-      className={`${className} object-contain`}
-      aria-hidden
-    />
+    <svg viewBox="0 0 64 64" className={className} aria-hidden>
+      <rect width="64" height="64" rx="12" fill="#16294F" />
+      <path d="M8 50 L24 30 L32 38 L42 24 L56 50 Z" fill="#C9A961" opacity="0.35" />
+      <text
+        x="32"
+        y="40"
+        textAnchor="middle"
+        fontFamily="Georgia, serif"
+        fontWeight={700}
+        fontSize={26}
+        fill="#C9A961"
+      >
+        FT
+      </text>
+    </svg>
   );
 }
 
@@ -24,6 +32,7 @@ export function Wordmark({
   light?: boolean;
   className?: string;
 }) {
+  const [first, ...rest] = SITE.name.split(/\s+/);
   return (
     <span className={`flex items-center gap-2.5 ${className}`}>
       <Mark className="size-9 shrink-0" />
@@ -32,7 +41,7 @@ export function Wordmark({
           className="text-[19px] font-bold tracking-tight"
           style={{ color: 'var(--color-gold-500)' }}
         >
-          LADAKH
+          {first.toUpperCase()}
         </span>
         <span
           className="text-[10.5px] font-semibold tracking-[0.22em]"
@@ -40,7 +49,7 @@ export function Wordmark({
             color: light ? 'var(--color-paper-200)' : 'var(--color-pine-700)',
           }}
         >
-          VACATION
+          {rest.join(' ').toUpperCase()}
         </span>
       </span>
     </span>

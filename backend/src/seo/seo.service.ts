@@ -5,7 +5,8 @@ import { CreateSiteDto } from './dto/create-site.dto';
 import { UpdateSiteDto } from './dto/update-site.dto';
 import { UpdateOffPageDto } from './dto/update-offpage.dto';
 import { UpdateDomainSignalsDto } from './dto/update-domain-signals.dto';
-import { SITE_DOMAIN } from '../common/site';
+import { siteDomain } from '../common/site';
+import { brand } from '../common/brand';
 import { normalizePageUrl } from './search-console-mapping';
 import { DomainSignals, OffPageSignals, computeHealthScore, computeLocalScore } from './seo-scoring';
 import { CURRENT_AUDITS, StoredAuditChecks, readStoredChecks } from './seo-audit-storage';
@@ -43,8 +44,8 @@ export class SeoService {
         sites = [
           await this.prisma.seoSite.create({
             data: {
-              name: 'Ladakh Vacation Main Website',
-              url: SITE_DOMAIN,
+              name: `${brand().brandName} Website`,
+              url: siteDomain(),
               crawlPaths: ['/', '/packages'],
               isActive: true,
             },

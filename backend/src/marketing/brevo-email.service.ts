@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { brand } from '../common/brand';
 
 export interface SendEmailOptions {
   toEmail: string;
@@ -18,8 +19,9 @@ export class BrevoEmailService {
 
   constructor(private readonly config: ConfigService) {
     this.apiKey = this.config.get<string>('BREVO_API_KEY') || '';
-    this.senderEmail = this.config.get<string>('BREVO_SENDER_EMAIL') || 'ladakhvacation@gmail.com';
-    this.senderName = this.config.get<string>('BREVO_SENDER_NAME') || 'Ladakh Vacation';
+    // Env wins; otherwise the company profile, read at send time.
+    this.senderEmail = this.config.get<string>('BREVO_SENDER_EMAIL') || '';
+    this.senderName = this.config.get<string>('BREVO_SENDER_NAME') || '';
 
     if (!this.apiKey) {
       this.logger.warn('BREVO_API_KEY not configured — outbound email is disabled.');
@@ -39,7 +41,7 @@ export class BrevoEmailService {
     if (opts.unsubscribeUrl) {
       finalHtml += `
         <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #64748b; text-align: center;">
-          You received this email because you expressed interest in Ladakh Vacation travel packages.<br />
+          You received this email because you expressed interest in ${brand().brandName} travel packages.<br />
           <a href="${opts.unsubscribeUrl}" style="color: #64748b; text-decoration: underline;">Unsubscribe from marketing emails</a>
         </div>
       `;
@@ -58,8 +60,8 @@ export class BrevoEmailService {
       },
       body: JSON.stringify({
         sender: {
-          name: this.senderName,
-          email: this.senderEmail,
+          name: this.senderName || brand().brandName,
+          email: this.senderEmail || brand().email,
         },
         to: [
           {

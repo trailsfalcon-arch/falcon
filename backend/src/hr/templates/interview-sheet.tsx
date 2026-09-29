@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import { pdfStyles, pdfFonts, brand } from '../../pdf/templates/theme';
 import { BrandHeader, BrandFooter, GoldRule, shortDate } from '../../pdf/templates/primitives';
+import { brand as currentBrand } from '../../common/brand';
 
 export interface InterviewSheetInput {
   interview: {
@@ -33,8 +34,8 @@ export function InterviewSheetDocument({ interview: i }: InterviewSheetInput) {
   return (
     <Document
       title={`Interview — ${i.candidateName} — ${i.role}`}
-      author="Ladakh Vacation"
-      creator="Ladakh Vacation CRM"
+      author={currentBrand().brandName}
+      creator={`${currentBrand().brandName} CRM`}
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader docLabel="Interview sheet" docNumber={shortDate(i.scheduledAt)} />

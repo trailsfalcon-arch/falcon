@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text } from '@react-pdf/renderer';
 import { pdfStyles, brand } from './theme';
-import { COMPANY } from '../../common/site';
+import { brand as currentBrand, brandAddressLine } from '../../common/brand';
 
 /**
  * Indian numbering — lakh/crore grouping matches how the client already
@@ -59,17 +59,16 @@ export function BrandHeader({
 
 /** Name, street and phone on every client document. */
 export function SellerIdentity() {
+  const b = currentBrand();
   return (
     <>
       <Text style={{ ...pdfStyles.para, fontWeight: 700, color: brand.ink }}>
-        {COMPANY.name}
+        {b.brandName}
       </Text>
-      <Text style={pdfStyles.small}>
-        {COMPANY.street}, {COMPANY.city}, {COMPANY.region} {COMPANY.postalCode}
-      </Text>
-      <Text style={pdfStyles.small}>{COMPANY.phoneDisplay}</Text>
-      <Text style={pdfStyles.small}>{COMPANY.email}</Text>
-      <Text style={pdfStyles.small}>{COMPANY.website}</Text>
+      {brandAddressLine(b) ? <Text style={pdfStyles.small}>{brandAddressLine(b)}</Text> : null}
+      {b.phone ? <Text style={pdfStyles.small}>{b.phone}</Text> : null}
+      {b.email ? <Text style={pdfStyles.small}>{b.email}</Text> : null}
+      <Text style={pdfStyles.small}>{b.host}</Text>
     </>
   );
 }
@@ -81,17 +80,18 @@ export function BrandFooter({
   page?: number;
   totalPages?: number;
 }) {
+  const b = currentBrand();
   return (
     <View style={pdfStyles.footer} fixed>
       <Text style={pdfStyles.footerText}>
-        Ladakh Vacation  ·  Leh, Ladakh  ·  ladakhvacation.in
+        {[b.brandName, [b.city, b.state].filter(Boolean).join(', '), b.host].filter(Boolean).join('  ·  ')}
       </Text>
       {typeof page === 'number' && typeof totalPages === 'number' ? (
         <Text style={pdfStyles.footerText}>
           Page {page} of {totalPages}
         </Text>
       ) : (
-        <Text style={pdfStyles.footerText}>Thank you for choosing Ladakh Vacation.</Text>
+        <Text style={pdfStyles.footerText}>Thank you for choosing {b.brandName}.</Text>
       )}
     </View>
   );

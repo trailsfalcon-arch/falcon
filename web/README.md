@@ -1,8 +1,8 @@
-# Ladakh Vacation — Main Website
+# Falcon Trails — Main Website
 
-The public-facing marketing site at **ladakhvacation.in**. Sits alongside the
+The public-facing marketing site at **falcontrails.in**. Sits alongside the
 CRM (`/frontend`) and API (`/backend`) in this monorepo; unrelated to the
-Google Ads landing pages at `go.ladakhvacation.in` (that's the PHP site in
+Google Ads landing pages at `go.falcontrails.in` (that's the PHP site in
 `C:\xampp\htdocs\glitzzz`, indexed off).
 
 ## Stack
@@ -32,5 +32,5 @@ Optional:
 
 - Vercel: set the project **Root Directory** to `web`.
 - Build command: `next build`. Output: `.next`. Node ≥ 20.
-- Domain: point `ladakhvacation.in` and `www.ladakhvacation.in` to the Vercel
-  deployment. Ads sub-domain `go.ladakhvacation.in` stays on cPanel.
+- Domain: point `falcontrails.in` and `www.falcontrails.in` to the Vercel
+  deployment. Ads sub-domain `go.falcontrails.in` stays on cPanel.

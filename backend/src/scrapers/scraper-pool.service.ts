@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { IntegrationsService } from '../integrations/integrations.service';
 import { VendorType } from '@prisma/client';
+import { brand } from '../common/brand';
 
 export interface ExtractedRoomCategory {
   name: string;
@@ -1335,7 +1336,7 @@ Do NOT include live OTA room prices. Only bed-wise specs, occupancy, and operati
       openrouter: {
         url: 'https://openrouter.ai/api/v1',
         defaultModel: 'meta-llama/llama-3.3-70b-instruct:free',
-        headers: { 'HTTP-Referer': 'https://ladakhvacation.in', 'X-Title': 'Ladakh Vacation CRM' },
+        headers: { 'HTTP-Referer': brand().website, 'X-Title': `${brand().brandName} CRM` },
       },
       cerebras: { url: 'https://api.cerebras.ai/v1', defaultModel: 'llama3.3-70b' },
       sambanova: { url: 'https://api.sambanova.ai/v1', defaultModel: 'Meta-Llama-3.3-70B-Instruct' },

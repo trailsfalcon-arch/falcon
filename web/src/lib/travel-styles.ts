@@ -127,13 +127,13 @@ export const TRAVEL_STYLES: TravelStyle[] = [
       'Gentle first days, rooms that actually fit, and an itinerary sequenced by altitude, so it survives a seven-year-old and a seventy-year-old on the same trip.',
     body: [
       'Family trips to Ladakh break on the altitude, not the sightseeing. We keep the first 48 hours low-effort for everyone, put the high passes on day three or later, and never drive to Pangong early in a trip. If someone struggles, we change the plan the same day.',
-      'Every vehicle carries an oxygen cylinder, an oximeter and a stocked first-aid kit, and our drivers are trained to recognise AMS. You travel in a private Innova Crysta or Xylo with a Ladakhi driver, never a shared cab.',
+      'Oxygen, an oximeter and a first-aid kit can travel with your vehicle, and routes are paced so the altitude comes gradually. You travel in a private vehicle with your own driver, never a shared cab.',
       'The shorter routes around Leh and the Indus monasteries suit younger children and older parents best. Longer circuits work well for families with teenagers, with a free day in Leh built in.',
     ],
     promises: [
       { title: 'Altitude first', body: 'An empty first afternoon and no high passes before day three.' },
       { title: 'Oxygen in every vehicle', body: 'A cylinder, an oximeter and a first-aid kit, always.' },
-      { title: 'Your own car', body: 'A private 4×4 with a Ladakhi driver, never shared.' },
+      { title: 'Your own car', body: 'A private vehicle with an experienced driver, never shared.' },
       { title: 'Changes on the day', body: 'If someone is struggling, the plan changes. No argument, no extra charge.' },
     ],
     faqs: [
@@ -169,7 +169,7 @@ export const TRAVEL_STYLES: TravelStyle[] = [
     promises: [
       { title: 'Permits, handled', body: 'Nubra, Pangong, Hanle, Tso Moriri and Umling La, printed before you arrive.' },
       { title: 'Oxygen as standard', body: 'A cylinder, an oximeter and a first-aid kit in every vehicle.' },
-      { title: 'Drivers who know the road', body: 'Ladakhi drivers who run these passes every week of the season.' },
+      { title: 'Drivers who know the road', body: 'Drivers who run these passes every week of the season.' },
       { title: 'A backup vehicle for riders', body: 'Luggage, spares, fuel, oxygen and a mechanic behind you every day.' },
     ],
     faqs: [

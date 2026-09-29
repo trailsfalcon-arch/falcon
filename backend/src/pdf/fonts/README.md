@@ -1,7 +1,7 @@
 # PDF fonts
 
 The PDF templates prefer **Cormorant Garamond** (display serif) + **Plus
-Jakarta Sans** (body sans), the Ladakh Vacation brand pairing used on the
+Jakarta Sans** (body sans), the brand pairing used on the
 website and the Ads landers. If the TTF files aren't present here at boot, the
 templates fall back to the built-in PDF-14 fonts (Times-Roman + Helvetica):
 no crash, no missing glyphs.

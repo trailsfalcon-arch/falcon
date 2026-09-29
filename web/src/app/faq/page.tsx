@@ -14,16 +14,16 @@ export const metadata: Metadata = {
 
 const GENERAL = [
   {
-    q: "How do I book a trip with Ladakh Vacation?",
-    a: "Send an enquiry or WhatsApp us with your dates, group size and the shape of the trip you have in mind. A planner in Leh comes back with a written itinerary and an itemised quote, usually the same day. A 25% deposit confirms the booking, and the balance is due seven days before you arrive.",
+    q: "How do I book a trip with Falcon Trails?",
+    a: "Send an enquiry or WhatsApp us with your dates, group size and the shape of the trip you have in mind. A planner in Srinagar comes back with a written itinerary and an itemised quote, usually the same day. A 25% deposit confirms the booking, and the balance is due seven days before you arrive.",
   },
   {
     q: "Are you a registered travel agency, and how do I know my money is safe?",
-    a: "Yes — we are a Ladakh-registered tour operator with an office in Leh, not an intermediary reselling someone else’s trip. You get a written itinerary and an itemised invoice before any payment, a 25% deposit confirms the booking, and the balance is only due seven days before you arrive. Payments go to a company account, never to an individual.",
+    a: "Yes — we are a Srinagar-based tour operator, not an intermediary reselling someone else’s trip. You get a written itinerary and an itemised invoice before any payment, a 25% deposit confirms the booking, and the balance is only due seven days before you arrive. Payments go to a company account, never to an individual.",
   },
   {
-    q: "Why book with a Leh-based operator rather than a big portal?",
-    a: "Because the people answering your questions are the people running your trip. We own the relationships with the drivers, camps and hotels directly, so there is no chain of commissions between you and the person actually serving you — and when a pass closes at 11pm, the person who replies is sitting in Leh, not in a call centre in another state.",
+    q: "Why book with a local operator rather than a big portal?",
+    a: "Because the people answering your questions are the people running your trip. We own the relationships with the drivers, camps and hotels directly, so there is no chain of commissions between you and the person actually serving you — and when plans change on the road, the person who replies knows your trip, not a call centre in another state.",
   },
   {
     q: "How does payment work? Is EMI available?",
@@ -47,7 +47,7 @@ const GENERAL = [
   },
   {
     q: "What kind of hotels do you use?",
-    a: "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request.",
+    a: "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request.",
   },
   {
     q: "Should I fly into Leh or drive up?",
@@ -71,7 +71,7 @@ const GENERAL = [
   },
   {
     q: "What if something goes wrong during the trip?",
-    a: "You have one WhatsApp thread and one named coordinator sitting in Leh for the whole trip. Passes close and plans change in Ladakh; what matters is that the person who picks up is here, and can reroute you the same day.",
+    a: "You have one WhatsApp thread and one named coordinator for the whole trip. Passes close and plans change in Ladakh; what matters is that the person who picks up is here, and can reroute you the same day.",
   },
 ];
 

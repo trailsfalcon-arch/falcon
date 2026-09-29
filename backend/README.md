@@ -1,4 +1,4 @@
-# Ladakh Vacation CRM — Backend
+# Falcon Trails CRM — Backend
 
 NestJS + Prisma + PostgreSQL. No Docker. DB on Supabase, deploy on Render.
 

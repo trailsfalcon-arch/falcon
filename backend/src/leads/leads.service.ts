@@ -16,6 +16,7 @@ import { toDateOrNull, parseTravelDate, LadakhSeason } from '../common/dates';
 import { AttributionService } from '../attribution/attribution.service';
 import { AssignmentService } from './assignment.service';
 import { LeadNurturingService } from './lead-nurturing.service';
+import { brand } from '../common/brand';
 
 /** Extra request context the controller extracts (not client-supplied). */
 export interface CaptureContext {
@@ -1340,7 +1341,9 @@ export class LeadsService {
   async generateAiDraft(id: string, actor: Actor) {
     const lead = await this.findOne(id, actor);
     const first = (lead.name || 'there').split(' ')[0];
-    const dest = lead.destination?.trim() || 'Ladakh';
+    const b = brand();
+    const dest = lead.destination?.trim() || 'your trip';
+    const isLadakh = /ladakh|leh|nubra|pangong|hanle|zanskar|kargil/i.test(dest);
     const nights = lead.nights
       ? `${lead.nights} night${lead.nights === 1 ? '' : 's'}`
       : null;
@@ -1361,12 +1364,18 @@ export class LeadsService {
     const trip = [dest, nights, pax].filter(Boolean).join(', ');
 
     const draft = [
-      `Julley ${first}, this is Ladakh Vacation from Leh.`,
+      `Hello ${first}, this is ${b.brandName}${b.city ? ` from ${b.city}` : ''}.`,
       when
         ? `I have your enquiry for ${trip}, travelling around ${when}.`
         : `I have your enquiry for ${trip}.`,
-      `Two things before I price it: are the dates still open, and are you flying into Leh or driving in via Manali or Srinagar?`,
-      `We keep the first two nights around Leh. High passes come after that. Indian guests pay the Ladakh environmental fee for Nubra, Pangong, Hanle and the other restricted areas; foreign nationals need a Protected Area Permit, which we arrange before you land.`,
+      ...(isLadakh
+        ? [
+            `Two things before I price it: are the dates still open, and are you flying into Leh or driving in via Manali or Srinagar?`,
+            `We keep the first two nights around Leh. High passes come after that. Indian guests pay the Ladakh environmental fee for Nubra, Pangong, Hanle and the other restricted areas; foreign nationals need a Protected Area Permit, which we arrange before you land.`,
+          ]
+        : [
+            `Two things before I price it: are the dates still open, and where will you arrive (flight or road)?`,
+          ]),
       `Reply here and I will send a day-by-day plan with the price on it.`,
     ].join('\n\n');
 

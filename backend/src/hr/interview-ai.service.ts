@@ -12,6 +12,7 @@ import { createHmac, timingSafeEqual } from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { decryptSecret } from '../common/crypto';
 import { InterviewOutcome } from '@prisma/client';
+import { brand } from '../common/brand';
 
 /** Longest answer we accept (keeps prompts, cost and stored JSON bounded). */
 const MAX_ANSWER_LENGTH = 3000;
@@ -83,25 +84,26 @@ export class InterviewAiService {
 
   /**
    * Generates 5 practical, conversational questions in VERY EASY, PLAIN ENGLISH (Grade 4–5 vocabulary).
-   * Questions test the candidate's core ability, customer service attitude, and fit for Ladakh tourism.
+   * Questions test the candidate's core ability, customer service attitude, and fit for the company's tourism work.
    */
   async generateQuestions(role: string, candidateName: string): Promise<InterviewQuestionItem[]> {
     this.logger.log(`Generating easy-English interview questions for "${candidateName}" applied for "${role}"`);
 
-    const prompt = `You are a friendly HR interviewer for "Ladakh Vacation", a top travel company based in Leh, Ladakh.
+    const b = brand();
+    const prompt = `You are a friendly HR interviewer for "${b.brandName}", a travel company based in ${b.city || b.state}, operating in ${b.operatingRegion}.
 We are interviewing a candidate named "${candidateName}" for the position of "${role}".
 
 CRITICAL RULE:
 You MUST write all 5 questions in VERY EASY, SIMPLE, CONVERSATIONAL ENGLISH (Grade 4–5 vocabulary).
 Use short, simple sentences. DO NOT use fancy business words or corporate jargon.
-The questions must be practical, testing real-life situations in Ladakh (such as high altitude acclimatization, snow/landslide road blocks, cold weather, caring for tourists, summer tourist rush from May to October).
+The questions must be practical, testing real-life situations in ${b.operatingRegion} (such as high altitude, snow or landslide road blocks, cold weather, caring for tourists, the busy tourist season).
 
 Generate exactly 5 questions:
 1. Warm introduction & past work experience.
 2. Core daily skill for "${role}" (e.g. how they handle guests, phones, tours, vehicles, or bookings).
 3. Handling a difficult situation or guest problem calmly (e.g. mountain sickness/AMS, flight delay, pass closed).
-4. Teamwork and working hard during the busy Ladakh summer season (May to October).
-5. Why they want to work with Ladakh Vacation and what makes them dependable.
+4. Teamwork and working hard during the busy tourist season.
+5. Why they want to work with ${b.brandName} and what makes them dependable.
 
 Respond strictly in valid JSON format with NO markdown fences, like this:
 {
@@ -146,7 +148,7 @@ Respond strictly in valid JSON format with NO markdown fences, like this:
     answer: string,
     nextQuestion?: string,
   ): Promise<string> {
-    const prompt = `You are a kind, encouraging AI interviewer for Ladakh Vacation in Leh.
+    const prompt = `You are a kind, encouraging AI interviewer for ${brand().brandName}.
 Candidate Name: "${candidateName}"
 Applied Role: "${role}"
 Question asked: "${question}"
@@ -185,7 +187,7 @@ Do not use complicated words. Keep it friendly like a helpful friend.`;
       .map((q, idx) => `Q${idx + 1}: ${q.question}\nA${idx + 1}: ${q.answer || '(No answer provided)'}`)
       .join('\n\n');
 
-    const prompt = `You are the Senior Hiring Manager and Talent Evaluator for Ladakh Vacation, a leading tour and travel operator in Leh, Ladakh.
+    const prompt = `You are the Senior Hiring Manager and Talent Evaluator for ${brand().brandName}, a tour and travel operator in ${brand().operatingRegion}.
 Evaluate this candidate for the position of "${role}".
 
 Candidate Name: "${candidateName}"
@@ -197,7 +199,7 @@ ${qnaText}
 TRANSCRIPT>>>
 
 Evaluate their suitability based on:
-1. Understanding of the job role and practical travel realities in Ladakh.
+1. Understanding of the job role and practical travel realities in ${brand().operatingRegion}.
 2. English communication ability (is it clear, polite, easy to understand for Indian and international tourists?).
 3. Customer-first empathy, helpful attitude, and calmness under pressure (such as high altitude sickness, road blocks).
 4. Reliability and willingness to work hard during peak tourist season (May to October).
@@ -499,8 +501,8 @@ Return strictly a valid JSON object with NO markdown formatting:
           } else if (integration.provider === 'openrouter') {
             const model = creds.model || 'meta-llama/llama-3.3-70b-instruct:free';
             responseText = await this.callOpenAiCompatible('https://openrouter.ai/api/v1', apiKey, model, prompt, {
-              'HTTP-Referer': 'https://ladakhvacation.in',
-              'X-Title': 'Ladakh Vacation HR AI',
+              'HTTP-Referer': brand().website,
+              'X-Title': `${brand().brandName} HR AI`,
             });
           } else if (integration.provider === 'mistral') {
             const model = creds.model || 'mistral-small-latest';
@@ -655,11 +657,11 @@ Return strictly a valid JSON object with NO markdown formatting:
           category: 'Handling Objections',
         },
         {
-          question: 'In Ladakh, peak tourist season from May to October is very busy with many guest inquiries. How do you manage your time and answer promptly?',
+          question: 'In peak tourist season we get very many guest inquiries. How do you manage your time and answer promptly?',
           category: 'Time Management',
         },
         {
-          question: 'Why do you want to work with Ladakh Vacation, and what makes you good at speaking with customers?',
+          question: `Why do you want to work with ${brand().brandName}, and what makes you good at speaking with customers?`,
           category: 'Motivation & Fit',
         },
       ];
@@ -693,7 +695,7 @@ Return strictly a valid JSON object with NO markdown formatting:
     if (r.includes('driver') || r.includes('transport')) {
       return [
         {
-          question: `Hello ${candidateName}! How many years have you been driving in Ladakh, and which mountain passes do you know best?`,
+          question: `Hello ${candidateName}! How many years have you been driving in the mountains, and which routes do you know best?`,
           category: 'Driving Experience',
         },
         {
@@ -709,7 +711,7 @@ Return strictly a valid JSON object with NO markdown formatting:
           category: 'Guest Handling & Speed Rules',
         },
         {
-          question: 'Why do you want to drive tourists for Ladakh Vacation, and how do you make sure guests feel comfortable in your car?',
+          question: `Why do you want to drive tourists for ${brand().brandName}, and how do you make sure guests feel comfortable in your car?`,
           category: 'Customer Courtesy',
         },
       ];
@@ -730,11 +732,11 @@ Return strictly a valid JSON object with NO markdown formatting:
           category: 'Tourist Care & Altitude Safety',
         },
         {
-          question: 'How do you make sure tourists respect local Ladakhi culture and do not throw plastic or trash in nature?',
+          question: 'How do you make sure tourists respect local culture and do not throw plastic or trash in nature?',
           category: 'Eco-Tourism & Culture',
         },
         {
-          question: 'What do you love most about showing Ladakh to visitors, and why should we choose you as our Tour Leader?',
+          question: 'What do you love most about showing our region to visitors, and why should we choose you as our Tour Leader?',
           category: 'Passion & Leadership',
         },
       ];
@@ -747,7 +749,7 @@ Return strictly a valid JSON object with NO markdown formatting:
         category: 'Introduction',
       },
       {
-        question: `What do you think are the most important daily responsibilities for a ${role} at Ladakh Vacation?`,
+        question: `What do you think are the most important daily responsibilities for a ${role} at ${brand().brandName}?`,
         category: 'Job Understanding',
       },
       {
@@ -755,7 +757,7 @@ Return strictly a valid JSON object with NO markdown formatting:
         category: 'Problem Solving',
       },
       {
-        question: 'During Ladakh summer tourist season from May to October, work is very active and fast. Are you ready for busy days and teamwork?',
+        question: 'During the busy tourist season, work is very active and fast. Are you ready for busy days and teamwork?',
         category: 'Dedication & Teamwork',
       },
       {

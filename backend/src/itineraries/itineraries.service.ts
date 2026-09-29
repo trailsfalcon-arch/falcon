@@ -21,6 +21,7 @@ import {
   computeItemPricing,
   computeOptionTotals,
 } from './itinerary-pricing';
+import { brand } from '../common/brand';
 
 /** Which kinds default to priceable when a new item is added. */
 const PRICEABLE_KINDS = new Set(['STAY', 'TRANSFER', 'ACTIVITY', 'MEAL']);
@@ -89,7 +90,7 @@ export class ItinerariesService {
 
   private async nextItineraryCode(): Promise<string> {
     const year = new Date().getFullYear();
-    const prefix = `LV-ITI-${year}-`;
+    const prefix = `${brand().documentPrefix}-ITI-${year}-`;
     const last = await this.prisma.itinerary.findFirst({
       where: { code: { startsWith: prefix } },
       orderBy: { code: 'desc' },
@@ -753,10 +754,10 @@ export class ItinerariesService {
           }
         : null,
       company: {
-        brandName: company?.brandName ?? 'Ladakh Vacation',
-        phone: company?.phone ?? '+91 94191 78901',
-        email: company?.email ?? 'reservations@ladakhvacation.in',
-        website: company?.website ?? 'https://ladakhvacation.com',
+        brandName: company?.brandName || brand().brandName,
+        phone: company?.phone || brand().phone,
+        email: company?.email || brand().email,
+        website: company?.website || brand().website,
       },
     };
   }

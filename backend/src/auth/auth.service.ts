@@ -7,6 +7,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ConfigService } from '@nestjs/config';
 import { crmBaseUrl } from '../common/site';
+import { brand } from '../common/brand';
 
 @Injectable()
 export class AuthService {
@@ -72,16 +73,16 @@ export class AuthService {
           },
           body: JSON.stringify({
             sender: {
-              name: 'Ladakh Vacation CRM',
-              email: this.config.get<string>('BREVO_SENDER_EMAIL') || 'ladakhvacation@gmail.com',
+              name: `${brand().brandName} CRM`,
+              email: this.config.get<string>('BREVO_SENDER_EMAIL') || brand().email,
             },
             to: [{ email: user.email, name: user.name }],
-            subject: 'Reset your Ladakh Vacation CRM password',
+            subject: `Reset your ${brand().brandName} CRM password`,
             htmlContent: `
               <div style="font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px;">
                 <h2>Password Reset Request</h2>
                 <p>Hello,</p>
-                <p>A password reset was requested for your Ladakh Vacation CRM account. Click the button below to reset your password. This link expires in 15 minutes.</p>
+                <p>A password reset was requested for your ${brand().brandName} CRM account. Click the button below to reset your password. This link expires in 15 minutes.</p>
                 <p style="margin: 24px 0;">
                   <a href="${resetUrl}" style="background: #1e4fa8; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">Reset Password</a>
                 </p>

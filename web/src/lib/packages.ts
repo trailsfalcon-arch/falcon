@@ -7,7 +7,7 @@ import type { Tone } from './destinations';
  * pages do not rank and do not convert.
  *
  * The eleven packages, their prices, day-by-day text and FAQs are the same
- * ones the Google Ads landers at go.ladakhvacation.in sell (that site's
+ * ones the Google Ads landers at go.falcontrails.in sell (that site's
  * build/pages.js), so a traveller never sees two versions of one trip.
  *
  * Prices are per-person on twin-sharing, the convention every Indian traveller
@@ -106,11 +106,11 @@ export const PACKAGES: Pkg[] = [
     "inclusions": [
       "Centrally located 3★ hotel in Leh on twin-sharing",
       "Daily breakfast and dinner",
-      "Private Innova Crysta or Xylo with a Ladakhi driver for all transfers and sightseeing",
+      "Private vehicle with driver for all transfers and sightseeing",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -131,7 +131,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -215,11 +215,11 @@ export const PACKAGES: Pkg[] = [
     "inclusions": [
       "Centrally located 3★ hotel in Leh and a deluxe camp in Nubra, on twin-sharing",
       "Daily breakfast and dinner",
-      "Private Innova Crysta or Xylo with a Ladakhi driver for all transfers and sightseeing",
+      "Private vehicle with driver for all transfers and sightseeing",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -240,7 +240,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -331,12 +331,12 @@ export const PACKAGES: Pkg[] = [
     "inclusions": [
       "3★ hotel in Leh and a heritage stay in the Sham Valley, on twin-sharing",
       "Daily breakfast and dinner",
-      "Private Innova Crysta or Xylo with a Ladakhi driver for all transfers and sightseeing",
+      "Private vehicle with driver for all transfers and sightseeing",
       "A monastery guide on the monastery days",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -357,7 +357,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -455,12 +455,12 @@ export const PACKAGES: Pkg[] = [
     "inclusions": [
       "3★ hotel in Leh and dark-sky camps at Tso Moriri and Hanle, on twin-sharing",
       "Daily breakfast and dinner",
-      "Private Innova Crysta or Xylo with a Ladakhi driver for all transfers and sightseeing",
+      "Private vehicle with driver for all transfers and sightseeing",
       "An astro guide for the night at the Hanle Dark Sky Reserve",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -481,7 +481,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -588,11 +588,11 @@ export const PACKAGES: Pkg[] = [
     "inclusions": [
       "3★ hotels in Leh and deluxe camps at Nubra and Pangong with attached bathrooms, heating and hot water",
       "Daily breakfast and dinner",
-      "Private Innova Crysta or Xylo with a Ladakhi driver for all transfers and sightseeing",
+      "Private vehicle with driver for all transfers and sightseeing",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -613,7 +613,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -730,12 +730,12 @@ export const PACKAGES: Pkg[] = [
     "inclusions": [
       "4★ hotels in Leh and deluxe camps at Nubra and Pangong with attached bathrooms, heating and hot water",
       "Daily breakfast and dinner",
-      "Private Innova Crysta or Xylo with a Ladakhi driver for all transfers and sightseeing",
+      "Private vehicle with driver for all transfers and sightseeing",
       "An astro guide for the night at the Hanle Dark Sky Reserve",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -756,7 +756,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -851,7 +851,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -872,7 +872,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "When should I actually visit?",
@@ -973,11 +973,11 @@ export const PACKAGES: Pkg[] = [
       "3★ hotels in Leh and deluxe camps at Nubra and Pangong, twin-sharing matched by gender",
       "A trip captain from our Leh team for the whole departure",
       "Daily breakfast and dinner",
-      "Shared vehicles for the group with Ladakhi drivers",
+      "Shared vehicles for the group with experienced local drivers",
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -1002,7 +1002,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -1114,7 +1114,7 @@ export const PACKAGES: Pkg[] = [
       "3★ hotels and a Swiss camp at Sarchu, on twin-sharing",
       "Daily breakfast and dinner",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Travel to Manali and airfare from Leh",
@@ -1263,7 +1263,7 @@ export const PACKAGES: Pkg[] = [
       "Pickup at Srinagar airport, drop at Leh airport",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Airfare or train fare to Srinagar and from Leh",
@@ -1288,7 +1288,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",
@@ -1395,7 +1395,7 @@ export const PACKAGES: Pkg[] = [
       "Pickup in Manali, drop at Leh airport",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "On-trip support from a named coordinator"
     ],
     "exclusions": [
       "Travel to Manali and airfare from Leh",
@@ -1420,7 +1420,7 @@ export const PACKAGES: Pkg[] = [
       },
       {
         "q": "What kind of hotels do you use?",
-        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
+        "a": "Leh stays are 3★ or 4★ depending on the package, always centrally located. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request."
       },
       {
         "q": "Can the itinerary be changed?",

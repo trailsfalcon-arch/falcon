@@ -14,6 +14,7 @@ import { BookingsModule } from './bookings/bookings.module';
 import { AttributionModule } from './attribution/attribution.module';
 import { PdfModule } from './pdf/pdf.module';
 import { HrModule } from './hr/hr.module';
+import { BrandModule } from './brand/brand.module';
 import { InvoicesModule } from './invoices/invoices.module';
 import { B2bPartnersModule } from './b2b-partners/b2b-partners.module';
 import { SeoModule } from './seo/seo.module';
@@ -39,6 +40,7 @@ import { RolesGuard } from './common/guards/roles.guard';
     // The public capture endpoint tightens this to 10/min via @Throttle.
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 60 }]),
     PrismaModule,
+    BrandModule,
     HealthModule,
     AuthModule,
     UsersModule,

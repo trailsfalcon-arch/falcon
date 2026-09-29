@@ -5,14 +5,15 @@ import { LastmodSummary, SitemapEntry, parseSitemap, summariseLastmod } from './
 import { ParsedPsi, parsePsi } from './audit-vitals';
 import { SitePageInput } from './audit-site';
 import { normalizePageUrl } from './search-console-mapping';
-import { SITE_DOMAIN } from '../common/site';
+import { siteDomain } from '../common/site';
 
 /**
  * Network side of the audit: pages, robots.txt, sitemaps and PageSpeed
  * Insights. No database access, so a dry run can use it unchanged.
  */
 
-export const AUDIT_USER_AGENT = `Ladakh VacationSEOAudit/2.0 (+${SITE_DOMAIN})`;
+/** Named after this install's site so its logs identify the crawler. */
+export const auditUserAgent = () => `SiteAudit/2.0 (+${siteDomain()})`;
 
 const MAX_HTML_CHARS = 3_000_000;
 const MAX_SITEMAP_FILES = 25;
@@ -74,7 +75,7 @@ export async function fetchPage(url: string, timeoutMs = 20_000, maxRedirects = 
     try {
       res = await fetch(current, {
         redirect: 'manual',
-        headers: { 'User-Agent': AUDIT_USER_AGENT, Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.5' },
+        headers: { 'User-Agent': auditUserAgent(), Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.5' },
         signal: AbortSignal.timeout(timeoutMs),
       });
     } catch (e) {
@@ -125,7 +126,7 @@ export interface RobotsFetch {
 export async function fetchRobots(origin: string): Promise<RobotsFetch> {
   try {
     const res = await fetch(`${origin}/robots.txt`, {
-      headers: { 'User-Agent': AUDIT_USER_AGENT },
+      headers: { 'User-Agent': auditUserAgent() },
       signal: AbortSignal.timeout(15_000),
     });
     if (res.status === 200) return { file: parseRobots(await res.text()), state: 'ok' };
@@ -165,7 +166,7 @@ export async function fetchSitemaps(origin: string, declared: string[], host: st
     if (seen.has(loc)) continue;
     seen.add(loc);
     try {
-      const res = await fetch(loc, { headers: { 'User-Agent': AUDIT_USER_AGENT }, signal: AbortSignal.timeout(20_000) });
+      const res = await fetch(loc, { headers: { 'User-Agent': auditUserAgent() }, signal: AbortSignal.timeout(20_000) });
       if (!res.ok) {
         error = `${loc} returned ${res.status}`;
         await discard(res);

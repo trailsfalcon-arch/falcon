@@ -18,6 +18,7 @@ import { AudienceFilterDto } from './dto/audience-filter.dto';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
 import { QueryCampaignsDto } from './dto/query-campaigns.dto';
 import { Actor } from '../common/access';
+import { brand } from '../common/brand';
 
 const WA_ESTIMATED_COST_PER_MSG = 0.72; // Average India marketing conversation rate in INR
 const FREQUENCY_CAP_DAYS = 7;
@@ -377,7 +378,7 @@ export class MarketingService {
           const res = await this.brevo.sendEmail({
             toEmail: recipient.email,
             toName: leadName,
-            subject: campaign.emailSubject || 'Special Offer from Ladakh Vacation',
+            subject: campaign.emailSubject || `Special Offer from ${brand().brandName}`,
             htmlContent: campaign.emailHtml || `<p>Hello ${leadName}, discover new holiday packages for ${destination}.</p>`,
             unsubscribeUrl,
           });
@@ -471,7 +472,7 @@ export class MarketingService {
       }
     }
 
-    return { message: 'You have been successfully unsubscribed from Ladakh Vacation marketing broadcasts.' };
+    return { message: `You have been successfully unsubscribed from ${brand().brandName} marketing broadcasts.` };
   }
 
   /**

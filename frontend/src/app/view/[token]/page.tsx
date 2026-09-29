@@ -186,7 +186,7 @@ export default function PublicItineraryViewPage({
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span className="text-lg font-black tracking-widest text-warn-500 font-serif">
-              LADAKH VACATION
+              {data.company.brandName.toUpperCase()}
             </span>
             <span className="text-[11px] uppercase tracking-wider text-ink-600 font-semibold px-2 py-0.5 rounded bg-ink-200 border border-ink-300">
               Proposal #{data.code}

@@ -8,6 +8,7 @@ import { Input, Label } from '@/components/ui/input';
 import { Panel } from '@/components/ui/panel';
 import { Chip } from '@/components/ui/badge';
 import { money } from '@/lib/format';
+import { getBrand } from '@/lib/brand';
 
 export function BedWisePricerDialog({
   open,
@@ -110,7 +111,7 @@ export function BedWisePricerDialog({
   ]);
 
   function copyQuotation() {
-    const text = `*LADAKH VACATION — BED-WISE QUOTATION*
+    const text = `*${getBrand().brandName.toUpperCase()} — BED-WISE QUOTATION*
 Duration: ${nights} Nights / ${nights + 1} Days
 Pax: ${quote.totalPax} (${doubleRooms} Double Rooms)
 

@@ -5,13 +5,14 @@ import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { Actor, canSeeAllLeads } from '../common/access';
 import { InvoiceStatus } from '@prisma/client';
 import { gstBreakdown } from '../common/pricing';
+import { brand } from '../common/brand';
 
 @Injectable()
 export class InvoicesService {
   constructor(private readonly prisma: PrismaService) {}
 
   private async generateInvoiceNumber(): Promise<string> {
-    const prefix = `LV-INV-${new Date().getUTCFullYear()}-`;
+    const prefix = `${brand().documentPrefix}-INV-${new Date().getUTCFullYear()}-`;
     const last = await this.prisma.invoice.findFirst({
       where: { invoiceNumber: { startsWith: prefix } },
       orderBy: { invoiceNumber: 'desc' }, select: { invoiceNumber: true },

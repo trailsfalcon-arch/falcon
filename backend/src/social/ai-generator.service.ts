@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { StorageService } from '../storage/storage.service';
 import { decryptSecret } from '../common/crypto';
 import { ContentTone, SocialPlatform } from '@prisma/client';
+import { brand } from '../common/brand';
 
 export interface GenerateCopyDto {
   destination: string; // e.g. "Leh", "Nubra Valley", "Pangong Tso", "Hanle"
@@ -221,7 +222,7 @@ export class AiGeneratorService {
             pkg,
             season,
             dto.customPrompt,
-            { 'HTTP-Referer': 'https://ladakhvacation.in', 'X-Title': 'Ladakh Vacation CRM' },
+            { 'HTTP-Referer': brand().website, 'X-Title': `${brand().brandName} CRM` },
           );
         } else if (integration.provider === 'mistral') {
           const model = creds.model || 'mistral-small-latest';
@@ -312,9 +313,9 @@ export class AiGeneratorService {
 
   /**
    * Built-in caption templates, used when no AI integration is configured or
-   * the live call fails. Every claim in them is one the Ads landers make
-   * (permits, oxygen, private 4×4, Leh-based team), so a fallback post never
-   * promises something the business does not do.
+   * the live call fails. They name the business from the company profile and
+   * avoid operational promises (vehicle types, inclusions, payment terms), so
+   * a fallback post never promises something the business does not do.
    */
   private buildSpecializedVariants(
     dest: string,
@@ -326,21 +327,24 @@ export class AiGeneratorService {
     const isHanle = d.includes('hanle') || d.includes('moriri') || d.includes('star');
     const isNubra = d.includes('nubra') || d.includes('pangong') || d.includes('turtuk') || d.includes('khardung');
     const isRoad = d.includes('manali') || d.includes('bike') || d.includes('srinagar') || d.includes('road');
+    const b = brand();
+    const team = b.city ? `the ${b.brandName} team in ${b.city}` : `the ${b.brandName} team`;
+    const handle = b.instagramUrl.split('/').filter(Boolean).pop();
 
     // ── Variant 1: Storytelling & Experiential ──────────────────────────────
     const storytellingCaption = isHanle
-      ? `At 4,500 m in Hanle, the Milky Way is bright enough to cast a shadow. 🌌\n\nIndia's first Dark Sky Reserve, the Changthang plateau, Tso Moriri at dawn, and Umling La, the highest motorable road on earth.\n\nPlanned by a Leh-based team, sequenced by altitude, with an astro guide for the night you came for.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for your itinerary.`
+      ? `At 4,500 m in Hanle, the Milky Way is bright enough to cast a shadow. 🌌\n\nIndia's first Dark Sky Reserve, the Changthang plateau, Tso Moriri at dawn, and Umling La, the highest motorable road on earth.\n\nPlanned by ${team}, sequenced by altitude, around the night you came for.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for your itinerary.`
       : isNubra
       ? `Over Khardung La, down into the Hunder dunes, and on until the land stops and Pangong's impossible blue begins. 🏔️💙\n\nWe never send anyone to Pangong on day two. Two nights around Leh and a night in Nubra first, so the lake is something you remember for the right reasons.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for your itinerary.`
       : isRoad
-      ? `Five passes above 4,000 m, and a road that is the whole point of the trip. 🛣️🏍️\n\nWe break the journey with overnight stops, so you arrive in Leh acclimatised instead of wrecked. Backup vehicle, oxygen and a Ladakhi crew behind you every kilometre.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for dates.`
-      : `Ladakh, planned by Ladakhis. 🏔️\n\nOld Town lanes in Leh, Shanti Stupa at dusk, monasteries older than most countries, and a first afternoon deliberately left empty, because the altitude comes first.\n\nPermits handled, a private 4×4 with a Ladakhi driver, and oxygen in every vehicle.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for your itinerary.`;
+      ? `Five passes above 4,000 m, and a road that is the whole point of the trip. 🛣️🏍️\n\nWe break the journey with overnight stops, so you arrive in Leh acclimatised instead of wrecked. Planned by ${team}.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for dates.`
+      : `${dest}, planned properly. 🏔️\n\nA day-by-day plan built around how you like to travel, with time to actually enjoy each place.\n\nPlanned by ${team}.\n\n📍 ${pkg}\n📩 DM us or tap the link in bio for your itinerary.`;
 
     // ── Variant 2: Promotional ──────────────────────────────────────────────
-    const promoCaption = `${pkg.toUpperCase()} | ${season} 🏔️\n\nPlan ${dest} with a Leh-based team, not a call centre.\n\n✨ Every Ladakh Vacation trip includes:\n✔️ Handpicked 3★/4★ hotels in Leh and deluxe camps at Nubra and Pangong\n✔️ Private Innova Crysta or Xylo with a Ladakhi driver\n✔️ Oxygen, oximeter and first aid in every vehicle\n✔️ Environmental fee for Indian guests and Protected Area Permits for foreign nationals, printed before you land\n✔️ Daily breakfast and dinner\n✔️ 24×7 support from a named coordinator in Leh\n\n💳 25% deposit confirms your dates. No-cost EMI on cards.\n\n👉 DM us or WhatsApp +91 96229 55386 for a day-by-day itinerary and an itemised quote.`;
+    const promoCaption = `${pkg.toUpperCase()} | ${season} 🏔️\n\nPlan ${dest} with ${team}, not a call centre.\n\n👉 DM us${b.phone ? ` or WhatsApp ${b.phone}` : ''} for a day-by-day itinerary and an itemised quote.`;
 
     // ── Variant 3: Punchy Reel Hook / Short Form ────────────────────────────
-    const reelCaption = `This is your sign to finally do ${dest}. ✈️🏔️\n\n3 things you cannot miss:\n1️⃣ Crossing Khardung La at 5,359 m\n2️⃣ Sunrise on Pangong Tso from a shoreline camp\n3️⃣ The Milky Way over Hanle\n\nSave this for your next trip and send it to your travel partner. 📲\n\nTag @ladakhvacation on your adventures ✨`;
+    const reelCaption = `This is your sign to finally do ${dest}. ✈️🏔️\n\n3 things you cannot miss:\n1️⃣ Crossing Khardung La at 5,359 m\n2️⃣ Sunrise on Pangong Tso from a shoreline camp\n3️⃣ The Milky Way over Hanle\n\nSave this for your next trip and send it to your travel partner. 📲\n\n${handle ? `Tag @${handle} on your adventures ✨` : ''}`;
 
     const hashtags = this.curateHashtags(dest);
 
@@ -374,7 +378,7 @@ export class AiGeneratorService {
 
   private curateHashtags(dest: string): string[] {
     const base = [
-      '#LadakhVacation',
+      `#${brand().brandName.replace(/[^A-Za-z0-9]/g, '')}`,
       '#Ladakh',
       '#LehLadakh',
       '#IncredibleIndia',
@@ -399,11 +403,11 @@ export class AiGeneratorService {
   }
 
   private async callOpenAi(apiKey: string, dest: string, pkg: string, season: string, custom?: string) {
-    const prompt = `You are an elite travel marketing copywriter for Ladakh Vacation, a Leh-based Ladakh tour operator (Leh, Nubra, Pangong, Hanle, the Manali and Srinagar roads).
+    const prompt = `You are an elite travel marketing copywriter for ${brand().brandName}, a ${brand().city || brand().state}-based tour operator covering ${brand().operatingRegion}.
 Write 3 Instagram/Facebook captions for destination "${dest}", package "${pkg}", season "${season}".
 Tone 1: Evocative storytelling.
 Tone 2: High-converting promotional with package perks and clear CTA.
-Only promise what the business actually offers: private 4×4 with a Ladakhi driver, oxygen and first aid in every vehicle, the Ladakh environmental fee for Indian guests and a Protected Area Permit for foreign nationals, altitude-first itineraries (never Pangong on day two), 24×7 support from Leh, WhatsApp +91 96229 55386. Do not invent prices, discounts or deadlines. Indian travellers do not need an Inner Line Permit.
+Do not promise specific vehicles, inclusions, support hours, awards or guarantees; the team adds those. ${brand().phone ? `Contact: WhatsApp ${brand().phone}. ` : ''}Do not invent prices, discounts or deadlines. For Ladakh, Indian travellers pay the environmental fee and do not need an Inner Line Permit; foreign nationals need a Protected Area Permit.
 Tone 3: Short punchy reel hook.
 Include emojis and 10 relevant hashtags.
 Return strictly a JSON array of 3 objects with keys: { "tone": "STORYTELLING"|"PROMOTIONAL"|"PUNCHY_REEL", "title": string, "hook": string, "caption": string, "cta": string, "hashtags": string[] }`;
@@ -435,7 +439,7 @@ Return strictly a JSON array of 3 objects with keys: { "tone": "STORYTELLING"|"P
     season: string,
     custom?: string,
   ) {
-    const prompt = `You are an elite travel marketing copywriter for Ladakh Vacation, a Leh-based Ladakh tour operator (Leh, Nubra, Pangong, Hanle, the Manali and Srinagar roads).
+    const prompt = `You are an elite travel marketing copywriter for ${brand().brandName}, a ${brand().city || brand().state}-based tour operator covering ${brand().operatingRegion}.
 
 Write exactly 3 social media captions for:
 - Destination: "${dest}"
@@ -447,7 +451,7 @@ Tone 1 (STORYTELLING): Immersive, evocative, sensory — high passes, prayer fla
 Tone 2 (PROMOTIONAL): High-converting with package highlights and a clear WhatsApp CTA.
 Tone 3 (PUNCHY_REEL): Ultra-short viral hook (1–2 lines), 3 bullet highlights, shareable energy.
 
-Only promise what the business actually offers: private 4×4 with a Ladakhi driver, oxygen and first aid in every vehicle, the Ladakh environmental fee for Indian guests and a Protected Area Permit for foreign nationals, altitude-first itineraries (never Pangong on day two), 24×7 support from Leh, WhatsApp +91 96229 55386. Do not invent prices, discounts or deadlines. Indian travellers do not need an Inner Line Permit.
+Do not promise specific vehicles, inclusions, support hours, awards or guarantees; the team adds those. ${brand().phone ? `Contact: WhatsApp ${brand().phone}. ` : ''}Do not invent prices, discounts or deadlines. For Ladakh, Indian travellers pay the environmental fee and do not need an Inner Line Permit; foreign nationals need a Protected Area Permit.
 Include authentic emojis. Add 10 destination-specific hashtags (e.g. #LadakhTourism #PangongTso).
 
 Return ONLY a valid JSON array — no markdown, no code fences:
@@ -492,7 +496,7 @@ Return ONLY a valid JSON array — no markdown, no code fences:
   }
 
   private buildSocialPrompt(dest: string, pkg: string, season: string, custom?: string): string {
-    return `You are an elite travel marketing copywriter for Ladakh Vacation, a Leh-based Ladakh tour operator (Leh, Nubra, Pangong, Hanle, the Manali and Srinagar roads).
+    return `You are an elite travel marketing copywriter for ${brand().brandName}, a ${brand().city || brand().state}-based tour operator covering ${brand().operatingRegion}.
 
 Write exactly 3 social media captions for:
 - Destination: "${dest}"
@@ -504,7 +508,7 @@ Tone 1 (STORYTELLING): Immersive, evocative, sensory — high passes, prayer fla
 Tone 2 (PROMOTIONAL): High-converting with package highlights and a clear WhatsApp CTA.
 Tone 3 (PUNCHY_REEL): Ultra-short viral hook (1–2 lines), 3 bullet highlights, shareable energy.
 
-Only promise what the business actually offers: private 4×4 with a Ladakhi driver, oxygen and first aid in every vehicle, the Ladakh environmental fee for Indian guests and a Protected Area Permit for foreign nationals, altitude-first itineraries (never Pangong on day two), 24×7 support from Leh, WhatsApp +91 96229 55386. Do not invent prices, discounts or deadlines. Indian travellers do not need an Inner Line Permit.
+Do not promise specific vehicles, inclusions, support hours, awards or guarantees; the team adds those. ${brand().phone ? `Contact: WhatsApp ${brand().phone}. ` : ''}Do not invent prices, discounts or deadlines. For Ladakh, Indian travellers pay the environmental fee and do not need an Inner Line Permit; foreign nationals need a Protected Area Permit.
 Include authentic emojis. Add 10 destination-specific hashtags.
 
 Return ONLY a valid JSON array — no markdown, no code fences:

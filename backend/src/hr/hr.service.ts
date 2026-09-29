@@ -18,6 +18,7 @@ import {
   prorate,
   SalaryComponents,
 } from './salary-math';
+import { brand } from '../common/brand';
 
 @Injectable()
 export class HrService {
@@ -27,10 +28,10 @@ export class HrService {
   // Employees
   // ==========================================================================
 
-  /** LV-EMP-2026-0001 style, sequential per year. */
+  /** FT-EMP-2026-0001 style (prefix from the company profile), sequential per year. */
   private async nextEmployeeCode(): Promise<string> {
     const year = new Date().getFullYear();
-    const prefix = `LV-EMP-${year}-`;
+    const prefix = `${brand().documentPrefix}-EMP-${year}-`;
     const last = await this.prisma.employee.findFirst({
       where: { code: { startsWith: prefix } },
       orderBy: { code: 'desc' },

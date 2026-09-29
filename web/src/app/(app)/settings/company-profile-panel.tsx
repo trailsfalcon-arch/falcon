@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Save, Building2, Landmark, CheckCircle2 } from 'lucide-react';
+import { Save, Building2, Globe, Landmark, CheckCircle2 } from 'lucide-react';
 import { api, ApiError } from '@/lib/api';
+import { loadBrand } from '@/lib/brand';
 import { Panel, PanelBody, PanelHeader, PanelTitle } from '@/components/ui/panel';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
@@ -21,6 +22,15 @@ export interface CompanyProfileData {
   phone: string;
   email: string;
   website: string;
+  country?: string;
+  tagline?: string | null;
+  whatsapp?: string | null;
+  landerUrl?: string | null;
+  operatingRegion?: string;
+  documentPrefix?: string;
+  logoUrl?: string | null;
+  instagramUrl?: string | null;
+  facebookUrl?: string | null;
   bankName?: string | null;
   accountNumber?: string | null;
   ifscCode?: string | null;
@@ -29,24 +39,35 @@ export interface CompanyProfileData {
 }
 
 export function CompanyProfilePanel() {
+  // Empty until the backend answers: no sample GSTIN or bank details that
+  // could be saved by accident and printed on a real invoice.
   const [profile, setProfile] = useState<CompanyProfileData>({
-    legalName: 'Ladakh Vacation Private Limited',
-    brandName: 'Ladakh Vacation',
-    gstin: '38AABCL1234F1Z5',
-    pan: 'AABCL1234F',
-    address: 'Main Bazaar Road, Near SBI Bank',
-    city: 'Leh',
-    state: 'Ladakh (UT)',
-    stateCode: '38',
-    pincode: '194101',
-    phone: '+91 94191 78901',
-    email: 'reservations@ladakhvacation.in',
-    website: 'https://ladakhvacation.com',
-    bankName: 'State Bank of India',
+    legalName: '',
+    brandName: '',
+    gstin: '',
+    pan: '',
+    address: '',
+    city: '',
+    state: '',
+    stateCode: '',
+    pincode: '',
+    country: 'India',
+    phone: '',
+    email: '',
+    website: '',
+    tagline: '',
+    whatsapp: '',
+    landerUrl: '',
+    operatingRegion: '',
+    documentPrefix: '',
+    logoUrl: '',
+    instagramUrl: '',
+    facebookUrl: '',
+    bankName: '',
     accountNumber: '',
-    ifscCode: 'SBIN0001365',
-    accountHolder: 'Ladakh Vacation Pvt Ltd',
-    upiId: 'ladakhvacation@sbi',
+    ifscCode: '',
+    accountHolder: '',
+    upiId: '',
   });
 
   const [loading, setLoading] = useState(true);
@@ -58,7 +79,12 @@ export function CompanyProfilePanel() {
     api
       .get<CompanyProfileData>('/settings/company-profile')
       .then((data) => {
-        if (data) setProfile((prev) => ({ ...prev, ...data }));
+        if (data) {
+          const clean = Object.fromEntries(
+            Object.entries(data).map(([k, v]) => [k, v ?? '']),
+          ) as unknown as CompanyProfileData;
+          setProfile((prev) => ({ ...prev, ...clean }));
+        }
       })
       .catch((e) => setError(e instanceof ApiError ? e.message : 'Failed to load profile.'))
       .finally(() => setLoading(false));
@@ -74,6 +100,7 @@ export function CompanyProfilePanel() {
     setError(null);
     try {
       await api.patch('/settings/company-profile', profile);
+      await loadBrand(true);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (e) {
@@ -119,7 +146,7 @@ export function CompanyProfilePanel() {
                 id="legalName"
                 value={profile.legalName}
                 onChange={(e) => update('legalName', e.target.value)}
-                placeholder="Ladakh Vacation Private Limited"
+                placeholder="Falcon Trails Private Limited"
               />
             </div>
             <div>
@@ -128,7 +155,7 @@ export function CompanyProfilePanel() {
                 id="brandName"
                 value={profile.brandName}
                 onChange={(e) => update('brandName', e.target.value)}
-                placeholder="Ladakh Vacation"
+                placeholder="Falcon Trails"
               />
             </div>
           </div>
@@ -140,7 +167,7 @@ export function CompanyProfilePanel() {
                 id="gstin"
                 value={profile.gstin ?? ''}
                 onChange={(e) => update('gstin', e.target.value)}
-                placeholder="38AABCL1234F1Z5"
+                placeholder="15-character GSTIN"
               />
             </div>
             <div>
@@ -209,7 +236,7 @@ export function CompanyProfilePanel() {
                 id="phone"
                 value={profile.phone}
                 onChange={(e) => update('phone', e.target.value)}
-                placeholder="+91 94191 78901"
+                placeholder="+91 98765 43210"
               />
             </div>
           </div>
@@ -221,7 +248,7 @@ export function CompanyProfilePanel() {
                 id="email"
                 value={profile.email}
                 onChange={(e) => update('email', e.target.value)}
-                placeholder="reservations@ladakhvacation.in"
+                placeholder="info@falcontrails.in"
               />
             </div>
             <div>
@@ -230,7 +257,103 @@ export function CompanyProfilePanel() {
                 id="website"
                 value={profile.website}
                 onChange={(e) => update('website', e.target.value)}
-                placeholder="https://ladakhvacation.com"
+                placeholder="https://falcontrails.in"
+              />
+            </div>
+          </div>
+        </PanelBody>
+      </Panel>
+
+      {/* Brand & Online Presence */}
+      <Panel>
+        <PanelHeader>
+          <div className="flex items-center gap-2">
+            <Globe className="size-4 text-signal-400" />
+            <PanelTitle>Brand & Online Presence</PanelTitle>
+          </div>
+          <p className="text-xs text-ink-400">
+            Used across the CRM, PDFs, WhatsApp and email text, AI-written content and the candidate portal.
+          </p>
+        </PanelHeader>
+        <PanelBody className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <Label htmlFor="tagline">Tagline</Label>
+              <Input
+                id="tagline"
+                value={profile.tagline ?? ''}
+                onChange={(e) => update('tagline', e.target.value)}
+                placeholder="Kashmir, Ladakh & Jammu, planned properly"
+              />
+            </div>
+            <div>
+              <Label htmlFor="operatingRegion">Operating Region</Label>
+              <Input
+                id="operatingRegion"
+                value={profile.operatingRegion ?? ''}
+                onChange={(e) => update('operatingRegion', e.target.value)}
+                placeholder="Kashmir, Ladakh & Jammu"
+              />
+              <p className="mt-1 text-[11px] text-ink-500">Where you run trips. Fed to AI prompts.</p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div>
+              <Label htmlFor="whatsapp">WhatsApp Number</Label>
+              <Input
+                id="whatsapp"
+                value={profile.whatsapp ?? ''}
+                onChange={(e) => update('whatsapp', e.target.value)}
+                placeholder="919876543210"
+              />
+              <p className="mt-1 text-[11px] text-ink-500">Country code + number, digits only.</p>
+            </div>
+            <div>
+              <Label htmlFor="landerUrl">Landing Pages URL</Label>
+              <Input
+                id="landerUrl"
+                value={profile.landerUrl ?? ''}
+                onChange={(e) => update('landerUrl', e.target.value)}
+                placeholder="https://go.falcontrails.in"
+              />
+            </div>
+            <div>
+              <Label htmlFor="documentPrefix">Document Prefix</Label>
+              <Input
+                id="documentPrefix"
+                value={profile.documentPrefix ?? ''}
+                onChange={(e) => update('documentPrefix', e.target.value)}
+                placeholder="FT"
+              />
+              <p className="mt-1 text-[11px] text-ink-500">Booking, invoice and itinerary numbers: FT-INV-2026-0001.</p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div>
+              <Label htmlFor="logoUrl">Logo URL</Label>
+              <Input
+                id="logoUrl"
+                value={profile.logoUrl ?? ''}
+                onChange={(e) => update('logoUrl', e.target.value)}
+                placeholder="https://falcontrails.in/logo.png"
+              />
+            </div>
+            <div>
+              <Label htmlFor="instagramUrl">Instagram URL</Label>
+              <Input
+                id="instagramUrl"
+                value={profile.instagramUrl ?? ''}
+                onChange={(e) => update('instagramUrl', e.target.value)}
+                placeholder="https://instagram.com/falcontrails"
+              />
+            </div>
+            <div>
+              <Label htmlFor="facebookUrl">Facebook URL</Label>
+              <Input
+                id="facebookUrl"
+                value={profile.facebookUrl ?? ''}
+                onChange={(e) => update('facebookUrl', e.target.value)}
+                placeholder="https://facebook.com/falcontrails"
               />
             </div>
           </div>
@@ -265,7 +388,7 @@ export function CompanyProfilePanel() {
                 id="accountHolder"
                 value={profile.accountHolder ?? ''}
                 onChange={(e) => update('accountHolder', e.target.value)}
-                placeholder="Ladakh Vacation Private Limited"
+                placeholder="Falcon Trails Private Limited"
               />
             </div>
           </div>
@@ -295,7 +418,7 @@ export function CompanyProfilePanel() {
                 id="upiId"
                 value={profile.upiId ?? ''}
                 onChange={(e) => update('upiId', e.target.value)}
-                placeholder="ladakhvacation@sbi"
+                placeholder="name@bank"
               />
             </div>
           </div>

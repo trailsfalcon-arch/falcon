@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import { pdfStyles, pdfFonts, brand } from './theme';
 import { BrandHeader, BrandFooter, GoldRule, SellerIdentity, inr, shortDate } from './primitives';
+import { brand as currentBrand } from '../../common/brand';
 
 export interface InvoiceInput {
   bookingNumber: string;
@@ -33,7 +34,7 @@ export interface InvoiceInput {
 
 /**
  * Booking invoice — what the client sees. VENDOR COSTS AND MARGIN are never
- * present in this document; a client should never learn what Ladakh Vacation pays a
+ * present in this document; a client should never learn what the business pays a
  * hotel. Only the sell price, what has been received, and what remains due.
  */
 export function InvoiceDocument({ b }: { b: InvoiceInput }) {
@@ -54,9 +55,9 @@ export function InvoiceDocument({ b }: { b: InvoiceInput }) {
   return (
     <Document
       title={`Invoice ${b.bookingNumber}`}
-      author="Ladakh Vacation"
+      author={currentBrand().brandName}
       subject={b.packageName ?? 'Booking invoice'}
-      creator="Ladakh Vacation CRM"
+      creator={`${currentBrand().brandName} CRM`}
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader

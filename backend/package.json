@@ -1,5 +1,5 @@
 {
-  "name": "ladakh-vacation-backend",
+  "name": "travel-crm-backend",
   "version": "0.1.0",
   "description": "Ladakh Vacation CRM backend (NestJS + Prisma)",
   "private": true,

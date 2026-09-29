@@ -114,7 +114,7 @@ export class BookingsController {
    * Client-facing pro-forma invoice PDF. Access-checked via findOne so a
    * sales exec cannot download an invoice for a booking they cannot read.
    * Vendor costs are deliberately NOT included — clients never see what
-   * Ladakh Vacation pays a hotel.
+   * the business pays a hotel.
    *
    * This is a PRO-FORMA (booking summary). For formal GST invoices with
    * line items, see InvoicesController.downloadPdf().

@@ -29,6 +29,7 @@ import {
   whatsappHref,
 } from '@/lib/constants';
 import { money, shortDate } from '@/lib/format';
+import { getBrand } from '@/lib/brand';
 
 export default function LeadDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -197,7 +198,7 @@ export default function LeadDetailPage() {
             <a
               href={whatsappHref(
                 lead.phone,
-                `Julley ${lead.name}, this is Ladakh Vacation regarding your ${lead.destination || 'Ladakh'} enquiry.`,
+                `Hello ${lead.name}, this is ${getBrand().brandName} regarding your ${lead.destination ? `${lead.destination} ` : ''}enquiry.`,
               )}
               target="_blank"
               rel="noreferrer"

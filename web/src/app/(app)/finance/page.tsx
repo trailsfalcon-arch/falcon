@@ -36,6 +36,7 @@ import { Button } from '@/components/ui/button';
 import { CountUp } from '@/components/count-up';
 import { money, percent, shortDate } from '@/lib/format';
 import { humanise } from '@/lib/constants';
+import { getBrand } from '@/lib/brand';
 
 type TabKey = 'ledger' | 'queue';
 
@@ -102,7 +103,7 @@ export default function FinancePage() {
 
   function handleCopyReminder(item: OverdueReceivableItem) {
     const dueInfo = item.effectiveDueDate ? `\nPayment Due Date: ${shortDate(item.effectiveDueDate)}` : '';
-    const text = `Namaste ${item.lead.name}! Greetings from Ladakh Vacation. Regarding your upcoming Ladakh tour (${item.packageName ?? item.bookingNumber}), here is your payment summary:
+    const text = `Namaste ${item.lead.name}! Greetings from ${getBrand().brandName}. Regarding your upcoming tour (${item.packageName ?? item.bookingNumber}), here is your payment summary:
 
 Total Package: ${money(item.totalSell)}
 Amount Received: ${money(item.totalReceived)}

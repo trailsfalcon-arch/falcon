@@ -96,14 +96,14 @@ export function CollectionPage({ c }: { c: Collection }) {
         ]}
         background={TONE_HERO[c.tone]}
         heroImage={packages[0]?.image}
-        heroImageAlt={`${c.h1} — Ladakh Vacation`}
+        heroImageAlt={`${c.h1} — Falcon Trails`}
       >
         <FactStrip
           facts={[
             ['From', `${inr(cheapest)} per person`],
             ['Itineraries', `${packages.length} to compare`],
             ['Pricing', 'Per person · twin-sharing'],
-            ['Operated by', 'Our own team in Leh'],
+            ['Operated by', 'Our own team in Srinagar'],
           ]}
         />
       </PageHero>
@@ -189,14 +189,13 @@ export function CollectionPage({ c }: { c: Collection }) {
                     >
                       Get a custom quote
                     </a>
+                    {SITE.phone.tel && (
                     <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost w-full">
                       Call {SITE.phone.display}
                     </a>
+                    )}
                   </div>
 
-                  <p className="mt-4 text-center text-[11.5px] leading-relaxed text-ink-500">
-                    {SITE.stats.rating}★ from {SITE.stats.reviewCount} Google reviews.
-                  </p>
                 </div>
               </div>
 
@@ -236,7 +235,7 @@ export function CollectionPage({ c }: { c: Collection }) {
             <div className="mt-8">
               <MapPin className="mb-3 size-5 text-gold-300" strokeWidth={1.8} />
               <p className="text-[13.5px] leading-relaxed text-paper-200/60">
-                {SITE.address.street}, {SITE.address.city} — every quote comes
+                {SITE.address.city} — every quote comes
                 from the specialist who will actually run your trip.
               </p>
             </div>

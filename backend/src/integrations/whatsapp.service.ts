@@ -161,7 +161,7 @@ export class WhatsAppService {
         components: [
           {
             type: 'BODY',
-            text: 'Hello {{1}}, planning {{2}} this season? Our team in Leh can send you a day-by-day itinerary with permits, a private 4×4 and oxygen on board. Reply to this message and we will share it.',
+            text: 'Hello {{1}}, planning {{2}} this season? Our team can send you a day-by-day itinerary with permits, a private 4×4 and oxygen on board. Reply to this message and we will share it.',
           },
         ],
       },
@@ -178,14 +178,14 @@ export class WhatsAppService {
         ],
       },
       {
-        name: 'lv_announcement',
+        name: 'ft_announcement',
         category: 'MARKETING',
         language: 'en',
         status: 'APPROVED',
         components: [
           {
             type: 'BODY',
-            text: 'Greetings {{1}}! Ladakh Vacation has launched new curated tours for the upcoming holiday season. Click here to check the details.',
+            text: 'Greetings {{1}}! Falcon Trails has launched new curated tours for the upcoming holiday season. Click here to check the details.',
           },
         ],
       },

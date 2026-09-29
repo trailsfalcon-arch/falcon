@@ -69,9 +69,9 @@ export default function NewCampaignWizardPage() {
   // Template State
   const [waTemplates, setWaTemplates] = useState<any[]>([]);
   const [selectedWaTemplate, setSelectedWaTemplate] = useState<string>('ladakh_seasonal_offer');
-  const [emailSubject, setEmailSubject] = useState('Special Holiday Offer from Ladakh Vacation');
+  const [emailSubject, setEmailSubject] = useState('Special Holiday Offer from Falcon Trails');
   const [emailHtml, setEmailHtml] = useState(
-    `<p>Hello {{name}},</p>\n<p>We have refreshed holiday packages for <strong>{{destination}}</strong> with special seasonal pricing.</p>\n<p>Reply to this email or contact your Ladakh Vacation travel advisor to plan your getaway.</p>`,
+    `<p>Hello {{name}},</p>\n<p>We have refreshed holiday packages for <strong>{{destination}}</strong> with special seasonal pricing.</p>\n<p>Reply to this email or contact your Falcon Trails travel advisor to plan your getaway.</p>`,
   );
 
   // Scheduling State
@@ -136,7 +136,7 @@ export default function NewCampaignWizardPage() {
   const currentTemplateObj = waTemplates.find((t) => t.name === selectedWaTemplate);
   const currentTemplateBody =
     currentTemplateObj?.components?.find((c: any) => c.type === 'BODY')?.text ||
-    'Hello {{1}}, planning {{2}} this season? Our team in Leh can send you a day-by-day itinerary with permits, a private 4×4 and oxygen on board. Reply to this message and we will share it.';
+    'Hello {{1}}, planning {{2}} this season? Our team can send you a day-by-day itinerary with permits, a private 4×4 and oxygen on board. Reply to this message and we will share it.';
 
   const handleSubmit = async (sendImmediately: boolean) => {
     if (!name.trim()) {
@@ -553,7 +553,7 @@ export default function NewCampaignWizardPage() {
                   <div className="mt-2 max-w-md rounded-2xl border border-healthy-500/35 bg-[#0B141A] p-4 font-sans text-white shadow-lg">
                     <div className="flex items-center gap-2 border-b border-healthy-500/40 pb-2 text-[12px] font-semibold text-healthy-500">
                       <MessageSquare className="size-4" />
-                      Ladakh Vacation (Verified Business)
+                      Falcon Trails (Verified Business)
                     </div>
 
                     <div className="mt-3 rounded-xl bg-[#202C33] p-3 text-[13px] leading-relaxed text-ink-850">

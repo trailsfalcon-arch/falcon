@@ -92,7 +92,7 @@ export default function PlanMyTripPage() {
       <PageHero
         kicker="Interactive Itinerary Creator"
         title="Custom Holiday Planner"
-        lede="Answer 4 quick questions and a planner in Leh will build a day-by-day itinerary around your dates, your group and the altitude."
+        lede="Answer 4 quick questions and a planner will build a day-by-day itinerary around your dates, your group and the altitude."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Plan My Trip' },
@@ -108,7 +108,7 @@ export default function PlanMyTripPage() {
               </div>
               <h2 className="display d2 text-ink-950">Your Custom Trip Plan is in Motion!</h2>
               <p className="text-[15.5px] leading-relaxed text-ink-700 max-w-lg mx-auto">
-                Thank you, <strong>{name}</strong>. A planner in Leh is reviewing your <strong>{destination}</strong>, <strong>{duration}</strong> request and will share a day-by-day proposal, usually the same day.
+                Thank you, <strong>{name}</strong>. A planner is reviewing your <strong>{destination}</strong>, <strong>{duration}</strong> request and will share a day-by-day proposal, usually the same day.
               </p>
               <div className="pt-4 flex flex-wrap justify-center gap-3">
                 <a
@@ -309,7 +309,7 @@ export default function PlanMyTripPage() {
                 <form onSubmit={handleFinalSubmit} className="space-y-5">
                   <div>
                     <h3 className="display d3 text-ink-950">Where Should We Send Your Itinerary?</h3>
-                    <p className="text-sm text-ink-600 mt-1">Our team in Leh will prepare your quote and message you.</p>
+                    <p className="text-sm text-ink-600 mt-1">Our team will prepare your quote and message you.</p>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-paper-100 border border-paper-300 text-xs text-ink-700 flex items-center justify-between">

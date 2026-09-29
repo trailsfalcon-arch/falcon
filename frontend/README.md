@@ -1,4 +1,4 @@
-# Ladakh Vacation — frontend
+# Falcon Trails — frontend
 
 Next 16 + Tailwind v4 + ECharts. Talks to the NestJS backend.
 

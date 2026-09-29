@@ -69,8 +69,8 @@ async function main() {
   const prisma = new PrismaClient();
   try {
     const current = (
-      (await ask('Current login email [admin@ladakhvacation.in]: ')) ||
-      'admin@ladakhvacation.in'
+      (await ask('Current login email [admin@falcontrails.in]: ')) ||
+      'admin@falcontrails.in'
     ).toLowerCase();
 
     const user = await prisma.user.findUnique({ where: { email: current } });

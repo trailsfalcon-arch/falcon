@@ -7,7 +7,7 @@ import type { Tone } from './destinations';
  * pages do not rank and do not convert.
  *
  * The eleven packages, their prices, day-by-day text and FAQs are the same
- * ones the Google Ads landers at go.ladakhvacation.in sell (that site's
+ * ones the Google Ads landers at go.falcontrails.in sell (that site's
  * build/pages.js), so a traveller never sees two versions of one trip.
  *
  * Prices are per-person on twin-sharing, the convention every Indian traveller
@@ -110,7 +110,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -219,7 +219,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -336,7 +336,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -460,7 +460,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -592,7 +592,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -735,7 +735,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -851,7 +851,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -977,7 +977,7 @@ export const PACKAGES: Pkg[] = [
       "Airport pickup and drop at Leh (Kushok Bakula Rimpochee Airport)",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare to and from Leh",
@@ -1114,7 +1114,7 @@ export const PACKAGES: Pkg[] = [
       "3★ hotels and a Swiss camp at Sarchu, on twin-sharing",
       "Daily breakfast and dinner",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Travel to Manali and airfare from Leh",
@@ -1263,7 +1263,7 @@ export const PACKAGES: Pkg[] = [
       "Pickup at Srinagar airport, drop at Leh airport",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Airfare or train fare to Srinagar and from Leh",
@@ -1395,7 +1395,7 @@ export const PACKAGES: Pkg[] = [
       "Pickup in Manali, drop at Leh airport",
       "Restricted-area paperwork for this route, paid and printed before you land: the Ladakh environmental fee for Indian guests, and a Protected Area Permit for foreign nationals",
       "Oxygen cylinder, oximeter and a stocked first-aid kit in every vehicle",
-      "24×7 on-ground support from a named coordinator in Leh"
+      "24×7 on-ground support from a named trip coordinator"
     ],
     "exclusions": [
       "Travel to Manali and airfare from Leh",

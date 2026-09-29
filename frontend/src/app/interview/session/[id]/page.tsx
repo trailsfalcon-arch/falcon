@@ -297,7 +297,7 @@ export default function CandidateInterviewSessionPage({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-sm tracking-tight text-ink-50">
-                  Ladakh Vacation
+                  Falcon Trails
                 </span>
                 <span className="rounded bg-gold-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-gold-400 uppercase tracking-wider">
                   AI Interview
@@ -352,7 +352,7 @@ export default function CandidateInterviewSessionPage({
                 Interview Completed! 🎉
               </h2>
               <p className="mt-2 text-sm text-ink-300 max-w-md mx-auto">
-                Thank you so much, <strong className="text-gold-400">{session.candidateName}</strong>! All your answers have been submitted directly to Ladakh Vacation HR.
+                Thank you so much, <strong className="text-gold-400">{session.candidateName}</strong>! All your answers have been submitted directly to Falcon Trails HR.
               </p>
 
               <div className="mt-6 rounded-xl border border-ink-800 bg-ink-950/70 p-4 text-left">
@@ -360,7 +360,7 @@ export default function CandidateInterviewSessionPage({
                   <CheckCircle2 className="size-4" /> Next Steps
                 </div>
                 <p className="text-xs text-ink-400 leading-relaxed">
-                  Our recruitment team in Leh will review your interview transcript and answers. If your profile matches our requirements, we will reach out to you via WhatsApp or phone at <strong className="text-ink-200">{session.candidatePhone}</strong>.
+                  Our recruitment team will review your interview transcript and answers. If your profile matches our requirements, we will reach out to you via WhatsApp or phone at <strong className="text-ink-200">{session.candidatePhone}</strong>.
                 </p>
               </div>
 
@@ -555,7 +555,7 @@ export default function CandidateInterviewSessionPage({
 
       {/* Footer */}
       <footer className="relative border-t border-ink-800/80 bg-ink-900/40 px-4 py-3 text-center text-xs text-ink-500">
-        Ladakh Vacation Travel Pvt Ltd · AI Candidate Portal · Very Easy English Mode
+        Falcon Trails · AI Candidate Portal · Very Easy English Mode
       </footer>
     </div>
   );

@@ -110,7 +110,7 @@ export function BedWisePricerDialog({
   ]);
 
   function copyQuotation() {
-    const text = `*LADAKH VACATION — BED-WISE QUOTATION*
+    const text = `*FALCON TRAILS — BED-WISE QUOTATION*
 Duration: ${nights} Nights / ${nights + 1} Days
 Pax: ${quote.totalPax} (${doubleRooms} Double Rooms)
 

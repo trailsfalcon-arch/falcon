@@ -1,25 +1,41 @@
-# Ladakh Vacation
+# Falcon Trails
 
-The Ladakh Vacation CRM, its backend and the public website, in one repo.
-Built from the Glitz Holidays stack and laid out the same way: three apps,
-with one combined Vercel deployment from `web` and the API on Render.
-The `frontend` folder remains the CRM source; `web/scripts/sync-crm.mjs` copies
-its routes and utilities into the combined app before each build.
+The Falcon Trails CRM, its backend and the public website (falcontrails.in),
+in one repo. Falcon Trails is a Srinagar-based travel company for Kashmir,
+Ladakh and Jammu. Three apps, with one combined Vercel deployment from `web`
+and the API on Render. The `frontend` folder remains the CRM source;
+`web/scripts/sync-crm.mjs` copies its routes and utilities into the combined
+app before each build.
 
 ```
-backend/    NestJS 11 + Prisma 6 API           -> Render   <service>.onrender.com
+backend/    NestJS 11 + Prisma 6 API           -> Render   falcon-trails-backend.onrender.com
 frontend/   Next.js CRM source (staff only)    -> copied into web before build
-web/        Website + CRM                      -> Vercel   ladakhvacation.in and /login
+web/        Website + CRM                      -> Vercel   falcontrails.in and /login
 mobile/     reserved (Capacitor wrap of the CRM, later)
 packages/   reserved (shared TS types)
 seo/        generate-manifest.mjs (pages the CRM's SEO dashboard audits)
-
-Desktop\ladakh-vacation-site   (NOT in this repo)
-            static Google Ads landers          -> GoDaddy  go.ladakhvacation.in
 ```
 
-The database and file storage are on Neon (Postgres database `ladakh_crm`,
+The database and file storage are on Neon (Postgres database `falcon_crm`,
 object-storage bucket `uploads`).
+
+## Before launch: brand checklist
+
+The codebase was adapted from another operator's system. These must be filled
+with Falcon Trails' own details before the site goes live:
+
+| What | Where |
+|---|---|
+| Phone / WhatsApp number (placeholder `+91 00000 00000`) | `web/src/lib/site.ts`, `backend/src/common/site.ts` |
+| Office street address | same two files |
+| Social profile links, Google Business Profile link | `web/src/lib/site.ts` |
+| Legal name, GSTIN, PAN, bank account, UPI | CRM -> Settings -> Company profile (printed on invoices only when set) |
+| Mailboxes on falcontrails.in (`info@`, and `reservations@` / `ops@` / `bookings@` if used) | your email host; Brevo sender verification |
+| Guest reviews and Google rating | `web/src/lib/reviews.ts`, `SITE.stats` (hidden while empty) |
+| Final logo (current one is a placeholder SVG) | `web/public/ft-emblem.svg`, `web/src/app/icon.svg`, `apple-icon.png` |
+| Package prices, inclusions and photos (inherited Ladakh content) | `web/src/lib/packages.ts`, `destinations.ts`, `web/public/img` |
+| Kashmir and Jammu packages and destination pages | not built yet |
+| Terms, cancellation and privacy policies | review with a lawyer; `web/src/app/*-policy`, `terms-and-conditions` |
 
 Each app installs and runs inside its own folder. There is no workspace
 tooling.
@@ -61,7 +77,7 @@ Render asks for these on the first deploy (they are `sync: false`):
 
 | Key | Value |
 |---|---|
-| `DATABASE_URL` | Neon pooled connection string for `ladakh_crm` (host has `-pooler`) |
+| `DATABASE_URL` | Neon pooled connection string for `falcon_crm` (host has `-pooler`) |
 | `DIRECT_URL` | Neon direct connection string (no `-pooler`), used by migrations |
 | `AWS_ENDPOINT_URL_S3` | Neon object storage endpoint |
 | `AWS_REGION` | Neon storage region |
@@ -94,63 +110,44 @@ Optional `NEXT_PUBLIC_WAKE_PING_URL=off` disables the wake request. Changing any
 `NEXT_PUBLIC_*` variable requires a new build. Set Render `CRM_BASE_URL` to the
 same website origin so password-reset links lead to its `/reset-password` page.
 
-The newer GitHub configuration names `ladakhvacationecosystem.onrender.com` as
-the backend. Both `/api/health` and `/api/health/db` responded successfully on 23 September
-2026. This does not verify that the new audit fixes have deployed, or establish
-which Neon database its environment selects.
+### Use a new database and new secrets
 
-### DNS (Cloudflare)
+Falcon Trails must run on its **own** Neon project, database and storage
+bucket, with freshly generated `JWT_SECRET` and `INTEGRATION_KEY`. Never point
+this code at a database or bucket that belongs to another business: it would
+expose their customers' data and mix records. On a fresh database,
+`npx prisma migrate deploy` applies every migration from scratch.
 
-Only the website needs records: the ones Vercel shows for the web project,
-set to **DNS only**. Leave `go` alone (the GoDaddy landers), and do not change
-the zone's SSL/TLS mode: it also governs the live landers.
+After the first deploy, back up `INTEGRATION_KEY` (and `STORAGE_ENCRYPTION_KEY`
+if you set one). Saved integration credentials and uploaded documents are
+encrypted with it; rotating it without migrating that data locks them.
 
-### Ads landers (GoDaddy)
+### DNS
 
-`Desktop\ladakh-vacation-site` stays on GoDaddy at `go.ladakhvacation.in`.
-Its `assets/js/lead.js` sends a visit beacon to `/api/visits` and every
-enquiry to `/api/leads/capture` on the Render backend. After changing it, run
-`node build/build.js` there and upload the folder except `build/` and the zip.
+Only the website needs records: the ones Vercel shows for the web project.
+If you later run Google Ads landers on `go.falcontrails.in`, point their lead
+forms at `/api/leads/capture` and their visit beacon at `/api/visits` (see
+`web/public/ft-track.js`).
 
 ## Content
 
-The website's packages, destinations, city pages and FAQs are built from the
-landers' own content (`build/pages.js` in the landers folder), so both sites
-sell the same eleven trips at the same prices. After adding or renaming a
-website page, run `node seo/generate-manifest.mjs` so the CRM's SEO dashboard
-audits the new URL.
+The website's packages, destinations, city pages and FAQs live in
+`web/src/lib`. After adding or renaming a website page, run
+`node seo/generate-manifest.mjs` (then copy `frontend/src/lib/page-manifest.json`
+into `web/src/lib/`) so the CRM's SEO dashboard audits the new URL.
 
-## Audit fixes and deployment checks (23 September 2026)
+## Deployment checks
 
-Email and social delivery now fail explicitly when a provider is unavailable.
-Planning charts use recorded data and labelled assumptions, not invented history.
-New operational attachments are encrypted before storage and downloaded through
-authenticated API routes. Public website media still uses public object URLs.
-Legacy public attachments require a separate migration before they are protected.
+1. Set `APP_URL` to the HTTPS backend origin (without `/api`) for campaign
+   unsubscribe links, and `CRM_BASE_URL` to `https://falcontrails.in` for
+   password-reset links.
+2. Add `BREVO_API_KEY` and a verified `@falcontrails.in` sender before sending
+   emails. For Meta lead webhooks, set `META_APP_SECRET` and `META_VERIFY_TOKEN`.
+3. Build and redeploy the combined Vercel app after setting its public API
+   variables.
+4. Verify `/api/health` and `/api/health/db`, then check login, an enquiry, a
+   document upload/download and a booking payment in the real UI.
 
-Before deploying these changes:
-
-1. Back up the existing `INTEGRATION_KEY`. Keep it unchanged. Operational documents
-   use it unless a dedicated `STORAGE_ENCRYPTION_KEY` is configured. Do not rotate
-   either key without migrating the data encrypted with it.
-2. Apply additive Prisma migrations with `npx prisma migrate deploy` from `backend`.
-   Never use `migrate reset` against the existing database.
-3. Set `APP_URL` to the actual HTTPS backend origin (without `/api`) for campaign
-   unsubscribe links. Set `CRM_BASE_URL` to the actual CRM origin for reset links.
-4. Add `BREVO_API_KEY` and an approved sender before sending emails. For Meta lead
-   webhooks, set `META_APP_SECRET` and `META_VERIFY_TOKEN`; missing verification
-   configuration now rejects requests.
-5. Build and redeploy the combined Vercel app after setting its public API variables.
-   Use `web/.env.local.example` for the website and `frontend/.env.local.example`
-   for the CRM. These variables are different.
-6. Verify `/api/health` and `/api/health/db`, then check login, an enquiry, its visit
-   attribution, a document upload/download, and a booking payment in the real UI.
-   A successful local build does not establish that production is working.
-
-Campaign sending still runs inside a single backend process. Interrupted campaigns
-are marked failed at startup rather than silently resent; an operator must review
-recipient outcomes. Sleeping or restarting hosting is not a durable job queue.
-
-Dedicated traveller/permit management, altitude validation, generated white-label
-B2B quotes, and a mobile app remain outside the implemented modules. Provider
-delivery and hosting must be checked with the actual Ladakh accounts.
+Campaign sending runs inside the single backend process. Interrupted campaigns
+are marked failed at startup rather than silently resent. The free Render plan
+sleeps; it is not a durable job queue.

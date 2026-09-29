@@ -52,7 +52,7 @@ copyRecursive(
   true
 );
 
-// 3. Copy CRM public assets (lv-track.js, etc.)
+// 3. Copy CRM public assets (ft-track.js, etc.)
 console.log('[sync-crm] Copying CRM public assets...');
 copyRecursive(
   path.join(frontendRoot, 'public'),

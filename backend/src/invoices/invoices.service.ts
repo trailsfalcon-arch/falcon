@@ -11,7 +11,7 @@ export class InvoicesService {
   constructor(private readonly prisma: PrismaService) {}
 
   private async generateInvoiceNumber(): Promise<string> {
-    const prefix = `LV-INV-${new Date().getUTCFullYear()}-`;
+    const prefix = `FT-INV-${new Date().getUTCFullYear()}-`;
     const last = await this.prisma.invoice.findFirst({
       where: { invoiceNumber: { startsWith: prefix } },
       orderBy: { invoiceNumber: 'desc' }, select: { invoiceNumber: true },

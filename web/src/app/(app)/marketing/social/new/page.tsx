@@ -552,7 +552,7 @@ export default function NewSocialPostPage() {
               <div className="flex items-start gap-2 bg-warn-500/10 border border-warn-500/25 rounded-lg p-3">
                 <AlertTriangle className="h-4 w-4 text-warn-500 flex-shrink-0 mt-0.5" />
                 <p className="text-[11px] text-warn-400 leading-relaxed">
-                  Review claims before publishing. Ensure itineraries match Ladakh Vacation’s core altitude-first, private 4×4 and oxygen-supported offerings.
+                  Review claims before publishing. Ensure itineraries match Falcon Trails’s core altitude-first, private 4×4 and oxygen-supported offerings.
                 </p>
               </div>
 
@@ -644,11 +644,11 @@ export default function NewSocialPostPage() {
                       </div>
                       <div>
                         <div className="flex items-center gap-1">
-                          <span className="font-semibold text-gray-900 text-xs">Ladakh Vacation</span>
+                          <span className="font-semibold text-gray-900 text-xs">Falcon Trails</span>
                           <span className="text-[10px] text-gray-400">• 1st</span>
                         </div>
                         <p className="text-[10px] text-gray-500 leading-tight">
-                          Curated Ladakh Journeys · Leh, Ladakh
+                          Kashmir · Ladakh · Jammu · Srinagar
                         </p>
                         <p className="text-[9px] text-gray-400 flex items-center gap-1 mt-0.5">
                           Just now • 🌐
@@ -730,7 +730,7 @@ export default function NewSocialPostPage() {
                         </div>
                       </div>
                       <div>
-                        <p className="font-semibold text-[11px] text-gray-900 leading-tight">ladakhvacation</p>
+                        <p className="font-semibold text-[11px] text-gray-900 leading-tight">falcontrails</p>
                         <p className="text-[9px] text-gray-500">Ladakh, India</p>
                       </div>
                     </div>
@@ -761,7 +761,7 @@ export default function NewSocialPostPage() {
                   <div className="px-3 pb-3 space-y-1">
                     <p className="font-semibold text-[10px] text-gray-900">842 likes</p>
                     <div className="text-[11px] text-gray-800 leading-snug line-clamp-3 whitespace-pre-wrap">
-                      <span className="font-semibold mr-1.5">ladakhvacation</span>
+                      <span className="font-semibold mr-1.5">falcontrails</span>
                       {caption || 'Your caption will appear here…'}
                     </div>
                     <p className="text-[9px] text-gray-400 uppercase pt-0.5">2 hours ago</p>
@@ -778,7 +778,7 @@ export default function NewSocialPostPage() {
                     </div>
                     <div>
                       <div className="flex items-center gap-1">
-                        <span className="font-semibold text-[11px] text-gray-900">Ladakh Vacation</span>
+                        <span className="font-semibold text-[11px] text-gray-900">Falcon Trails</span>
                         <span className="text-blue-500 text-[10px]">✓</span>
                       </div>
                       <p className="text-[9px] text-gray-400">Just now · 🌐</p>

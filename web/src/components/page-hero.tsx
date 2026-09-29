@@ -36,7 +36,7 @@ export function PageHero({
         <div className="absolute inset-0 -z-20 overflow-hidden">
           <Image
             src={heroImage}
-            alt={heroImageAlt || (typeof title === 'string' ? title : 'Ladakh Vacation')}
+            alt={heroImageAlt || (typeof title === 'string' ? title : 'Falcon Trails')}
             fill
             priority
             sizes="100vw"

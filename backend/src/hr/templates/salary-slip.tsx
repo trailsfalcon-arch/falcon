@@ -63,8 +63,8 @@ export function SalarySlipDocument({ employee: e, slip: s }: SalarySlipInput) {
   return (
     <Document
       title={`Salary slip — ${e.fullName} — ${monthLabel}`}
-      author="Ladakh Vacation"
-      creator="Ladakh Vacation CRM"
+      author="Falcon Trails"
+      creator="Falcon Trails CRM"
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader docLabel="Salary slip" docNumber={monthLabel} />

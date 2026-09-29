@@ -81,7 +81,7 @@ export class SocialPublisherService {
     try {
       const token = decryptSecret(account.accessToken);
       const igUserId = account.externalId;
-      const imageUrl = post.mediaUrls[0] || 'https://ladakhvacation.in/img/ladakh-hero.webp'; // the website's own hero photo
+      const imageUrl = post.mediaUrls[0] || 'https://falcontrails.in/img/ladakh-hero.webp'; // the website's own hero photo
 
       // Step 1: Create media container
       const containerUrl = `https://graph.facebook.com/v20.0/${igUserId}/media`;
@@ -234,7 +234,7 @@ export class SocialPublisherService {
             status: 'READY',
             description: { text: post.caption.slice(0, 120) },
             originalUrl: imageUrl,
-            title: { text: 'Ladakh Vacation' },
+            title: { text: 'Falcon Trails' },
           },
         ];
       }

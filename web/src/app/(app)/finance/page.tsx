@@ -102,7 +102,7 @@ export default function FinancePage() {
 
   function handleCopyReminder(item: OverdueReceivableItem) {
     const dueInfo = item.effectiveDueDate ? `\nPayment Due Date: ${shortDate(item.effectiveDueDate)}` : '';
-    const text = `Namaste ${item.lead.name}! Greetings from Ladakh Vacation. Regarding your upcoming Ladakh tour (${item.packageName ?? item.bookingNumber}), here is your payment summary:
+    const text = `Namaste ${item.lead.name}! Greetings from Falcon Trails. Regarding your upcoming Ladakh tour (${item.packageName ?? item.bookingNumber}), here is your payment summary:
 
 Total Package: ${money(item.totalSell)}
 Amount Received: ${money(item.totalReceived)}

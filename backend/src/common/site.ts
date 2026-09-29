@@ -1,7 +1,7 @@
 /**
  * Canonical hosts for the two public surfaces.
  *
- * The site is served at the bare domain ladakhvacation.in; www is redirected
+ * The site is served at the bare domain falcontrails.in; www is redirected
  * onto it, so any URL still pointing at www costs a redirect hop and, in the
  * SEO dashboard, would show a second copy of the site.
  *
@@ -12,25 +12,28 @@
 
 /**
  * Public NAP. The website's site.ts is the other copy; these two must stay
- * the same. There is no GSTIN in the repo, so tax invoices name the business
- * and stop there rather than inventing a registration number.
+ * the same. There is no GSTIN here on purpose: tax invoices read it from the
+ * company profile (Settings) and are never printed with an invented number.
+ *
+ * TODO(brand): phoneDisplay and street are PLACEHOLDERS. Set the real
+ * Falcon Trails number and office address here and in web/src/lib/site.ts.
  */
 export const COMPANY = {
-  name: 'Ladakh Vacation',
-  street: 'Main Bazaar',
-  city: 'Leh',
-  region: 'Ladakh',
-  postalCode: '194101',
-  phoneDisplay: '+91 96229 55386',
-  email: 'ladakhvacation@gmail.com',
-  website: 'www.ladakhvacation.in',
+  name: 'Falcon Trails',
+  street: '',
+  city: 'Srinagar',
+  region: 'Jammu and Kashmir',
+  postalCode: '190001',
+  phoneDisplay: '+91 00000 00000',
+  email: 'info@falcontrails.in',
+  website: 'falcontrails.in',
 } as const;
 
 /** Public marketing site (Next.js on Vercel). */
-export const SITE_DOMAIN = 'https://ladakhvacation.in';
+export const SITE_DOMAIN = 'https://falcontrails.in';
 
 /** Hosts retired in favour of SITE_DOMAIN. */
-export const LEGACY_HOSTS = ['www.ladakhvacation.in'];
+export const LEGACY_HOSTS = ['www.falcontrails.in'];
 
 /**
  * Internal CRM origin, used to build links inside transactional email.
@@ -41,7 +44,7 @@ export const LEGACY_HOSTS = ['www.ladakhvacation.in'];
  * password-reset links will point at a host that may not resolve.
  */
 export function crmBaseUrl(configured?: string | null): string {
-  return (configured || 'https://ladakh-vacation-crm.vercel.app').replace(/\/+$/, '');
+  return (configured || 'https://falcontrails.in').replace(/\/+$/, '');
 }
 
 /** Rewrite a URL onto the canonical host, leaving its path and query intact. */

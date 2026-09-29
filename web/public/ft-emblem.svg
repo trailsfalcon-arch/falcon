@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Falcon Trails">
+  <rect width="64" height="64" rx="14" fill="#16294f"/>
+  <path d="M6 52 L20 38 L28 44 L39 31 L58 52 Z" fill="#c9a24a" opacity="0.35"/>
+  <path d="M6 52 L20 38 L26 43 L14 52 Z" fill="#c9a24a" opacity="0.6"/>
+  <path d="M7 27 C17 19 26 19 32 26 C38 19 47 19 57 27 C47 25 39 28 34 35 L32 38 L30 35 C25 28 17 25 7 27 Z" fill="#e0bd62"/>
+  <circle cx="32" cy="24.5" r="2.6" fill="#e0bd62"/>
+</svg>

@@ -53,9 +53,9 @@ export function QuotationDocument({ q }: { q: QuotationInput }) {
   return (
     <Document
       title={`Quotation ${q.quoteNumber}`}
-      author="Ladakh Vacation"
+      author="Falcon Trails"
       subject={q.title ?? 'Travel quotation'}
-      creator="Ladakh Vacation CRM"
+      creator="Falcon Trails CRM"
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader

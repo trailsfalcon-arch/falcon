@@ -11,7 +11,7 @@ import {
   Car,
   BedDouble,
 } from 'lucide-react';
-import { SITE, inr } from '@/lib/site';
+import { SITE, inr, HAS_RATING } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { FEATURED, PACKAGES } from '@/lib/packages';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
@@ -30,12 +30,12 @@ export const metadata = {
 };
 
 const TRUST = [
-  'Leh-based, not a reseller',
-  `${SITE.stats.guests} travellers hosted`,
+  'Local operator, not a reseller',
+  'Kashmir · Ladakh · Jammu',
   'Environmental fee and permits handled',
   'Oxygen in every vehicle',
   'Stays we have slept in',
-  '24×7 support from Leh',
+  '24×7 support',
   'Itemised quotes, no-cost EMI',
 ];
 
@@ -63,7 +63,7 @@ const WHY = [
   {
     icon: Headphones,
     title: 'One named planner, start to finish',
-    body: 'The person who writes your itinerary is the person who answers at 11pm from Leh when a pass closes. No handovers, no ticket numbers.',
+    body: 'The person who writes your itinerary is the person who answers at 11pm when a pass closes. No handovers, no ticket numbers.',
   },
   {
     icon: Receipt,
@@ -119,16 +119,16 @@ export default function HomePage() {
 
         <div className="wrap relative w-full pb-16 pt-32 md:pb-24 md:pt-40">
           <p className="anim-fade kicker kicker-light">
-            Leh-based Ladakh specialists · Since {SITE.founded}
+            Srinagar-based Kashmir & Ladakh specialists
           </p>
 
           <h1 className="display d1 mt-5 max-w-[19ch] text-paper-50">
             <span className="mask">
-              <span style={{ animationDelay: '80ms' }}>Ladakh,</span>
+              <span style={{ animationDelay: '80ms' }}>Kashmir &amp; Ladakh,</span>
             </span>
             <span className="mask">
               <span style={{ animationDelay: '200ms' }}>
-                planned by <em className="text-gold-grad not-italic">Ladakhis.</em>
+                planned by <em className="text-gold-grad not-italic">locals.</em>
               </span>
             </span>
           </h1>
@@ -136,7 +136,7 @@ export default function HomePage() {
           <p className="anim-rise d-4 lede mt-7 max-w-xl !text-paper-200/85">
             Every route is built around altitude, not a checklist &mdash;
             permits handled, private 4×4s with Ladakhi drivers, oxygen on board,
-            and stays we have personally slept in. One planner in Leh from your
+            and stays we have personally slept in. One planner from your
             first message to your flight home.
           </p>
 
@@ -153,9 +153,9 @@ export default function HomePage() {
           {/* floating stat strip */}
           <div className="anim-rise d-5 mt-14 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-paper-100/12 bg-paper-100/8 backdrop-blur-md sm:grid-cols-4">
             {[
-              [SITE.stats.guests, 'guests hosted'],
-              [`${SITE.stats.rating}★`, `${SITE.stats.reviewCount.toLocaleString('en-IN')}+ reviews`],
-              [`${SITE.stats.years} yrs`, 'in Ladakh'],
+              ['3', 'regions: Kashmir, Ladakh, Jammu'],
+              [`Since ${SITE.founder.since}`, 'in Kashmir tourism'],
+              ['1', 'planner per trip'],
               ['24×7', 'on-trip support'],
             ].map(([k, v]) => (
               <div key={v} className="bg-ink-950/25 px-5 py-4">
@@ -183,9 +183,8 @@ export default function HomePage() {
           </div>
         </div>
         <p className="sr-only">
-          Leh-based Ladakh tour operator since {SITE.founded}. {SITE.stats.guests} travellers
-          hosted. Environmental fee and permits handled. Oxygen in every vehicle. 24×7
-          on-ground support from Leh.
+          Srinagar-based Kashmir and Ladakh tour operator. Environmental fee and permits handled. Oxygen in every vehicle. 24×7
+          on-ground support.
         </p>
       </section>
 
@@ -257,13 +256,13 @@ export default function HomePage() {
         <div className="wrap relative">
           <SectionHead
             light
-            kicker="Why Ladakh Vacation"
+            kicker="Why Falcon Trails"
             title={
               <>
-                Run by Ladakhis. Not by a <em className="text-gold-grad not-italic">call centre</em>.
+                Run by locals. Not by a <em className="text-gold-grad not-italic">call centre</em>.
               </>
             }
-            lede="Six reasons travellers book a Leh-based team directly, rather than a portal that forwards their enquiry to one."
+            lede="Six reasons travellers book a Srinagar-based team directly, rather than a portal that forwards their enquiry to one."
           />
 
           <div data-reveal-group className="mt-14 grid gap-x-10 gap-y-11 md:grid-cols-2 lg:grid-cols-3">
@@ -352,7 +351,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════ REVIEWS */}
+      {/* ══════════════════════════════════ REVIEWS (hidden until real reviews exist) */}
+      {REVIEWS.length > 0 && (
       <section className="section">
         <div className="wrap">
           <div className="flex flex-wrap items-end justify-between gap-6">
@@ -360,6 +360,7 @@ export default function HomePage() {
               kicker="What guests say"
               title="The reviews are the itinerary."
             />
+            {HAS_RATING && (
             <div data-reveal="right" className="flex items-center gap-3">
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -375,6 +376,7 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
+            )}
           </div>
 
           <div data-reveal-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -391,6 +393,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ══════════════════════════════════ ENQUIRY */}
       <section className="mesh-pine grain section relative isolate overflow-hidden">
@@ -407,7 +410,7 @@ export default function HomePage() {
             </h2>
             <p className="lede mt-5 max-w-md !text-paper-200/75">
               Send us your dates and the shape of the trip you are imagining.
-              You will get a real itinerary from a real planner in Leh &mdash;
+              You will get a real itinerary from a real planner &mdash;
               usually the same day.
             </p>
 

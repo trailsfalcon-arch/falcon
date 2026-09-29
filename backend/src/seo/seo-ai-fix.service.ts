@@ -66,8 +66,8 @@ export class SeoAiFixService {
           } else if (integration.provider === 'openrouter') {
             const model = creds.model || 'meta-llama/llama-3.3-70b-instruct:free';
             liveFix = await this.callOpenAiCompatible('https://openrouter.ai/api/v1', key, model, dto, pageTitle, keyword, {
-              'HTTP-Referer': 'https://ladakhvacation.in',
-              'X-Title': 'Ladakh Vacation CRM',
+              'HTTP-Referer': 'https://falcontrails.in',
+              'X-Title': 'Falcon Trails CRM',
             });
           } else if (integration.provider === 'mistral') {
             const model = creds.model || 'mistral-small-latest';
@@ -170,7 +170,7 @@ While ${destination} is one of the most striking places in the Himalaya, we want
 <div className="relative h-96 w-full overflow-hidden rounded-2xl shadow-lg">
   <Image
     src="/images/packages/${destSlug}-tour.jpg"
-    alt="${destination}, Ladakh: high-altitude desert landscape photographed on a Ladakh Vacation trip"
+    alt="${destination}, Ladakh: high-altitude desert landscape photographed on a Falcon Trails trip"
     fill
     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
     priority
@@ -189,9 +189,9 @@ While ${destination} is one of the most striking places in the Himalaya, we want
       }
 
       case 'meta-description': {
-        const desc1 = `${destination} tour packages from a Leh-based team: altitude-first itineraries, private 4×4 with a Ladakhi driver, all permits and oxygen on board.`;
-        const desc2 = `Book ${destination} with Ladakh Vacation from ₹14,500. Hotels and camps, environmental fee and permits handled, private cab and 24×7 support from Leh. WhatsApp us.`;
-        const desc3 = `Plan ${destination} with local experts in Leh. Itemised quotes, custom itineraries sequenced by altitude, and no-cost EMI. Get your itinerary today.`;
+        const desc1 = `${destination} tour packages from a Srinagar-based team: altitude-first itineraries, private 4×4 with a Ladakhi driver, all permits and oxygen on board.`;
+        const desc2 = `Book ${destination} with Falcon Trails from ₹14,500. Hotels and camps, environmental fee and permits handled, private cab and 24×7 support. WhatsApp us.`;
+        const desc3 = `Plan ${destination} with local experts. Itemised quotes, custom itineraries sequenced by altitude, and no-cost EMI. Get your itinerary today.`;
 
         return {
           checkId,
@@ -219,8 +219,8 @@ While ${destination} is one of the most striking places in the Himalaya, we want
       case 'title':
       case 'title-unique':
       case 'query-coverage': {
-        const title1 = `${destination} Tour Packages 2026: Itineraries, Best Deals & Stays | Ladakh Vacation`;
-        const title2 = `${destination} Tour Packages from ₹14,500 | Ladakh Vacation`;
+        const title1 = `${destination} Tour Packages 2026: Itineraries, Best Deals & Stays | Falcon Trails`;
+        const title2 = `${destination} Tour Packages from ₹14,500 | Falcon Trails`;
         const title3 = `${keyword.replace(/\b\w/g, (c) => c.toUpperCase())} — Custom Itineraries & Local Guides`;
 
         return {
@@ -277,7 +277,7 @@ While ${destination} is one of the most striking places in the Himalaya, we want
             "Programmatic SEO pages that repeat identical boilerplate text risk classification as thin or doorway pages under Google's Spam Policies. Adding 200+ words of authentic local details resolves content duplication.",
           suggestion: `### Discover Authentic ${destination} with Local Specialists
 
-When planning ${destination}, the order of the days matters more than the list of sights. Our team in Leh sequences every route by altitude, so the places you came for are enjoyed rather than endured.
+When planning ${destination}, the order of the days matters more than the list of sights. Our team sequences every route by altitude, so the places you came for are enjoyed rather than endured.
 
 #### What to know before you go:
 - **Best months:** May, June and September are the prime months; September and October bring the clearest skies. From November to March most high roads close.
@@ -310,7 +310,7 @@ Every itinerary is a starting point, reshaped around your dates, your group and 
   </div>
   <div>
     <p className="text-xs font-semibold text-slate-900">
-      Planned by [Author name] · [Role], Ladakh Vacation, Leh
+      Planned by [Author name] · [Role], Falcon Trails, Srinagar
     </p>
     <p className="text-[11px] text-slate-500">
       Last reviewed: ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
@@ -328,7 +328,7 @@ Every itinerary is a starting point, reshaped around your dates, your group and 
     "@type": "Person",
     "name": "[Author name]",
     "jobTitle": "[Role]",
-    "worksFor": { "@type": "Organization", "name": "Ladakh Vacation" }
+    "worksFor": { "@type": "Organization", "name": "Falcon Trails" }
   }
 }
 </script>`,
@@ -550,7 +550,7 @@ Every itinerary is a starting point, reshaped around your dates, your group and 
   }
 
   private buildAiPrompt(dto: GenerateSeoFixDto, pageTitle: string, keyword: string): string {
-    return `You are a world-class Technical SEO & Helpful Content specialist for Ladakh Vacation, a Leh-based Ladakh tour operator (Leh, Nubra, Pangong, Hanle, Tso Moriri, and the Manali and Srinagar roads into Ladakh). Its itineraries are sequenced by altitude. Indian guests pay the Ladakh environmental fee (there is no Inner Line Permit for Indian tourists). Foreign nationals need a Protected Area Permit, which the operator arranges. Every vehicle is a private 4×4 with a Ladakhi driver and oxygen on board. Never invent prices, awards, statistics or staff names.
+    return `You are a world-class Technical SEO & Helpful Content specialist for Falcon Trails, a Srinagar-based tour operator for Kashmir (Srinagar, Gulmarg, Pahalgam, Sonamarg), Jammu, and Ladakh (Leh, Nubra, Pangong, Hanle, Tso Moriri, via the Srinagar and Manali roads). Its itineraries are sequenced by altitude. Indian guests pay the Ladakh environmental fee (there is no Inner Line Permit for Indian tourists). Foreign nationals need a Protected Area Permit, which the operator arranges. Every vehicle is a private 4×4 with a Ladakhi driver and oxygen on board. Never invent prices, awards, statistics or staff names.
 
 A page audit flagged an SEO issue that needs an immediate, actionable fix:
 - Check ID: "${dto.checkId}" (${dto.label || ''})

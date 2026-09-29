@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
 import { pdfStyles, brand } from './theme';
 import { BrandHeader, BrandFooter, GoldRule, shortDate } from './primitives';
+import { COMPANY } from '../../common/site';
 
 export interface DriverVoucherDay {
   dayNumber: number;
@@ -105,7 +106,7 @@ const driverStyles = StyleSheet.create({
 });
 
 export function DriverVoucherDocument({ d }: { d: DriverVoucherInput }) {
-  const helpline = d.emergencyContact ?? '+91 94191 78901 / ops@ladakhvacation.in';
+  const helpline = d.emergencyContact ?? `${COMPANY.phoneDisplay} / ${COMPANY.email}`;
   const inclusionsText =
     d.inclusions ??
     'Private Vehicle with dedicated driver. Includes fuel, driver daily allowance (DA), parking fees, state road tax, and local high-altitude transit charges as per Ladakh Taxi Union tariff rules. AC is switched off on steep mountain passes.';
@@ -113,9 +114,9 @@ export function DriverVoucherDocument({ d }: { d: DriverVoucherInput }) {
   return (
     <Document
       title={`Driver Duty Slip ${d.voucherNumber}`}
-      author="Ladakh Vacation"
+      author="Falcon Trails"
       subject={`Transport Duty Slip for ${d.guestName} - ${d.vehicleType}`}
-      creator="Ladakh Vacation CRM"
+      creator="Falcon Trails CRM"
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader

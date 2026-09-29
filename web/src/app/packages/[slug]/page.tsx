@@ -192,7 +192,7 @@ export default async function PackageDetail({ params }: { params: Params }) {
               </div>
               <div>
                 <p className="font-semibold text-ink-900 leading-none">
-                  Planned and run by the {SITE.name} team in Leh
+                  Planned and run by the {SITE.name} team
                 </p>
                 <p className="text-[11px] text-ink-500 mt-0.5">
                   Sequenced by altitude · all permits handled · private 4×4 with a Ladakhi driver
@@ -537,7 +537,7 @@ export default async function PackageDetail({ params }: { params: Params }) {
             <div className="mt-8">
               <MapPin className="mb-3 size-5 text-gold-300" strokeWidth={1.8} />
               <p className="text-[13.5px] leading-relaxed text-paper-200/60">
-                Every quote comes from our team in Leh, from the planner who will
+                Every quote comes from our own team, from the planner who will
                 actually run your trip.
               </p>
             </div>

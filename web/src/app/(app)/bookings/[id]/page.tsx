@@ -144,7 +144,7 @@ export default function BookingDetailPage() {
 
   function handleCopyReminder() {
     if (!booking) return;
-    const text = `Namaste ${booking.lead.name}! Greetings from Ladakh Vacation. Regarding your upcoming Ladakh tour (${booking.packageName ?? booking.bookingNumber}), here is your payment summary:
+    const text = `Namaste ${booking.lead.name}! Greetings from Falcon Trails. Regarding your upcoming Ladakh tour (${booking.packageName ?? booking.bookingNumber}), here is your payment summary:
 
 Total Package: ${money(booking.totalSell)}
 Amount Received: ${money(booking.financials.totalReceived)}

@@ -8,7 +8,7 @@ describe('Vouchers & Movement Operations', () => {
 
   const mockActor: any = {
     id: 'user-admin',
-    email: 'admin@ladakhvacation.in',
+    email: 'admin@falcontrails.in',
     role: Role.SUPER_ADMIN,
   };
 
@@ -36,7 +36,7 @@ describe('Vouchers & Movement Operations', () => {
     it('constructs complete hotel confirmation voucher details', async () => {
       mockPrisma.booking.findUnique.mockResolvedValue({
         id: 'b-101',
-        bookingNumber: 'LV-B-2026-0042',
+        bookingNumber: 'FT-B-2026-0042',
         packageName: 'Classic Ladakh 6N/7D',
         travelStartDate: new Date('2027-06-15'),
         travelEndDate: new Date('2027-06-21'),
@@ -71,7 +71,7 @@ describe('Vouchers & Movement Operations', () => {
 
       const res = await service.getHotelVoucherData('b-101', mockActor);
 
-      expect(res.voucherNumber).toBe('VCH-HTL-LV-B-2026-0042');
+      expect(res.voucherNumber).toBe('VCH-HTL-FT-B-2026-0042');
       expect(res.hotelName).toBe('The Grand Dragon Ladakh');
       expect(res.hotelCity).toBe('Leh');
       expect(res.guestName).toBe('Vikram Malhotra');
@@ -88,7 +88,7 @@ describe('Vouchers & Movement Operations', () => {
     it('constructs driver duty slip with circuit route and vehicle allocation', async () => {
       mockPrisma.booking.findUnique.mockResolvedValue({
         id: 'b-102',
-        bookingNumber: 'LV-B-2026-0055',
+        bookingNumber: 'FT-B-2026-0055',
         packageName: 'Ladakh Explorer with Innova Crysta',
         travelStartDate: new Date('2027-07-10'),
         travelEndDate: new Date('2027-07-15'),
@@ -118,7 +118,7 @@ describe('Vouchers & Movement Operations', () => {
 
       const res = await service.getDriverVoucherData('b-102', mockActor);
 
-      expect(res.voucherNumber).toBe('VCH-DRV-LV-B-2026-0055');
+      expect(res.voucherNumber).toBe('VCH-DRV-FT-B-2026-0055');
       expect(res.guestName).toBe('Ananya Roy');
       expect(res.vehicleType).toContain('Innova Crysta');
       expect(res.circuitDays.length).toBeGreaterThanOrEqual(6);
@@ -132,7 +132,7 @@ describe('Vouchers & Movement Operations', () => {
       mockPrisma.booking.findMany.mockResolvedValue([
         {
           id: 'b-arr',
-          bookingNumber: 'LV-B-2026-001',
+          bookingNumber: 'FT-B-2026-001',
           packageName: 'Arrivals Group',
           travelStartDate: new Date('2027-06-15T08:00:00Z'),
           travelEndDate: new Date('2027-06-20T10:00:00Z'),
@@ -144,7 +144,7 @@ describe('Vouchers & Movement Operations', () => {
         },
         {
           id: 'b-transit-nubra',
-          bookingNumber: 'LV-B-2026-002',
+          bookingNumber: 'FT-B-2026-002',
           packageName: 'Nubra Bound Group',
           itineraryId: 'iti-nubra',
           travelStartDate: new Date('2027-06-13T08:00:00Z'), // Day 3 on June 15
@@ -157,7 +157,7 @@ describe('Vouchers & Movement Operations', () => {
         },
         {
           id: 'b-dep',
-          bookingNumber: 'LV-B-2026-003',
+          bookingNumber: 'FT-B-2026-003',
           packageName: 'Departure Group',
           travelStartDate: new Date('2027-06-10T08:00:00Z'),
           travelEndDate: new Date('2027-06-15T11:00:00Z'), // Departs June 15
@@ -220,7 +220,7 @@ describe('Vouchers & Movement Operations', () => {
       mockPrisma.booking.findMany.mockResolvedValue([
         {
           id: 'b-unplanned',
-          bookingNumber: 'LV-B-2026-099',
+          bookingNumber: 'FT-B-2026-099',
           packageName: 'Custom Mystery Tour',
           travelStartDate: new Date('2027-06-15T08:00:00Z'),
           travelEndDate: new Date('2027-06-20T10:00:00Z'),

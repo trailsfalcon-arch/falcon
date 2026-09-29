@@ -65,7 +65,7 @@ export function SellerIdentity() {
         {COMPANY.name}
       </Text>
       <Text style={pdfStyles.small}>
-        {COMPANY.street}, {COMPANY.city}, {COMPANY.region} {COMPANY.postalCode}
+        {[COMPANY.street, COMPANY.city].filter(Boolean).join(', ')}, {COMPANY.region} {COMPANY.postalCode}
       </Text>
       <Text style={pdfStyles.small}>{COMPANY.phoneDisplay}</Text>
       <Text style={pdfStyles.small}>{COMPANY.email}</Text>
@@ -84,14 +84,14 @@ export function BrandFooter({
   return (
     <View style={pdfStyles.footer} fixed>
       <Text style={pdfStyles.footerText}>
-        Ladakh Vacation  ·  Leh, Ladakh  ·  ladakhvacation.in
+        {COMPANY.name}  ·  {COMPANY.city}, Kashmir  ·  {COMPANY.website}
       </Text>
       {typeof page === 'number' && typeof totalPages === 'number' ? (
         <Text style={pdfStyles.footerText}>
           Page {page} of {totalPages}
         </Text>
       ) : (
-        <Text style={pdfStyles.footerText}>Thank you for choosing Ladakh Vacation.</Text>
+        <Text style={pdfStyles.footerText}>Thank you for choosing Falcon Trails.</Text>
       )}
     </View>
   );

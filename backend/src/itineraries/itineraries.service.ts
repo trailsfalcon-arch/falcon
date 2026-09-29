@@ -17,6 +17,7 @@ import { toDateOrNull } from '../common/dates';
 import { withNumberRetry } from '../common/sequence';
 import { SettingsService } from '../settings/settings.service';
 import { SettingsLike } from '../common/pricing';
+import { COMPANY } from '../common/site';
 import {
   computeItemPricing,
   computeOptionTotals,
@@ -89,7 +90,7 @@ export class ItinerariesService {
 
   private async nextItineraryCode(): Promise<string> {
     const year = new Date().getFullYear();
-    const prefix = `LV-ITI-${year}-`;
+    const prefix = `FT-ITI-${year}-`;
     const last = await this.prisma.itinerary.findFirst({
       where: { code: { startsWith: prefix } },
       orderBy: { code: 'desc' },
@@ -690,7 +691,7 @@ export class ItinerariesService {
     }
 
     if (!itinerary.shareToken) {
-      const generated = `lv-${itinerary.code.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+      const generated = `ft-${itinerary.code.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
       await this.prisma.itinerary.update({
         where: { id: itinerary.id },
         data: { shareToken: generated },
@@ -753,10 +754,10 @@ export class ItinerariesService {
           }
         : null,
       company: {
-        brandName: company?.brandName ?? 'Ladakh Vacation',
-        phone: company?.phone ?? '+91 94191 78901',
-        email: company?.email ?? 'reservations@ladakhvacation.in',
-        website: company?.website ?? 'https://ladakhvacation.com',
+        brandName: company?.brandName ?? COMPANY.name,
+        phone: company?.phone || COMPANY.phoneDisplay,
+        email: company?.email ?? COMPANY.email,
+        website: company?.website ?? `https://${COMPANY.website}`,
       },
     };
   }

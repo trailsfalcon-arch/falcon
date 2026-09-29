@@ -377,7 +377,7 @@ export class MarketingService {
           const res = await this.brevo.sendEmail({
             toEmail: recipient.email,
             toName: leadName,
-            subject: campaign.emailSubject || 'Special Offer from Ladakh Vacation',
+            subject: campaign.emailSubject || 'Special Offer from Falcon Trails',
             htmlContent: campaign.emailHtml || `<p>Hello ${leadName}, discover new holiday packages for ${destination}.</p>`,
             unsubscribeUrl,
           });
@@ -471,7 +471,7 @@ export class MarketingService {
       }
     }
 
-    return { message: 'You have been successfully unsubscribed from Ladakh Vacation marketing broadcasts.' };
+    return { message: 'You have been successfully unsubscribed from Falcon Trails marketing broadcasts.' };
   }
 
   /**

@@ -43,7 +43,7 @@ export class SeoService {
         sites = [
           await this.prisma.seoSite.create({
             data: {
-              name: 'Ladakh Vacation Main Website',
+              name: 'Falcon Trails Main Website',
               url: SITE_DOMAIN,
               crawlPaths: ['/', '/packages'],
               isActive: true,

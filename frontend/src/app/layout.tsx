@@ -4,7 +4,7 @@ import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
 /**
- * The Ladakh Vacation brand pairing. Cormorant Garamond only on display
+ * The Falcon Trails brand pairing. Cormorant Garamond only on display
  * headings (dashboard greeting, hero numbers); Plus Jakarta Sans for body copy,
  * tables and forms. Geist Mono stays for figures and codes.
  */
@@ -22,7 +22,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Ladakh Vacation',
+  title: 'Falcon Trails',
   description: 'Lead, quotation and booking desk',
 };
 

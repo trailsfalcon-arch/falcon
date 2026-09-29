@@ -1335,7 +1335,7 @@ Do NOT include live OTA room prices. Only bed-wise specs, occupancy, and operati
       openrouter: {
         url: 'https://openrouter.ai/api/v1',
         defaultModel: 'meta-llama/llama-3.3-70b-instruct:free',
-        headers: { 'HTTP-Referer': 'https://ladakhvacation.in', 'X-Title': 'Ladakh Vacation CRM' },
+        headers: { 'HTTP-Referer': 'https://falcontrails.in', 'X-Title': 'Falcon Trails CRM' },
       },
       cerebras: { url: 'https://api.cerebras.ai/v1', defaultModel: 'llama3.3-70b' },
       sambanova: { url: 'https://api.sambanova.ai/v1', defaultModel: 'Meta-Llama-3.3-70B-Instruct' },

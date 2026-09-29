@@ -30,23 +30,23 @@ export interface CompanyProfileData {
 
 export function CompanyProfilePanel() {
   const [profile, setProfile] = useState<CompanyProfileData>({
-    legalName: 'Ladakh Vacation Private Limited',
-    brandName: 'Ladakh Vacation',
-    gstin: '38AABCL1234F1Z5',
-    pan: 'AABCL1234F',
-    address: 'Main Bazaar Road, Near SBI Bank',
-    city: 'Leh',
-    state: 'Ladakh (UT)',
-    stateCode: '38',
-    pincode: '194101',
-    phone: '+91 94191 78901',
-    email: 'reservations@ladakhvacation.in',
-    website: 'https://ladakhvacation.com',
-    bankName: 'State Bank of India',
+    legalName: 'Falcon Trails',
+    brandName: 'Falcon Trails',
+    gstin: '',
+    pan: '',
+    address: '',
+    city: 'Srinagar',
+    state: 'Jammu and Kashmir',
+    stateCode: '01',
+    pincode: '190001',
+    phone: '',
+    email: 'info@falcontrails.in',
+    website: 'https://falcontrails.in',
+    bankName: '',
     accountNumber: '',
-    ifscCode: 'SBIN0001365',
-    accountHolder: 'Ladakh Vacation Pvt Ltd',
-    upiId: 'ladakhvacation@sbi',
+    ifscCode: '',
+    accountHolder: '',
+    upiId: '',
   });
 
   const [loading, setLoading] = useState(true);
@@ -119,7 +119,7 @@ export function CompanyProfilePanel() {
                 id="legalName"
                 value={profile.legalName}
                 onChange={(e) => update('legalName', e.target.value)}
-                placeholder="Ladakh Vacation Private Limited"
+                placeholder="Falcon Trails"
               />
             </div>
             <div>
@@ -128,7 +128,7 @@ export function CompanyProfilePanel() {
                 id="brandName"
                 value={profile.brandName}
                 onChange={(e) => update('brandName', e.target.value)}
-                placeholder="Ladakh Vacation"
+                placeholder="Falcon Trails"
               />
             </div>
           </div>
@@ -140,7 +140,7 @@ export function CompanyProfilePanel() {
                 id="gstin"
                 value={profile.gstin ?? ''}
                 onChange={(e) => update('gstin', e.target.value)}
-                placeholder="38AABCL1234F1Z5"
+                placeholder="15-character GSTIN"
               />
             </div>
             <div>
@@ -149,7 +149,7 @@ export function CompanyProfilePanel() {
                 id="pan"
                 value={profile.pan ?? ''}
                 onChange={(e) => update('pan', e.target.value)}
-                placeholder="AABCL1234F"
+                placeholder="10-character PAN"
               />
             </div>
             <div>
@@ -158,7 +158,7 @@ export function CompanyProfilePanel() {
                 id="stateCode"
                 value={profile.stateCode}
                 onChange={(e) => update('stateCode', e.target.value)}
-                placeholder="38 (Ladakh)"
+                placeholder="01 (Jammu and Kashmir)"
               />
             </div>
           </div>
@@ -170,7 +170,7 @@ export function CompanyProfilePanel() {
                 id="address"
                 value={profile.address}
                 onChange={(e) => update('address', e.target.value)}
-                placeholder="Main Bazaar Road, Near SBI Bank"
+                placeholder="Office street address"
               />
             </div>
             <div>
@@ -179,7 +179,7 @@ export function CompanyProfilePanel() {
                 id="pincode"
                 value={profile.pincode}
                 onChange={(e) => update('pincode', e.target.value)}
-                placeholder="194101"
+                placeholder="190001"
               />
             </div>
           </div>
@@ -191,7 +191,7 @@ export function CompanyProfilePanel() {
                 id="city"
                 value={profile.city}
                 onChange={(e) => update('city', e.target.value)}
-                placeholder="Leh"
+                placeholder="Srinagar"
               />
             </div>
             <div>
@@ -200,7 +200,7 @@ export function CompanyProfilePanel() {
                 id="state"
                 value={profile.state}
                 onChange={(e) => update('state', e.target.value)}
-                placeholder="Ladakh (UT)"
+                placeholder="Jammu and Kashmir"
               />
             </div>
             <div>
@@ -209,7 +209,7 @@ export function CompanyProfilePanel() {
                 id="phone"
                 value={profile.phone}
                 onChange={(e) => update('phone', e.target.value)}
-                placeholder="+91 94191 78901"
+                placeholder="+91 XXXXX XXXXX"
               />
             </div>
           </div>
@@ -221,7 +221,7 @@ export function CompanyProfilePanel() {
                 id="email"
                 value={profile.email}
                 onChange={(e) => update('email', e.target.value)}
-                placeholder="reservations@ladakhvacation.in"
+                placeholder="reservations@falcontrails.in"
               />
             </div>
             <div>
@@ -230,7 +230,7 @@ export function CompanyProfilePanel() {
                 id="website"
                 value={profile.website}
                 onChange={(e) => update('website', e.target.value)}
-                placeholder="https://ladakhvacation.com"
+                placeholder="https://falcontrails.in"
               />
             </div>
           </div>
@@ -265,7 +265,7 @@ export function CompanyProfilePanel() {
                 id="accountHolder"
                 value={profile.accountHolder ?? ''}
                 onChange={(e) => update('accountHolder', e.target.value)}
-                placeholder="Ladakh Vacation Private Limited"
+                placeholder="Falcon Trails"
               />
             </div>
           </div>
@@ -286,7 +286,7 @@ export function CompanyProfilePanel() {
                 id="ifscCode"
                 value={profile.ifscCode ?? ''}
                 onChange={(e) => update('ifscCode', e.target.value)}
-                placeholder="SBIN0001365"
+                placeholder="IFSC code"
               />
             </div>
             <div>
@@ -295,7 +295,7 @@ export function CompanyProfilePanel() {
                 id="upiId"
                 value={profile.upiId ?? ''}
                 onChange={(e) => update('upiId', e.target.value)}
-                placeholder="ladakhvacation@sbi"
+                placeholder="yourbusiness@bank"
               />
             </div>
           </div>

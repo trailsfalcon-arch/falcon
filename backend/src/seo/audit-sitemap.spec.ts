@@ -9,14 +9,14 @@ describe('sitemap parsing', () => {
   it('reads URLs, lastmod and escaped characters from a urlset', () => {
     const parsed = parseSitemap(
       urlset([
-        ['https://ladakhvacation.in', '2026-09-14T12:18:06.473Z'],
-        ['https://ladakhvacation.in/search?a=1&amp;b=2', null],
+        ['https://falcontrails.in', '2026-09-14T12:18:06.473Z'],
+        ['https://falcontrails.in/search?a=1&amp;b=2', null],
       ]),
     );
     expect(parsed.kind).toBe('urlset');
     expect(parsed.entries).toEqual([
-      { loc: 'https://ladakhvacation.in', lastmod: '2026-09-14T12:18:06.473Z' },
-      { loc: 'https://ladakhvacation.in/search?a=1&b=2', lastmod: null },
+      { loc: 'https://falcontrails.in', lastmod: '2026-09-14T12:18:06.473Z' },
+      { loc: 'https://falcontrails.in/search?a=1&b=2', lastmod: null },
     ]);
   });
 

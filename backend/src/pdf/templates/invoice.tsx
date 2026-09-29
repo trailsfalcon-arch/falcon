@@ -33,7 +33,7 @@ export interface InvoiceInput {
 
 /**
  * Booking invoice — what the client sees. VENDOR COSTS AND MARGIN are never
- * present in this document; a client should never learn what Ladakh Vacation pays a
+ * present in this document; a client should never learn what Falcon Trails pays a
  * hotel. Only the sell price, what has been received, and what remains due.
  */
 export function InvoiceDocument({ b }: { b: InvoiceInput }) {
@@ -54,9 +54,9 @@ export function InvoiceDocument({ b }: { b: InvoiceInput }) {
   return (
     <Document
       title={`Invoice ${b.bookingNumber}`}
-      author="Ladakh Vacation"
+      author="Falcon Trails"
       subject={b.packageName ?? 'Booking invoice'}
-      creator="Ladakh Vacation CRM"
+      creator="Falcon Trails CRM"
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader

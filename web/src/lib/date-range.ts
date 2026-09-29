@@ -6,7 +6,7 @@
  * Without this, sending "2026-08-30" bare parses as UTC midnight, and any
  * lead created between 00:00 and 05:29 IST falls into the previous day.
  *
- * Ladakh Vacation is a Leh-based tour operator serving Indian customers — hardcoded IST
+ * Falcon Trails is a Srinagar-based tour operator serving Indian customers — hardcoded IST
  * is intentional. If we ever open a non-IST office, take the offset from
  * the user's browser via Intl.DateTimeFormat().resolvedOptions().timeZone.
  */

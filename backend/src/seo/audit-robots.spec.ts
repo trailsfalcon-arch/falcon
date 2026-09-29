@@ -8,17 +8,17 @@ describe('robots.txt matching', () => {
     expect(allowed('', '/anything')).toBe(true);
   });
 
-  it('reads the live Ladakh Vacation robots.txt', () => {
+  it('reads the live Falcon Trails robots.txt', () => {
     const txt = [
       'User-Agent: *',
       'Allow: /',
       'Disallow: /api/',
       'Disallow: /_next/',
       '',
-      'Host: https://ladakhvacation.in',
-      'Sitemap: https://ladakhvacation.in/sitemap.xml',
+      'Host: https://falcontrails.in',
+      'Sitemap: https://falcontrails.in/sitemap.xml',
     ].join('\n');
-    expect(parseRobots(txt).sitemaps).toEqual(['https://ladakhvacation.in/sitemap.xml']);
+    expect(parseRobots(txt).sitemaps).toEqual(['https://falcontrails.in/sitemap.xml']);
     expect(allowed(txt, '/packages/from/delhi')).toBe(true);
     expect(allowed(txt, '/api/leads')).toBe(false);
     expect(allowed(txt, '/_next/static/app.js')).toBe(false);

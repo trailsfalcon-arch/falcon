@@ -1,7 +1,7 @@
 {
-  "name": "ladakh-vacation-backend",
+  "name": "falcon-trails-backend",
   "version": "0.1.0",
-  "description": "Ladakh Vacation CRM backend (NestJS + Prisma)",
+  "description": "Falcon Trails CRM backend (NestJS + Prisma)",
   "private": true,
   "engines": {
     "node": ">=20"

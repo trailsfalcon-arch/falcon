@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MapPin, Users, Star, Clock } from 'lucide-react';
-import { SITE } from '@/lib/site';
+import { MapPin, Users, Clock } from 'lucide-react';
+import { SITE, addressLine } from '@/lib/site';
 import { SectionHead, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 
 export const metadata: Metadata = {
-  title: 'About Us — A Leh-Based Ladakh Tour Operator',
-  description: `Ladakh Vacation is a Ladakh-registered tour operator with an office in Leh. Running Ladakh trips since ${SITE.founded}, with ${SITE.stats.guests} travellers hosted and a ${SITE.stats.rating}★ rating on Google.`,
+  title: 'About Us — A Srinagar-Based Kashmir & Ladakh Tour Operator',
+  description: `Falcon Trails is a Srinagar-based travel company for Kashmir, Ladakh and Jammu, founded by ${SITE.founder.name}, in Kashmir tourism since ${SITE.founder.since}.`,
   alternates: { canonical: '/about' },
 };
 
@@ -16,7 +16,7 @@ const VALUES = [
   {
     n: '01',
     t: 'We answer our own phone',
-    b: 'No call centre, no ticketing queue. The planner who writes your itinerary is the one who answers at 11pm from Leh when a pass closes.',
+    b: 'No call centre, no ticketing queue. The planner who writes your itinerary is the one who answers at 11pm when a pass closes.',
   },
   {
     n: '02',
@@ -49,9 +49,9 @@ export default function AboutPage() {
       <JsonLd data={jsonLd} />
 
       <PageHero
-        kicker={`Since ${SITE.founded} · Leh, Ladakh`}
-        title="Ladakh, planned by Ladakhis."
-        lede="The people planning your trip are the people running it: a Ladakh-registered tour operator with an office in Leh, not an intermediary reselling somebody else’s trip."
+        kicker={`Srinagar, Kashmir · Est. ${SITE.founded}`}
+        title="Kashmir & Ladakh, planned by locals."
+        lede="The people planning your trip are the people running it: a Srinagar-based travel company, not an intermediary reselling somebody else’s trip."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
         background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
       />
@@ -61,29 +61,27 @@ export default function AboutPage() {
           <div className="md:col-span-7" data-reveal>
             <div className="space-y-5">
               <p className="text-[17.5px] leading-[1.75] text-ink-800">
-                Ladakh Vacation has been planning and running trips in Ladakh since
-                {' '}{SITE.founded}. We are a Ladakh-registered tour operator with an
-                office in Leh, and the team is local: the planners, the drivers and
-                the coordinators who pick up the phone.
+                Falcon Trails is a Srinagar-based travel company for Kashmir,
+                Ladakh and Jammu. It was founded by {SITE.founder.name}, who has
+                worked in Kashmir tourism since {SITE.founder.since}: first as a
+                guide for international travellers, then selling and running
+                Kashmir holidays for a destination management company.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                {SITE.stats.guests} travellers later, the principle has not changed.
-                Every route is sequenced by altitude rather than by how many sights
-                fit into a day. The environmental fee for Indian guests, and any
-                Protected Area Permit for foreign nationals, is paid and printed before
-                you land. Every vehicle carries oxygen, and every stay we sell has
-                been personally inspected.
+                Every route is sequenced by altitude and travel time rather than
+                by how many sights fit into a day. Permits and fees are arranged
+                before you arrive, and you get a written itinerary and an
+                itemised quote before you pay anything.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                We own the relationships with drivers, camps and hotels directly,
-                so there is no chain of commissions between you and the person
-                actually serving you. When a pass closes at 11pm, the person who
-                replies is sitting in Leh, not in a call centre in another state.
+                There is no chain of commissions between you and the people
+                actually serving you. When plans change on the road, the person
+                who replies is part of our own team, not a call centre.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
                 What we are not is a marketplace. We do one region, and we do it
-                properly: Leh and the Sham Valley, the monasteries, Nubra and
-                Pangong, and Hanle, plus the two roads in from Manali and Srinagar.
+                properly: Srinagar, Gulmarg, Pahalgam and Sonamarg, the Jammu
+                side, and Ladakh via the Srinagar and Manali roads.
               </p>
             </div>
           </div>
@@ -95,10 +93,9 @@ export default function AboutPage() {
               </h2>
               <dl className="mt-5 space-y-4">
                 {[
-                  [Clock, 'Since', `${SITE.founded}, Leh`],
-                  [Users, 'Travellers hosted', `${SITE.stats.guests} and counting`],
-                  [Star, 'Rating', `${SITE.stats.rating} from ${SITE.stats.reviewCount.toLocaleString('en-IN')}+ Google reviews`],
-                  [MapPin, 'Coverage', 'Leh · Nubra · Pangong · Hanle · Tso Moriri'],
+                  [Clock, 'Based in', 'Srinagar, Kashmir'],
+                  [Users, 'Founder', `${SITE.founder.name}, in Kashmir tourism since ${SITE.founder.since}`],
+                  [MapPin, 'Coverage', 'Kashmir · Ladakh · Jammu'],
                 ].map(([Icon, k, v]) => {
                   const I = Icon as typeof Clock;
                   return (
@@ -121,7 +118,7 @@ export default function AboutPage() {
 
               <div className="mt-6 border-t border-paper-300 pt-5">
                 <p className="text-[13px] leading-relaxed text-ink-600">
-                  {SITE.address.street}, {SITE.address.city}
+                  {addressLine()}
                   <br />
                   {SITE.address.region} {SITE.address.postalCode}
                 </p>

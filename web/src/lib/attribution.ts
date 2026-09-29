@@ -1,6 +1,6 @@
 import { SITE } from './site';
 
-const STORAGE_KEY = 'lv.attribution';
+const STORAGE_KEY = 'ft.attribution';
 
 export interface AttributionData {
   utmSource?: string;
@@ -58,7 +58,7 @@ export function getAttributionPayload(): AttributionData {
   if (typeof window === 'undefined') return {};
   try {
     const data = { ...context() };
-    const visitId = storageGet('lv.visitId');
+    const visitId = storageGet('ft.visitId');
     if (visitId) {
       data.visitId = visitId;
     }
@@ -72,15 +72,15 @@ export function trackVisit(): Promise<string | undefined> {
   if (typeof window === 'undefined') return Promise.resolve(undefined);
   if (!SITE.leadCaptureUrl) return Promise.resolve(undefined);
   if (pending) return pending;
-  const existing = storageGet('lv.visitId');
+  const existing = storageGet('ft.visitId');
   if (existing) return Promise.resolve(existing);
   const attribution = context();
-  const sessionId = storageGet('lv.sessionId') || crypto.randomUUID();
-  storageSet('lv.sessionId', sessionId);
+  const sessionId = storageGet('ft.sessionId') || crypto.randomUUID();
+  storageSet('ft.sessionId', sessionId);
   let visitorId = sessionId;
   try {
-    visitorId = localStorage.getItem('lv.visitorId') || crypto.randomUUID();
-    localStorage.setItem('lv.visitorId', visitorId);
+    visitorId = localStorage.getItem('ft.visitorId') || crypto.randomUUID();
+    localStorage.setItem('ft.visitorId', visitorId);
   } catch {}
   const { landingPage, ...fields } = attribution;
   pending = fetch(SITE.leadCaptureUrl.replace(/\/leads\/capture\/?$/, '/visits'), {
@@ -93,7 +93,7 @@ export function trackVisit(): Promise<string | undefined> {
       if (!response.ok) return undefined;
       const body = await response.json();
       if (typeof body.visitId === 'string') {
-        storageSet('lv.visitId', body.visitId);
+        storageSet('ft.visitId', body.visitId);
         return body.visitId;
       }
       return undefined;

@@ -166,10 +166,10 @@ export default function PublicItineraryViewPage({
             {error ?? 'This travel proposal link is invalid or may have expired.'}
           </p>
           <a
-            href="tel:+919419178901"
+            href="/contact"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-warn-500 text-ink-50 font-semibold text-sm hover:bg-warn-500 transition"
           >
-            <Phone className="size-4" /> Call Ladakh Concierge
+            <Phone className="size-4" /> Contact Falcon Trails
           </a>
         </div>
       </div>
@@ -178,6 +178,8 @@ export default function PublicItineraryViewPage({
 
   const selectedOption = data.options.find((o) => o.id === selectedOptionId) ?? data.options[0];
   const totalNights = Math.max(1, data.days.length - 1);
+  // Phone numbers come from Settings → Company profile, never hardcoded.
+  const phoneDigits = data.company.phone.replace(/\D/g, '');
 
   return (
     <div className="min-h-screen bg-ink-50 text-ink-850 font-sans antialiased pb-24">
@@ -186,7 +188,7 @@ export default function PublicItineraryViewPage({
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span className="text-lg font-black tracking-widest text-warn-500 font-serif">
-              LADAKH VACATION
+              {data.company.brandName.toUpperCase()}
             </span>
             <span className="text-[11px] uppercase tracking-wider text-ink-600 font-semibold px-2 py-0.5 rounded bg-ink-200 border border-ink-300">
               Proposal #{data.code}
@@ -195,7 +197,7 @@ export default function PublicItineraryViewPage({
 
           <div className="flex items-center gap-2">
             <a
-              href={`https://wa.me/919419178901?text=Hi%20Ladakh%20Vacation,%20I%20am%20reviewing%20itinerary%20${data.code}`}
+              href={`https://wa.me/${phoneDigits}?text=${encodeURIComponent(`Hi ${data.company.brandName}, I am reviewing itinerary ${data.code}`)}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-healthy-500/20 text-healthy-500 border border-healthy-500/30 text-xs font-semibold hover:bg-healthy-500/12 transition"
@@ -204,7 +206,7 @@ export default function PublicItineraryViewPage({
               <span className="hidden sm:inline">WhatsApp</span>
             </a>
             <a
-              href="tel:+919419178901"
+              href={`tel:+${phoneDigits}`}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-ink-200 text-ink-800 border border-ink-300 text-xs font-semibold hover:bg-ink-300 transition"
             >
               <Phone className="size-3.5" />

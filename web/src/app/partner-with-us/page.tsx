@@ -8,7 +8,7 @@ import { SITE } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Travel Agent Partners — Ground Operations in Ladakh',
   description:
-    'Partner with Ladakh Vacation for ground operations in Ladakh: a Leh-based team with direct relationships with drivers, camps and hotels, environmental fees and permits handled, and 24×7 on-ground support.',
+    'Partner with Falcon Trails for ground operations in Ladakh: a Srinagar-based team with direct relationships with drivers, camps and hotels, environmental fees and permits handled, and 24×7 on-ground support.',
   alternates: { canonical: '/partner-with-us' },
 };
 
@@ -18,7 +18,7 @@ export default function PartnerWithUsPage() {
     '@type': 'Service',
     name: 'Ground operations in Ladakh for travel agents',
     provider: { '@id': `${SITE.domain}/#org` },
-    description: 'Ground operations in Ladakh for travel agents across India: vehicles, stays, permits and on-ground support from a Leh-based team.',
+    description: 'Ground operations in Ladakh for travel agents across India: vehicles, stays, permits and on-ground support from a Srinagar-based team.',
     url: `${SITE.domain}/partner-with-us`,
   };
 
@@ -40,8 +40,8 @@ export default function PartnerWithUsPage() {
     },
     {
       icon: Headphones,
-      title: 'A named coordinator in Leh',
-      desc: 'One point of contact in Leh for airport transfers, check-ins, route changes when a pass closes, and on-ground assistance 24×7.',
+      title: 'A named trip coordinator',
+      desc: 'One point of contact for airport transfers, check-ins, route changes when a pass closes, and on-ground assistance 24×7.',
     },
   ];
 
@@ -52,7 +52,7 @@ export default function PartnerWithUsPage() {
       <PageHero
         kicker="B2B Travel Partner Network"
         title="Your ground team in Ladakh"
-        lede="Sell Ladakh with a Leh-based team running the ground for you: vehicles, stays, permits and a coordinator who is actually in Leh."
+        lede="Sell Ladakh with a Srinagar-based team running the ground for you: vehicles, stays, permits and a coordinator who actually picks up."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Partner With Us' },

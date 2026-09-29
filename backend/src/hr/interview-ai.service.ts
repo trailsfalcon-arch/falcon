@@ -35,7 +35,7 @@ export class InterviewAiService {
   async generateQuestions(role: string, candidateName: string): Promise<InterviewQuestionItem[]> {
     this.logger.log(`Generating easy-English interview questions for "${candidateName}" applied for "${role}"`);
 
-    const prompt = `You are a friendly HR interviewer for "Ladakh Vacation", a top travel company based in Leh, Ladakh.
+    const prompt = `You are a friendly HR interviewer for "Falcon Trails", a travel company based in Srinagar, Kashmir, running trips across Kashmir, Ladakh and Jammu.
 We are interviewing a candidate named "${candidateName}" for the position of "${role}".
 
 CRITICAL RULE:
@@ -48,7 +48,7 @@ Generate exactly 5 questions:
 2. Core daily skill for "${role}" (e.g. how they handle guests, phones, tours, vehicles, or bookings).
 3. Handling a difficult situation or guest problem calmly (e.g. mountain sickness/AMS, flight delay, pass closed).
 4. Teamwork and working hard during the busy Ladakh summer season (May to October).
-5. Why they want to work with Ladakh Vacation and what makes them dependable.
+5. Why they want to work with Falcon Trails and what makes them dependable.
 
 Respond strictly in valid JSON format with NO markdown fences, like this:
 {
@@ -93,7 +93,7 @@ Respond strictly in valid JSON format with NO markdown fences, like this:
     answer: string,
     nextQuestion?: string,
   ): Promise<string> {
-    const prompt = `You are a kind, encouraging AI interviewer for Ladakh Vacation in Leh.
+    const prompt = `You are a kind, encouraging AI interviewer for Falcon Trails in Srinagar.
 Candidate Name: "${candidateName}"
 Applied Role: "${role}"
 Question asked: "${question}"
@@ -132,7 +132,7 @@ Do not use complicated words. Keep it friendly like a helpful friend.`;
       .map((q, idx) => `Q${idx + 1}: ${q.question}\nA${idx + 1}: ${q.answer || '(No answer provided)'}`)
       .join('\n\n');
 
-    const prompt = `You are the Senior Hiring Manager and Talent Evaluator for Ladakh Vacation, a leading tour and travel operator in Leh, Ladakh.
+    const prompt = `You are the Senior Hiring Manager and Talent Evaluator for Falcon Trails, a tour and travel operator based in Srinagar, Kashmir, running trips across Kashmir, Ladakh and Jammu.
 Evaluate this candidate for the position of "${role}".
 
 Candidate Name: "${candidateName}"
@@ -326,7 +326,7 @@ Return strictly a valid JSON object with NO markdown formatting:
 
     if (!candidateInterview) {
       throw new NotFoundException(
-        `No scheduled interview session found for mobile number ending in ${cleanPhone}. Please verify with Ladakh Vacation HR.`,
+        `No scheduled interview session found for mobile number ending in ${cleanPhone}. Please verify with Falcon Trails HR.`,
       );
     }
 
@@ -365,8 +365,8 @@ Return strictly a valid JSON object with NO markdown formatting:
           } else if (integration.provider === 'openrouter') {
             const model = creds.model || 'meta-llama/llama-3.3-70b-instruct:free';
             responseText = await this.callOpenAiCompatible('https://openrouter.ai/api/v1', apiKey, model, prompt, {
-              'HTTP-Referer': 'https://ladakhvacation.in',
-              'X-Title': 'Ladakh Vacation HR AI',
+              'HTTP-Referer': 'https://falcontrails.in',
+              'X-Title': 'Falcon Trails HR AI',
             });
           } else if (integration.provider === 'mistral') {
             const model = creds.model || 'mistral-small-latest';
@@ -525,7 +525,7 @@ Return strictly a valid JSON object with NO markdown formatting:
           category: 'Time Management',
         },
         {
-          question: 'Why do you want to work with Ladakh Vacation, and what makes you good at speaking with customers?',
+          question: 'Why do you want to work with Falcon Trails, and what makes you good at speaking with customers?',
           category: 'Motivation & Fit',
         },
       ];
@@ -550,7 +550,7 @@ Return strictly a valid JSON object with NO markdown formatting:
           category: 'Vendor & Hotel Coordination',
         },
         {
-          question: 'Why are you interested in this operations job in Leh, and how do you stay calm when things go wrong?',
+          question: 'Why are you interested in this operations job, and how do you stay calm when things go wrong?',
           category: 'Reliability & Fit',
         },
       ];
@@ -575,7 +575,7 @@ Return strictly a valid JSON object with NO markdown formatting:
           category: 'Guest Handling & Speed Rules',
         },
         {
-          question: 'Why do you want to drive tourists for Ladakh Vacation, and how do you make sure guests feel comfortable in your car?',
+          question: 'Why do you want to drive tourists for Falcon Trails, and how do you make sure guests feel comfortable in your car?',
           category: 'Customer Courtesy',
         },
       ];
@@ -613,7 +613,7 @@ Return strictly a valid JSON object with NO markdown formatting:
         category: 'Introduction',
       },
       {
-        question: `What do you think are the most important daily responsibilities for a ${role} at Ladakh Vacation?`,
+        question: `What do you think are the most important daily responsibilities for a ${role} at Falcon Trails?`,
         category: 'Job Understanding',
       },
       {
@@ -674,7 +674,7 @@ Return strictly a valid JSON object with NO markdown formatting:
       overallRating: rating,
       percentageScore: percentage,
       communicationLevel: commLevel,
-      strengths: `• Clearly answered ${answeredCount} of ${questionnaire.length} interview questions\n• Polite and respectful conversational tone\n• Eager to support Ladakh Vacation operations`,
+      strengths: `• Clearly answered ${answeredCount} of ${questionnaire.length} interview questions\n• Polite and respectful conversational tone\n• Eager to support Falcon Trails operations`,
       concerns: answeredCount < 4 ? '• Several questions were left brief or unanswered\n• Needs deeper role orientation' : '• Routine training on high altitude SOPs and CRM tools',
       outcome,
       outcomeNote: `Candidate ${candidateName} shows solid promise for ${role}. Overall score ${percentage}%. Recommended for ${outcome.toLowerCase().replace('_', ' ')}.`,

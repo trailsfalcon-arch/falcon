@@ -54,9 +54,9 @@ export function ItineraryDocument({ i }: { i: ItineraryInput }) {
   return (
     <Document
       title={`Itinerary ${i.code}`}
-      author="Ladakh Vacation"
+      author="Falcon Trails"
       subject={i.title}
-      creator="Ladakh Vacation CRM"
+      creator="Falcon Trails CRM"
     >
       {/* --- cover --- */}
       <Page size="A4" style={pdfStyles.page}>

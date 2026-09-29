@@ -13,7 +13,7 @@ import { PageHero } from '@/components/page-hero';
 export const metadata: Metadata = {
   title: 'Ladakh Tour Packages — 3 to 9 Nights, from Leh',
   description:
-    'Every Ladakh Vacation tour package in one place: Leh, Nubra, Pangong, Hanle, Kashmir to Ladakh, Manali to Leh and the bike trip. Day-by-day plans, clear inclusions, from ₹14,500 per person.',
+    'Every Falcon Trails tour package in one place: Leh, Nubra, Pangong, Hanle, Kashmir to Ladakh, Manali to Leh and the bike trip. Day-by-day plans, clear inclusions, from ₹14,500 per person.',
   alternates: { canonical: '/packages' },
 };
 
@@ -32,7 +32,7 @@ export default function PackagesIndex() {
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'Tour packages by Ladakh Vacation',
+      name: 'Tour packages by Falcon Trails',
       numberOfItems: PACKAGES.length,
       itemListElement: PACKAGES.map((p, i) => ({
         '@type': 'ListItem',

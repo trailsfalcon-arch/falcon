@@ -1,16 +1,16 @@
 /**
- * Brand mark: the real Ladakh Vacation emblem (the royal-blue banner in the
- * gold square), the same file the Ads landers use. Served from /public, so it
- * costs one small cached request (~8 KB webp).
+ * Brand mark: the Falcon Trails emblem (a falcon over a mountain ridge).
+ * Placeholder artwork, served from /public as a small SVG; swap the file for
+ * the final logo when it is designed.
  */
 export function Mark({ className = 'size-9' }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/lv-emblem.webp"
+      src="/ft-emblem.svg"
       alt=""
-      width={115}
-      height={120}
+      width={64}
+      height={64}
       className={`${className} object-contain`}
       aria-hidden
     />
@@ -32,7 +32,7 @@ export function Wordmark({
           className="text-[19px] font-bold tracking-tight"
           style={{ color: 'var(--color-gold-500)' }}
         >
-          LADAKH
+          FALCON
         </span>
         <span
           className="text-[10.5px] font-semibold tracking-[0.22em]"
@@ -40,7 +40,7 @@ export function Wordmark({
             color: light ? 'var(--color-paper-200)' : 'var(--color-pine-700)',
           }}
         >
-          VACATION
+          TRAILS
         </span>
       </span>
     </span>

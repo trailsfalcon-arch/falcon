@@ -1361,7 +1361,7 @@ export class LeadsService {
     const trip = [dest, nights, pax].filter(Boolean).join(', ');
 
     const draft = [
-      `Julley ${first}, this is Ladakh Vacation from Leh.`,
+      `Hello ${first}, this is Falcon Trails from Srinagar.`,
       when
         ? `I have your enquiry for ${trip}, travelling around ${when}.`
         : `I have your enquiry for ${trip}.`,

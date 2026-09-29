@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
-import { SITE } from '@/lib/site';
+import { SITE, HAS_RATING } from '@/lib/site';
 import { SiteChrome } from '@/components/site-chrome';
 import { RevealProvider, ScrollProgress } from '@/components/reveal';
 import './globals.css';
 
-/** The Ladakh Vacation brand pairing, as on the live landers. */
+/** The Falcon Trails brand pairing, as on the live landers. */
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   display: 'swap',
@@ -30,11 +30,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: {
-    default: 'Ladakh Tour Packages | Ladakh Vacation — Leh-based Tour Operator',
+    default: 'Kashmir & Ladakh Tour Packages | Falcon Trails — Srinagar-based Tour Operator',
     template: `%s | ${SITE.name}`,
   },
   description:
-    'Ladakh tour packages from a Leh-based team. Leh, Nubra, Pangong and Hanle, sequenced by altitude, with the environmental fee and permits handled, a private 4×4, oxygen on board and 24×7 support. WhatsApp +91 96229 55386.',
+    'Ladakh tour packages from a Srinagar-based team. Leh, Nubra, Pangong and Hanle, sequenced by altitude, with the environmental fee and permits handled, a private 4×4, oxygen on board and 24×7 support.',
   applicationName: SITE.name,
   authors: [{ name: SITE.name, url: SITE.domain }],
   creator: SITE.name,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   keywords: [
     'Ladakh tour packages',
     'Leh Ladakh tour package',
-    'travel agency in Leh',
+    'travel agency in Srinagar',
     'Nubra Valley tour',
     'Pangong Lake tour',
     'Hanle Dark Sky Reserve',
@@ -57,15 +57,15 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: SITE.domain,
     siteName: SITE.name,
-    title: 'Ladakh Tour Packages | Ladakh Vacation — Leh-based Tour Operator',
+    title: 'Kashmir & Ladakh Tour Packages | Falcon Trails — Srinagar-based Tour Operator',
     description:
-      'Ladakh, planned by Ladakhis. Tour packages sequenced by altitude, with permits, a private 4×4 and oxygen on board.',
+      'Kashmir & Ladakh, planned by locals. Tour packages sequenced by altitude, with permits, a private 4×4 and oxygen on board.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ladakh Tour Packages | Ladakh Vacation',
+    title: 'Kashmir & Ladakh Tour Packages | Falcon Trails',
     description:
-      'Ladakh, planned by Ladakhis. Leh, Nubra, Pangong and Hanle from a Leh-based team.',
+      'Kashmir & Ladakh, planned by locals. Leh, Nubra, Pangong and Hanle from a Srinagar-based team.',
   },
   robots: {
     index: true,
@@ -100,7 +100,7 @@ const orgJsonLd = {
   priceRange: '₹₹',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: SITE.address.street,
+    ...(SITE.address.street && { streetAddress: SITE.address.street }),
     addressLocality: SITE.address.city,
     addressRegion: SITE.address.region,
     postalCode: SITE.address.postalCode,
@@ -117,17 +117,21 @@ const orgJsonLd = {
     opens: '09:00',
     closes: '20:00',
   },
-  sameAs: [SITE.social.instagram, SITE.social.facebook],
+  sameAs: [SITE.social.instagram, SITE.social.facebook].filter(Boolean),
   areaServed: [
+    { '@type': 'Place', name: 'Kashmir' },
     { '@type': 'Place', name: 'Ladakh' },
-    { '@type': 'Place', name: 'Leh' },
+    { '@type': 'Place', name: 'Jammu' },
   ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: SITE.stats.rating,
-    reviewCount: SITE.stats.reviewCount,
-    bestRating: '5',
-  },
+  // Only Falcon Trails' own Google rating may go here (see SITE.stats).
+  ...(HAS_RATING && {
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: SITE.stats.rating,
+      reviewCount: SITE.stats.reviewCount,
+      bestRating: '5',
+    },
+  }),
 };
 
 const webSiteJsonLd = {

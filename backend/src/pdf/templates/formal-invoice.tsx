@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import { pdfStyles, pdfFonts, brand } from './theme';
 import { BrandHeader, BrandFooter, GoldRule, SellerIdentity, inr, shortDate } from './primitives';
+import { COMPANY } from '../../common/site';
 
 /**
  * Input shape for a formal GST invoice PDF. Mirrors the Invoice + InvoiceLineItem
@@ -57,24 +58,29 @@ export interface FormalInvoiceInput {
  */
 export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
   const comp = inv.companyProfile;
-  const brandName = comp?.brandName ?? 'Ladakh Vacation';
+  const brandName = comp?.brandName ?? COMPANY.name;
+  const state = comp?.state ?? COMPANY.region;
   const address = comp?.address
-    ? `${comp.address}, ${comp.city ?? 'Leh'}, ${comp.state ?? 'Ladakh'} - ${comp.pincode ?? '194101'}`
-    : 'Main Bazaar, Leh, UT of Ladakh — 194101';
-  const email = comp?.email ?? 'bookings@ladakhvacation.com';
-  const gstin = comp?.gstin ?? '38AABCL1234F1Z5';
-  const pan = comp?.pan ?? 'AABCL1234F';
+    ? [comp.address, comp.city ?? COMPANY.city, state].filter(Boolean).join(', ') +
+      (comp.pincode ? ` - ${comp.pincode}` : '')
+    : [COMPANY.street, COMPANY.city, COMPANY.region].filter(Boolean).join(', ');
+  const email = comp?.email ?? COMPANY.email;
+  // Never print a made-up registration. Without a GSTIN on the company
+  // profile the document is a plain invoice, not a GST tax invoice.
+  const gstin = comp?.gstin || null;
+  const pan = comp?.pan || null;
+  const hasBank = Boolean(comp?.bankName && comp?.accountNumber && comp?.ifscCode);
 
   return (
     <Document
       title={`Invoice ${inv.invoiceNumber}`}
-      author="Ladakh Vacation"
+      author="Falcon Trails"
       subject="GST Invoice"
-      creator="Ladakh Vacation CRM"
+      creator="Falcon Trails CRM"
     >
       <Page size="A4" style={pdfStyles.page}>
         <BrandHeader
-          docLabel="Tax Invoice"
+          docLabel={gstin ? 'Tax Invoice' : 'Invoice'}
           docNumber={inv.invoiceNumber}
           issuedOn={new Date(inv.createdAt)}
         />
@@ -95,9 +101,13 @@ export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
             </Text>
             <Text style={pdfStyles.small}>{address}</Text>
             <Text style={pdfStyles.small}>Email: {email}</Text>
-            <Text style={pdfStyles.small}>GSTIN: {gstin}  |  PAN: {pan}</Text>
+            {(gstin || pan) && (
+              <Text style={pdfStyles.small}>
+                {[gstin && `GSTIN: ${gstin}`, pan && `PAN: ${pan}`].filter(Boolean).join('  |  ')}
+              </Text>
+            )}
             <Text style={pdfStyles.small}>SAC Code: 998555 (Tour Operator Services)</Text>
-            <Text style={pdfStyles.small}>Place of Supply: UT of Ladakh (Code: 38)</Text>
+            {gstin && <Text style={pdfStyles.small}>Place of Supply: {state}</Text>}
             {comp?.bankName && comp?.accountNumber && (
               <Text style={{ ...pdfStyles.small, marginTop: 4, fontFamily: 'Helvetica-Bold' }}>
                 Bank: {comp.bankName} | A/C: {comp.accountNumber} | IFSC: {comp.ifscCode}
@@ -225,7 +235,8 @@ export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
           </View>
         </View>
 
-        {/* Bank Transfer & Payment Details */}
+        {/* Bank Transfer & Payment Details — only from Settings → Company profile */}
+        {hasBank && (
         <View
           style={{
             marginBottom: 16,
@@ -237,27 +248,19 @@ export function FormalInvoiceDocument({ inv }: { inv: FormalInvoiceInput }) {
           }}
         >
           <Text style={{ ...pdfStyles.sectionLabel, marginBottom: 4 }}>Bank Transfer / NEFT / RTGS Details</Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
-            <Text style={pdfStyles.small}>Beneficiary Name:</Text>
-            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>Ladakh Vacation</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
-            <Text style={pdfStyles.small}>Bank Name:</Text>
-            <Text style={{ ...pdfStyles.small, color: brand.ink }}>State Bank of India</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
-            <Text style={pdfStyles.small}>Branch:</Text>
-            <Text style={{ ...pdfStyles.small, color: brand.ink }}>Main Branch, Leh, Ladakh</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
-            <Text style={pdfStyles.small}>Account Number:</Text>
-            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>38910029384</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
-            <Text style={pdfStyles.small}>IFSC Code:</Text>
-            <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>SBIN0001365</Text>
-          </View>
+          {[
+            ['Beneficiary Name:', comp?.accountHolder || brandName],
+            ['Bank Name:', comp?.bankName],
+            ['Account Number:', comp?.accountNumber],
+            ['IFSC Code:', comp?.ifscCode],
+          ].map(([k, v]) => (
+            <View key={k} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 1 }}>
+              <Text style={pdfStyles.small}>{k}</Text>
+              <Text style={{ ...pdfStyles.small, fontWeight: 700, color: brand.ink }}>{v}</Text>
+            </View>
+          ))}
         </View>
+        )}
 
         {inv.notes && (
           <View style={{ marginTop: 4, marginBottom: 12 }}>

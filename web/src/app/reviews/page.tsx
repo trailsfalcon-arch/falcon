@@ -1,19 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { Star } from 'lucide-react';
-import { SITE } from '@/lib/site';
+import { SITE, HAS_RATING } from '@/lib/site';
 import { REVIEWS } from '@/lib/reviews';
 import { ReviewCard, SectionHead, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 
 export const metadata: Metadata = {
-  title: 'Guest Reviews — What Travellers Say About Ladakh Vacation',
-  description: `What travellers say about their Ladakh trips with Ladakh Vacation. Rated ${SITE.stats.rating} out of 5 across ${SITE.stats.reviewCount.toLocaleString('en-IN')}+ reviews on Google.`,
+  title: 'Guest Reviews — What Travellers Say About Falcon Trails',
+  description: 'What travellers say about their Kashmir and Ladakh trips with Falcon Trails.',
   alternates: { canonical: '/reviews' },
 };
 
 export default function ReviewsPage() {
+  // No page until there are real reviews to show.
+  if (REVIEWS.length === 0) notFound();
+
   const jsonLd = [
     {
       '@context': 'https://schema.org',
@@ -30,12 +34,13 @@ export default function ReviewsPage() {
       <JsonLd data={jsonLd} />
 
       <PageHero
-        kicker={`${SITE.stats.rating} out of 5 · ${SITE.stats.reviewCount} reviews`}
+        kicker={HAS_RATING ? `${SITE.stats.rating} out of 5 · ${SITE.stats.reviewCount} reviews` : 'Guest reviews'}
         title="The reviews are the itinerary."
         lede="A few of the things travellers have told us after their trips. The full, unfiltered set lives on our Google Business Profile."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]}
         background="linear-gradient(180deg, rgba(10,8,4,0.42) 0%, rgba(10,8,4,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #a8842f 0%, #634d22 46%, #120d04 100%)"
       >
+        {HAS_RATING && (
         <div className="flex items-center gap-3">
           <div className="flex gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -46,6 +51,7 @@ export default function ReviewsPage() {
             Averaged across Google and direct guest feedback
           </span>
         </div>
+        )}
       </PageHero>
 
       <section className="mesh-warm section">

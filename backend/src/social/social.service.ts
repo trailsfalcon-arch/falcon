@@ -345,7 +345,7 @@ export class SocialService {
         { keyword: 'Hemis festival', trend: 'Jun–Jul', volume: '' },
       ],
       bestHashtagsByPlatform: {
-        instagram: ['#Ladakh', '#LehLadakh', '#PangongTso', '#NubraValley', '#LadakhVacation'],
+        instagram: ['#Ladakh', '#LehLadakh', '#PangongTso', '#NubraValley', '#FalconTrails'],
         facebook: ['#LadakhTourism', '#LehLadakh', '#LadakhTour', '#IncredibleIndia'],
         pinterest: ['Ladakh Travel Guide', 'Leh Ladakh Road Trip', 'Pangong Lake', 'Hanle Dark Sky'],
       },

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!d) return {};
 
   const title = `${d.seoTitle} — ${d.idealDuration} from ${inr(d.startingFrom)}`;
-  const description = `${d.seoTitle} from a Leh-based team. ${d.regions
+  const description = `${d.seoTitle} from a Srinagar-based team. ${d.regions
     .slice(0, 4)
     .map((r) => r.name)
     .join(', ')}. Best time: ${d.bestMonths}. All-inclusive itineraries from ${inr(d.startingFrom)} per person.`;

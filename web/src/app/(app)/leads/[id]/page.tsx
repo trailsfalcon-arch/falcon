@@ -197,7 +197,7 @@ export default function LeadDetailPage() {
             <a
               href={whatsappHref(
                 lead.phone,
-                `Julley ${lead.name}, this is Ladakh Vacation regarding your ${lead.destination || 'Ladakh'} enquiry.`,
+                `Hello ${lead.name}, this is Falcon Trails regarding your ${lead.destination || 'Ladakh'} enquiry.`,
               )}
               target="_blank"
               rel="noreferrer"

@@ -27,10 +27,10 @@ export class HrService {
   // Employees
   // ==========================================================================
 
-  /** LV-EMP-2026-0001 style, sequential per year. */
+  /** FT-EMP-2026-0001 style, sequential per year. */
   private async nextEmployeeCode(): Promise<string> {
     const year = new Date().getFullYear();
-    const prefix = `LV-EMP-${year}-`;
+    const prefix = `FT-EMP-${year}-`;
     const last = await this.prisma.employee.findFirst({
       where: { code: { startsWith: prefix } },
       orderBy: { code: 'desc' },

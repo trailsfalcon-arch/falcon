@@ -3,15 +3,15 @@
  *
  * NOTE ON TOKEN STORAGE: the JWT lives in localStorage. That is readable by
  * any script running on the page, so it is only acceptable because this is an
- * internal tool on a domain you control. If Ladakh Vacation ever becomes a product sold
+ * internal tool on a domain you control. If Falcon Trails ever becomes a product sold
  * to other DMCs, move to an httpOnly cookie set by the backend.
  */
 
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api';
 
-const TOKEN_KEY = 'lv.token';
-const USER_KEY = 'lv.user';
+const TOKEN_KEY = 'ft.token';
+const USER_KEY = 'ft.user';
 
 export interface SessionUser {
   id: string;
@@ -344,8 +344,8 @@ export const WEB_PROPERTY_LABELS: Record<WebProperty, string> = {
 };
 
 export const WEB_PROPERTY_HOSTS: Record<WebProperty, string> = {
-  LANDERS: 'go.ladakhvacation.in',
-  WEBSITE: 'ladakhvacation.in',
+  LANDERS: 'go.falcontrails.in',
+  WEBSITE: 'falcontrails.in',
   CRM: 'staff app, not visitor facing',
 };
 

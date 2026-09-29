@@ -194,7 +194,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && signIn()}
-                placeholder="you@ladakhvacation.in"
+                placeholder="you@falcontrails.in"
               />
             </div>
 
@@ -238,10 +238,10 @@ export default function LoginPage() {
 
             <p className="pt-4 text-center text-[11.5px] text-ink-500">
               <a
-                href="https://ladakhvacation.in"
+                href="https://falcontrails.in"
                 className="hover:text-brand-500 transition-colors"
               >
-                ← Back to ladakhvacation.in
+                ← Back to falcontrails.in
               </a>
             </p>
           </div>

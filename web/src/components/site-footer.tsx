@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Star } from 'lucide-react';
-import { SITE } from '@/lib/site';
+import { SITE, HAS_RATING, addressLine } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
 import { PACKAGES } from '@/lib/packages';
@@ -43,11 +43,11 @@ export function SiteFooter() {
         <div className="md:col-span-4">
           <Wordmark light />
           <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed text-paper-200/70">
-            A Ladakh-registered tour operator with an office in Leh, running
-            Ladakh journeys since {SITE.founded}. The people planning your trip
-            are the people running it.
+            A Srinagar-based travel company planning Kashmir, Ladakh and Jammu
+            journeys. The people planning your trip are the people running it.
           </p>
 
+          {HAS_RATING && (
           <div className="mt-5 flex items-center gap-2">
             <div className="flex gap-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -58,12 +58,13 @@ export function SiteFooter() {
               {SITE.stats.rating} from {SITE.stats.reviewCount} reviews
             </span>
           </div>
+          )}
 
           <div className="mt-5 flex gap-2.5">
             {[
               [SITE.social.instagram, Instagram, 'Instagram'],
               [SITE.social.facebook, Facebook, 'Facebook'],
-            ].map(([href, Icon, label]) => {
+            ].filter(([href]) => href).map(([href, Icon, label]) => {
               const I = Icon as typeof Instagram;
               return (
                 <a
@@ -145,7 +146,7 @@ export function SiteFooter() {
             <li className="flex gap-2.5 text-paper-200/60">
               <MapPin className="mt-0.5 size-3.5 shrink-0" strokeWidth={1.8} />
               <span>
-                {SITE.address.street}, {SITE.address.city}
+                {addressLine()}
                 <br />
                 {SITE.address.region} {SITE.address.postalCode}
               </span>
@@ -175,7 +176,7 @@ export function SiteFooter() {
             <Link href="/contact" className="transition-colors hover:text-gold-300">
               Contact
             </Link>
-            <span>Planned in Leh, Ladakh.</span>
+            <span>Planned in Srinagar, Kashmir.</span>
           </div>
         </div>
       </div>

@@ -18,11 +18,10 @@ import {
  * Queries containing any of these count as BRAND searches (people who already
  * know the business) rather than organic discovery.
  *
- * Only the one-word form. "ladakh vacation" with a space is also a generic
- * phrase ("ladakh vacation packages"), and counting those as brand searches
- * would hide how much discovery traffic the site actually earns.
+ * "falcon trails" is not a generic travel phrase, so both the spaced and
+ * the one-word (domain) forms count as brand searches.
  */
-const BRAND_TERMS = ['ladakhvacation'];
+const BRAND_TERMS = ['falcontrails', 'falcon trails'];
 
 /** Reports are recomputed from stored rows; this only saves repeat work on page load. */
 const CACHE_MS = 60_000;

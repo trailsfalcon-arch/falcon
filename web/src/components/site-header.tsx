@@ -8,6 +8,7 @@ import { SITE, inr } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
 import { Wordmark } from './logo';
+import { REVIEWS } from '@/lib/reviews';
 
 type Drop = 'destinations' | 'styles' | null;
 
@@ -106,9 +107,11 @@ export function SiteHeader() {
               onEnter={() => setDrop('styles')}
               onToggle={() => setDrop(drop === 'styles' ? null : 'styles')}
             />
-            <Link href="/reviews" className={linkBase}>
-              Reviews
-            </Link>
+            {REVIEWS.length > 0 && (
+              <Link href="/reviews" className={linkBase}>
+                Reviews
+              </Link>
+            )}
             <Link href="/about" className={linkBase}>
               About
             </Link>
@@ -235,7 +238,7 @@ export function SiteHeader() {
               <div className="mt-2 space-y-0.5">
                 {[
                   ['/packages', 'All packages'],
-                  ['/reviews', 'Reviews'],
+                  ...(REVIEWS.length > 0 ? [['/reviews', 'Reviews']] : []),
                   ['/about', 'About us'],
                   ['/partner-with-us', 'Travel agent partners'],
                   ['/contact', 'Contact'],

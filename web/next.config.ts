@@ -31,7 +31,7 @@ const config: NextConfig = {
   },
 
   async redirects() {
-    // The Ads landers on go.ladakhvacation.in use flat slugs
+    // The Ads landers on go.falcontrails.in use flat slugs
     // (/4-nights-ladakh-tour/, /ladakh-tour-from-delhi/). The same paths on
     // the main domain send people to the equivalent page here, so a lander
     // URL typed or shared against the wrong host still lands somewhere useful.

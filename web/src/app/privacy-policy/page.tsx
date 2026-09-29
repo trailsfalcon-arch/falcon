@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/page-hero';
 import { JsonLd } from '@/components/cards';
-import { SITE } from '@/lib/site';
+import { SITE, addressLine } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Ladakh Vacation',
+  title: 'Privacy Policy — Falcon Trails',
   description:
-    'Learn how Ladakh Vacation collects, protects, and manages customer travel enquiry data, cookies, and communications in accordance with data protection standards.',
+    'Learn how Falcon Trails collects, protects, and manages customer travel enquiry data, cookies, and communications in accordance with data protection standards.',
   alternates: { canonical: '/privacy-policy' },
 };
 
@@ -14,8 +14,8 @@ export default function PrivacyPolicyPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Privacy Policy — Ladakh Vacation',
-    description: 'Privacy Policy and data protection terms for Ladakh Vacation.',
+    name: 'Privacy Policy — Falcon Trails',
+    description: 'Privacy Policy and data protection terms for Falcon Trails.',
     url: `${SITE.domain}/privacy-policy`,
     publisher: { '@id': `${SITE.domain}/#org` },
   };
@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="mt-3 list-disc pl-6 space-y-1.5 text-[14.5px] text-ink-700">
                 <li>Designing tailored day-by-day travel itineraries and generating transparent price estimates.</li>
-                <li>Connecting you with an assigned trip planner in Leh via phone, WhatsApp, or email.</li>
+                <li>Connecting you with an assigned trip planner via phone, WhatsApp, or email.</li>
                 <li>Processing hotel, camp and local transport bookings upon quotation confirmation.</li>
                 <li><strong>Strict Supplier Protection:</strong> We never sell, rent, or trade your personal information to third-party marketing databases.</li>
               </ul>
@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="mt-4 p-5 rounded-2xl bg-paper-100 border border-paper-200 text-[14px] text-ink-800">
                 <p className="font-semibold text-ink-950">{SITE.legalName}</p>
-                <p>{SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}, India</p>
+                <p>{addressLine()}, {SITE.address.region} {SITE.address.postalCode}, India</p>
                 <p className="mt-1">Direct: {SITE.phone.display} · Email: {SITE.email}</p>
               </div>
             </div>

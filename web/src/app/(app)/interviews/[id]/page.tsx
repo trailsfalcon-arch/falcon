@@ -125,9 +125,9 @@ export default function InterviewDetailPage() {
   function openWhatsAppInvite() {
     if (!iv) return;
     const cleanPhone = iv.candidatePhone.replace(/[^0-9]/g, '');
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://ladakhvacation.in';
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://falcontrails.in';
     const link = `${origin}/interview/session/${iv.id}`;
-    const message = `Hello ${iv.candidateName}, greetings from Ladakh Vacation! We invite you to complete your friendly AI interview session for the position of "${iv.role}".\n\nPlease click this link to begin in simple English:\n${link}\n\nAll the best!`;
+    const message = `Hello ${iv.candidateName}, greetings from Falcon Trails! We invite you to complete your friendly AI interview session for the position of "${iv.role}".\n\nPlease click this link to begin in simple English:\n${link}\n\nAll the best!`;
     const waUrl = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
   }

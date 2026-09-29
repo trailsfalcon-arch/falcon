@@ -29,6 +29,14 @@ export const metadata = {
   alternates: { canonical: '/' },
 };
 
+/** Eight cards on the home grid: four Kashmir, four Ladakh. */
+const HOME_DESTINATIONS = [
+  'srinagar', 'gulmarg', 'pahalgam', 'offbeat-kashmir',
+  'leh', 'ladakh-monasteries', 'nubra-pangong', 'hanle',
+]
+  .map((slug) => DESTINATIONS.find((d) => d.slug === slug))
+  .filter((d): d is (typeof DESTINATIONS)[number] => Boolean(d));
+
 const TRUST = [
   'Srinagar-based, not a reseller',
   'Kashmir, Ladakh & Jammu',
@@ -181,8 +189,8 @@ export default function HomePage() {
               kicker="Where we take you"
               title={
                 <>
-                  Four Ladakhs,
-                  <br className="hidden md:block" /> one journey.
+                  Kashmir &amp; Ladakh,
+                  <br className="hidden md:block" /> one team.
                 </>
               }
             />
@@ -200,7 +208,7 @@ export default function HomePage() {
             data-reveal-group
             className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {DESTINATIONS.map((d) => (
+            {HOME_DESTINATIONS.map((d) => (
               <DestinationCard key={d.slug} d={d} />
             ))}
           </div>
@@ -211,9 +219,9 @@ export default function HomePage() {
       <section className="section border-t border-paper-200 bg-paper-100">
         <div className="wrap">
           <SectionHead
-            kicker="Most booked"
-            title="Itineraries that keep coming back."
-            lede="Every package below is a starting point — tell us your dates and group and we will reshape it around you. Prices are per person on twin-sharing."
+            kicker="Where to start"
+            title="Routes worth building on."
+            lede="Every package below is a starting point: tell us your dates and group and we will reshape it around you. Prices, where shown, are per person on twin-sharing."
           />
 
           <div data-reveal-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">

@@ -65,6 +65,13 @@ const config: NextConfig = {
       { source: '/travel-agency-in-leh', destination: '/about', permanent: true },
 
       // Short vanity URLs → destination hubs.
+      { source: '/kashmir', destination: '/packages/kashmir-tour-packages', permanent: true },
+      { source: '/srinagar', destination: '/destinations/srinagar', permanent: true },
+      { source: '/gulmarg', destination: '/destinations/gulmarg', permanent: true },
+      { source: '/pahalgam', destination: '/destinations/pahalgam', permanent: true },
+      { source: '/sonmarg', destination: '/destinations/sonmarg', permanent: true },
+      { source: '/offbeat-kashmir', destination: '/destinations/offbeat-kashmir', permanent: true },
+      { source: '/gurez', destination: '/packages/gurez-valley-tour', permanent: true },
       { source: '/leh', destination: '/destinations/leh', permanent: true },
       { source: '/monasteries', destination: '/destinations/ladakh-monasteries', permanent: true },
       { source: '/nubra', destination: '/destinations/nubra-pangong', permanent: true },

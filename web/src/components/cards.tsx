@@ -4,7 +4,7 @@ import { ArrowUpRight, Clock, MapPin, Star } from 'lucide-react';
 import type { Destination } from '@/lib/destinations';
 import { TONE_BG } from '@/lib/destinations';
 import type { Pkg } from '@/lib/packages';
-import { inr } from '@/lib/site';
+import { fromPrice, inr } from '@/lib/site';
 import type { Review } from '@/lib/reviews';
 
 /* ---------------------------------------------------------------- destination */
@@ -38,7 +38,7 @@ export function DestinationCard({ d, tall = false }: { d: Destination; tall?: bo
 
       <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
         <div className="kicker kicker-light">
-          {d.idealDuration} · from {inr(d.startingFrom)}
+          {d.idealDuration} · {fromPrice(d.startingFrom)}
         </div>
         <h3 className="display mt-2 text-[27px] leading-none text-paper-50 md:text-[31px]">
           {d.name}
@@ -130,11 +130,11 @@ export function PackageCard({ p }: { p: Pkg }) {
 
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
           <div>
-            <p className="text-[10.5px] uppercase tracking-[0.12em] text-ink-500">From</p>
+            <p className="text-[10.5px] uppercase tracking-[0.12em] text-ink-500">{p.priceFrom ? 'From' : 'Pricing'}</p>
             <p className="display text-[24px] leading-none text-ink-900">
-              {inr(p.priceFrom)}
+              {p.priceFrom ? inr(p.priceFrom) : 'On request'}
             </p>
-            <p className="mt-0.5 text-[11px] text-ink-500">per person</p>
+            <p className="mt-0.5 text-[11px] text-ink-500">{p.priceFrom ? 'per person' : 'quoted for your dates'}</p>
           </div>
           <Link
             href={`/packages/${p.slug}`}

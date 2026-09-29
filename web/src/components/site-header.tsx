@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Menu, X, Phone, ChevronDown, ArrowRight } from 'lucide-react';
-import { SITE, inr } from '@/lib/site';
-import { DESTINATIONS } from '@/lib/destinations';
+import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd } from '@/lib/site';
+import { DESTINATIONS, REGION_NAMES } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
 import { REVIEWS } from '@/lib/reviews';
 import { Wordmark } from './logo';
@@ -152,7 +152,7 @@ export function SiteHeader() {
           ].join(' ')}
         >
           {drop === 'destinations' && (
-            <div className="wrap grid grid-cols-4 gap-3 py-8">
+            <div className="wrap grid grid-cols-5 gap-3 py-8">
               {DESTINATIONS.map((d) => (
                 <Link
                   key={d.slug}
@@ -164,10 +164,10 @@ export function SiteHeader() {
                     <ArrowRight className="arrow-slide size-4 text-gold-600 opacity-0 transition-opacity group-hover:opacity-100" />
                   </div>
                   <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-500">
-                    {d.regions.length} regions · {d.idealDuration}
+                    {d.regions.length} places · {d.idealDuration}
                   </p>
                   <p className="mt-2 text-[12px] font-medium text-gold-700">
-                    from {inr(d.startingFrom)} pp
+                    {d.startingFrom ? `${fromPrice(d.startingFrom)} pp` : REGION_NAMES[d.region]}
                   </p>
                 </Link>
               ))}
@@ -223,7 +223,7 @@ export function SiteHeader() {
                   <MobileLink key={d.slug} href={`/destinations/${d.slug}`}>
                     {d.name}
                     <span className="text-[12px] text-ink-500">
-                      from {inr(d.startingFrom)}
+                      {d.startingFrom ? fromPrice(d.startingFrom) : REGION_NAMES[d.region]}
                     </span>
                   </MobileLink>
                 ))}

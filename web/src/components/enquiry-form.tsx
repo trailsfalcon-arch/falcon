@@ -153,6 +153,8 @@ export function EnquiryForm({
               className={`${field} cursor-pointer appearance-none`}
             >
               <option value="">Not sure yet</option>
+              <option value="Kashmir" className="text-ink-900">Kashmir (anywhere)</option>
+              <option value="Ladakh" className="text-ink-900">Ladakh (anywhere)</option>
               {DESTINATIONS.map((d) => (
                 <option key={d.slug} value={d.name} className="text-ink-900">
                   {d.name}
@@ -190,7 +192,7 @@ export function EnquiryForm({
             placeholder={
               packageName
                 ? `Interested in ${packageName} — tell us group size, dates, anything specific.`
-                : 'E.g. 7 nights in Ladakh in late June, family of four, one grandparent.'
+                : 'E.g. 6 nights in Kashmir in late April, family of four, one grandparent.'
             }
           />
         </label>

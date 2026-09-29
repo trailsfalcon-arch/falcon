@@ -1,4 +1,4 @@
-import type { Tone } from './destinations';
+import type { Region, Tone } from './destinations';
 
 /**
  * Tour packages — the "spoke" pages in our hub-and-spoke SEO model, and the
@@ -6,9 +6,9 @@ import type { Tone } from './destinations';
  * itinerary, honest inclusions/exclusions and FAQs, because thin price-list
  * pages do not rank and do not convert.
  *
- * The eleven packages, their prices, day-by-day text and FAQs are the same
- * ones the Google Ads landers at go.falcontrails.in sell (that site's
- * build/pages.js), so a traveller never sees two versions of one trip.
+ * Kashmir packages come first and are priced on request. The Ladakh packages
+ * were inherited from the Ladakh Vacation site: their itineraries, inclusions
+ * and prices must be checked and replaced with Falcon Trails' own.
  *
  * Prices are per-person on twin-sharing, the convention every Indian traveller
  * already expects. They are starting points, not quotes.
@@ -16,6 +16,8 @@ import type { Tone } from './destinations';
 
 export type Pkg = {
   slug: string;
+  /** Defaults to 'ladakh' for the inherited packages. */
+  region?: Region;
   name: string;
   /** Primary destination hub. Groups the package on /packages. */
   destination: string;
@@ -24,7 +26,8 @@ export type Pkg = {
   regions: string[];
   nights: number;
   days: number;
-  priceFrom: number;
+  /** Per-person starting price. Omitted = price on request. */
+  priceFrom?: number;
   /** Travel-style slugs this package suits. Drives /travel-styles pages. */
   styles: string[];
   summary: string;
@@ -42,6 +45,8 @@ export type Pkg = {
   inclusions: string[];
   exclusions: string[];
   faqs: { q: string; a: string }[];
+  /** "Who this is not for" advisory. Omitted = the Ladakh altitude advisory. */
+  notFor?: { title: string; body: string }[];
   tone: Tone;
   image: string;
   /** Surfaces on the home page and the packages index as a featured card. */
@@ -49,6 +54,296 @@ export type Pkg = {
 };
 
 export const PACKAGES: Pkg[] = [
+  // ─────────────────────────────── KASHMIR ───────────────────────────────
+  // Priced on request: the quote confirms stays, inclusions and price.
+  {
+    slug: 'kashmir-tour-package-5-nights',
+    region: 'kashmir',
+    name: 'Kashmir Classic',
+    destination: 'srinagar',
+    destinationName: 'Kashmir',
+    regions: ['srinagar', 'sonmarg', 'gulmarg', 'pahalgam'],
+    nights: 5,
+    days: 6,
+    styles: [],
+    summary:
+      'The four names everyone comes for, in an order that keeps the driving sensible: a houseboat night in Srinagar, Sonmarg, an overnight in Gulmarg, and two nights by the river in Pahalgam.',
+    route: ['Srinagar', 'Sonmarg', 'Gulmarg', 'Pahalgam', 'Srinagar'],
+    bestMonths: 'Mar–Nov',
+    idealFor: 'First-time visitors, families and couples who want the classic Kashmir circuit',
+    itinerary: [
+      {
+        day: 1,
+        title: 'Arrive in Srinagar · houseboat and shikara',
+        body: 'Pickup at Srinagar airport or the railway station and transfer to your houseboat on Dal or Nigeen Lake. In the late afternoon, a shikara ride on the lake as the light goes.',
+        stay: 'Houseboat, Srinagar',
+        meals: 'Dinner',
+      },
+      {
+        day: 2,
+        title: 'Day trip to Sonmarg',
+        body: 'Drive up the Sindh valley to Sonmarg. Walk or take a pony to the Thajiwas glacier, where there is usually snow into early summer. Back to Srinagar for the night.',
+        stay: 'Hotel, Srinagar',
+        meals: 'Breakfast, dinner',
+      },
+      {
+        day: 3,
+        title: 'Srinagar to Gulmarg · the gondola',
+        body: 'Drive to Gulmarg through Tangmarg. Ride the gondola to Kongdoori, and on to Apharwat when phase 2 is running (tickets booked in advance). Evening on the meadow after the day-trippers leave.',
+        stay: 'Hotel, Gulmarg',
+        meals: 'Breakfast, dinner',
+      },
+      {
+        day: 4,
+        title: 'Gulmarg to Pahalgam',
+        body: 'The longest drive of the trip, broken with stops at the saffron fields of Pampore, the Awantipora ruins and a willow cricket-bat workshop. Arrive in Pahalgam by the Lidder river.',
+        stay: 'Hotel, Pahalgam',
+        meals: 'Breakfast, dinner',
+      },
+      {
+        day: 5,
+        title: 'Aru, Betaab and Chandanwari',
+        body: 'A full day in the side valleys by local union cab: Aru up the Lidder, Betaab on the Chandanwari road, and Chandanwari itself. Access to some meadows changes; we confirm before you travel.',
+        stay: 'Hotel, Pahalgam',
+        meals: 'Breakfast, dinner',
+      },
+      {
+        day: 6,
+        title: 'Pahalgam to Srinagar · departure',
+        body: 'Drive back to Srinagar. With an evening flight there is time for Nishat or Shalimar Bagh on the way to the airport.',
+        meals: 'Breakfast',
+      },
+    ],
+    inclusions: [
+      'Stays as per itinerary on twin-sharing, including one night on a houseboat',
+      'Daily breakfast and dinner',
+      'Private vehicle with driver for transfers and sightseeing on the itinerary',
+      'One shikara ride on Dal Lake',
+      'Airport or railway station pickup and drop',
+      'Driver allowance, tolls and parking',
+    ],
+    exclusions: [
+      'Flights or train fare to and from Srinagar',
+      'Gulmarg gondola tickets',
+      'Local union cabs at Pahalgam, Gulmarg and Sonmarg, and pony rides',
+      'Lunch, entry fees and personal expenses',
+      'Anything not listed under inclusions',
+    ],
+    faqs: [
+      {
+        q: 'Why stay overnight in Gulmarg instead of a day trip?',
+        a: 'It turns the longest drive of the trip into two shorter ones, and you see the meadow early and late without the crowds.',
+      },
+      {
+        q: 'Can we swap Sonmarg for Doodhpathri?',
+        a: 'Yes. Doodhpathri is quieter and closer to Srinagar. Tell us what you prefer and we rebuild the day around it.',
+      },
+      {
+        q: 'Why is there no price shown?',
+        a: 'Prices depend heavily on the season, the hotel and houseboat category, and your group size. We send a written, itemised quote for your dates instead of a starting price that rarely matches.',
+      },
+    ],
+    notFor: [
+      { title: 'Travellers who want everything in one base', body: 'This route moves between four places. If you would rather unpack once, ask for a Srinagar-based plan with day trips.' },
+      { title: 'Anyone expecting snow in summer', body: 'Between June and September there is snow only at high points such as Apharwat and the Thajiwas glacier, not in the towns.' },
+      { title: 'Travellers who need connectivity everywhere', body: 'Prepaid SIMs from outside Jammu & Kashmir do not work here. Postpaid connections do.' },
+    ],
+    tone: 'lake',
+    image: '',
+    featured: true,
+  },
+  {
+    slug: 'kashmir-tour-package-7-nights',
+    region: 'kashmir',
+    name: 'Kashmir in Depth',
+    destination: 'srinagar',
+    destinationName: 'Kashmir',
+    regions: ['srinagar', 'offbeat-kashmir', 'gulmarg', 'pahalgam', 'sonmarg'],
+    nights: 7,
+    days: 8,
+    styles: [],
+    summary:
+      'The classic circuit with room to breathe: the old city of Srinagar on foot, a quiet day in the Doodhpathri meadows, two nights each in Gulmarg and Pahalgam, and a last night back on the lake.',
+    route: ['Srinagar', 'Doodhpathri', 'Gulmarg', 'Pahalgam', 'Sonmarg', 'Srinagar'],
+    bestMonths: 'Apr–Oct',
+    idealFor: 'Travellers who want Kashmir at an unhurried pace, including the places day-trippers skip',
+    itinerary: [
+      { day: 1, title: 'Arrive in Srinagar · houseboat', body: 'Transfer to your houseboat on Nigeen or Dal Lake. Evening shikara ride.', stay: 'Houseboat, Srinagar', meals: 'Dinner' },
+      { day: 2, title: 'Old city and Mughal gardens', body: 'Morning in the old city: Jamia Masjid, Khanqah-e-Moula and the lanes by the Jhelum. Afternoon at Nishat, Shalimar and Chashme Shahi, and the view from Pari Mahal.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 3, title: 'Day in Doodhpathri', body: 'Drive about an hour and a half to the Doodhpathri meadows. Walk along the Shaliganga stream and picnic well away from the crowds. Back to Srinagar.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 4, title: 'Srinagar to Gulmarg', body: 'Drive to Gulmarg. Afternoon on the meadow or up to Khilanmarg.', stay: 'Hotel, Gulmarg', meals: 'Breakfast, dinner' },
+      { day: 5, title: 'Gulmarg gondola', body: 'A full day for the gondola, phase 2 to Apharwat when the weather allows, with no rush to get back down.', stay: 'Hotel, Gulmarg', meals: 'Breakfast, dinner' },
+      { day: 6, title: 'Gulmarg to Pahalgam', body: 'Drive via Pampore’s saffron fields and Awantipora to Pahalgam.', stay: 'Hotel, Pahalgam', meals: 'Breakfast, dinner' },
+      { day: 7, title: 'Aru and Betaab valleys', body: 'Side valleys by local cab, and an afternoon by the Lidder.', stay: 'Hotel, Pahalgam', meals: 'Breakfast, dinner' },
+      { day: 8, title: 'Pahalgam to Srinagar · departure', body: 'Drive back to Srinagar for your onward journey. Sonmarg can replace a Pahalgam day if you prefer glacier to river valley.', meals: 'Breakfast' },
+    ],
+    inclusions: [
+      'Stays as per itinerary on twin-sharing, including one night on a houseboat',
+      'Daily breakfast and dinner',
+      'Private vehicle with driver for transfers and sightseeing on the itinerary',
+      'One shikara ride on Dal Lake',
+      'Airport or railway station pickup and drop',
+      'Driver allowance, tolls and parking',
+    ],
+    exclusions: [
+      'Flights or train fare to and from Srinagar',
+      'Gulmarg gondola tickets',
+      'Local union cabs and pony rides',
+      'Lunch, entry fees and personal expenses',
+      'Anything not listed under inclusions',
+    ],
+    faqs: [
+      { q: 'Is eight days too long for Kashmir?', a: 'Not if you want to enjoy it rather than tick it off. The extra days go to the old city, Doodhpathri and a second night in Gulmarg, which are the parts people most often wish they had time for.' },
+      { q: 'Why is there no price shown?', a: 'Prices depend on the season, hotel and houseboat category and group size. We send a written, itemised quote for your dates.' },
+    ],
+    notFor: [
+      { title: 'Travellers who want everything in one base', body: 'This route moves between several places. Ask for a Srinagar-based plan with day trips if you would rather unpack once.' },
+      { title: 'Travellers who need connectivity everywhere', body: 'Prepaid SIMs from outside Jammu & Kashmir do not work here. Postpaid connections do.' },
+    ],
+    tone: 'meadow',
+    image: '',
+  },
+  {
+    slug: 'kashmir-honeymoon-package',
+    region: 'kashmir',
+    name: 'Kashmir Honeymoon',
+    destination: 'srinagar',
+    destinationName: 'Kashmir',
+    regions: ['srinagar', 'gulmarg', 'pahalgam'],
+    nights: 5,
+    days: 6,
+    styles: [],
+    summary:
+      'A slower Kashmir for two: a houseboat night on Nigeen, a sunset shikara, a night on the meadow in Gulmarg and two by the river in Pahalgam, with a private car throughout.',
+    route: ['Srinagar', 'Gulmarg', 'Pahalgam', 'Srinagar'],
+    bestMonths: 'Mar–Jun, Sep–Nov',
+    idealFor: 'Couples who want privacy and a gentle pace rather than a packed schedule',
+    itinerary: [
+      { day: 1, title: 'Arrive · houseboat on Nigeen', body: 'Transfer to a houseboat on quiet Nigeen Lake. Sunset shikara ride.', stay: 'Houseboat, Srinagar', meals: 'Dinner' },
+      { day: 2, title: 'Gardens and Pari Mahal', body: 'A slow day in the Mughal gardens and at Pari Mahal, with the evening free.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 3, title: 'Srinagar to Gulmarg', body: 'Drive to Gulmarg for the gondola and an evening on the meadow.', stay: 'Hotel, Gulmarg', meals: 'Breakfast, dinner' },
+      { day: 4, title: 'Gulmarg to Pahalgam', body: 'Drive to Pahalgam via the saffron fields of Pampore.', stay: 'Hotel, Pahalgam', meals: 'Breakfast, dinner' },
+      { day: 5, title: 'Aru and Betaab', body: 'The side valleys in the morning, the afternoon to yourselves by the Lidder.', stay: 'Hotel, Pahalgam', meals: 'Breakfast, dinner' },
+      { day: 6, title: 'Departure', body: 'Drive back to Srinagar for your flight or train.', meals: 'Breakfast' },
+    ],
+    inclusions: [
+      'Stays as per itinerary, including one night on a houseboat',
+      'Daily breakfast and dinner',
+      'Private vehicle with driver throughout',
+      'Sunset shikara ride',
+      'Airport or railway station pickup and drop',
+    ],
+    exclusions: [
+      'Flights or train fare',
+      'Gondola tickets, local union cabs and pony rides',
+      'Lunch, entry fees and personal expenses',
+    ],
+    faqs: [
+      { q: 'Can you arrange room decoration or a special dinner?', a: 'Tell us what you have in mind when you enquire. We confirm what each hotel can do, and the cost, in your quote.' },
+      { q: 'Why is there no price shown?', a: 'It depends on the hotel and houseboat category you choose. We send a written, itemised quote.' },
+    ],
+    notFor: [
+      { title: 'Travellers who want everything in one base', body: 'This route moves between several places. Ask for a Srinagar-based plan with day trips if you would rather unpack once.' },
+      { title: 'Travellers who need connectivity everywhere', body: 'Prepaid SIMs from outside Jammu & Kashmir do not work here. Postpaid connections do.' },
+    ],
+    tone: 'lake',
+    image: '',
+  },
+  {
+    slug: 'gurez-valley-tour',
+    region: 'kashmir',
+    name: 'Offbeat Kashmir: Gurez & Doodhpathri',
+    destination: 'offbeat-kashmir',
+    destinationName: 'Kashmir',
+    regions: ['srinagar', 'offbeat-kashmir'],
+    nights: 6,
+    days: 7,
+    styles: [],
+    summary:
+      'Two nights in the Gurez valley on the Kishanganga, over the Razdan pass, plus a day in the Doodhpathri meadows and Srinagar at either end. Simple stays, long drives and very few other visitors.',
+    route: ['Srinagar', 'Razdan pass', 'Gurez', 'Srinagar', 'Doodhpathri', 'Srinagar'],
+    bestMonths: 'Jun–Oct',
+    idealFor: 'Travellers who have seen the classic circuit, or want valleys without crowds',
+    itinerary: [
+      { day: 1, title: 'Arrive in Srinagar', body: 'Transfer to your houseboat or hotel. Evening shikara.', stay: 'Houseboat or hotel, Srinagar', meals: 'Dinner' },
+      { day: 2, title: 'Srinagar to Gurez over the Razdan pass', body: 'A long drive north via Bandipora and over the Razdan pass into the Gurez valley. Checkpoints on the way; carry original photo ID.', stay: 'Guesthouse, Gurez', meals: 'Breakfast, dinner' },
+      { day: 3, title: 'Gurez valley', body: 'Dawar, the Kishanganga river, log-built villages and the view of Habba Khatoon peak.', stay: 'Guesthouse, Gurez', meals: 'Breakfast, dinner' },
+      { day: 4, title: 'Gurez to Srinagar', body: 'Drive back over the pass to Srinagar.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 5, title: 'Day in Doodhpathri', body: 'Meadows and the Shaliganga stream, a short drive from Srinagar.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 6, title: 'Old city of Srinagar', body: 'Jamia Masjid, Khanqah-e-Moula, the Jhelum ghats and the Mughal gardens.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 7, title: 'Departure', body: 'Transfer for your onward journey.', meals: 'Breakfast' },
+    ],
+    inclusions: [
+      'Stays as per itinerary: houseboat or hotel in Srinagar, guesthouse in Gurez',
+      'Daily breakfast and dinner',
+      'Private vehicle with driver for the whole route',
+      'Airport or railway station pickup and drop',
+    ],
+    exclusions: [
+      'Flights or train fare',
+      'Lunch, entry fees and personal expenses',
+      'Extra nights if the Razdan road closes',
+    ],
+    faqs: [
+      { q: 'Is Gurez safe to visit?', a: 'Gurez is open to Indian tourists when the road is open and access is permitted. Rules near the Line of Control can change, and foreign nationals face restrictions. We check current access before confirming your trip.' },
+      { q: 'What are the stays like in Gurez?', a: 'Simple guesthouses and homestays: clean and warm, with basic bathrooms. There are no hotels in the usual sense.' },
+      { q: 'Why is there no price shown?', a: 'It depends on season, stays and group size. We send a written, itemised quote.' },
+    ],
+    notFor: [
+      { title: 'Anyone who dislikes long drives', body: 'Srinagar to Gurez is a full day on a mountain road, each way.' },
+      { title: 'Travellers who need hotel comfort', body: 'Gurez has simple guesthouses only.' },
+      { title: 'Tight schedules', body: 'Weather can close the Razdan pass for a day. Leave room in your plans.' },
+    ],
+    tone: 'meadow',
+    image: '',
+    featured: true,
+  },
+  {
+    slug: 'kashmir-winter-snow-tour',
+    region: 'kashmir',
+    name: 'Kashmir in Winter',
+    destination: 'gulmarg',
+    destinationName: 'Kashmir',
+    regions: ['srinagar', 'gulmarg', 'sonmarg'],
+    nights: 4,
+    days: 5,
+    styles: [],
+    summary:
+      'Snow, kangris and kahwa: two nights in Gulmarg for the gondola and snow, a day in Sonmarg, and Srinagar under snow on either side.',
+    route: ['Srinagar', 'Gulmarg', 'Sonmarg', 'Srinagar'],
+    bestMonths: 'Dec–Feb',
+    idealFor: 'First snow trips, families and beginner skiers',
+    itinerary: [
+      { day: 1, title: 'Arrive in Srinagar', body: 'Transfer to a heated hotel. Short evening shikara if the lake is open.', stay: 'Hotel, Srinagar', meals: 'Dinner' },
+      { day: 2, title: 'Srinagar to Gulmarg', body: 'Drive to Gulmarg; snow gear can be hired at Tangmarg. Afternoon in the snow.', stay: 'Hotel, Gulmarg', meals: 'Breakfast, dinner' },
+      { day: 3, title: 'Gondola and snow day', body: 'Gondola ride, snow play or a beginner ski lesson.', stay: 'Hotel, Gulmarg', meals: 'Breakfast, dinner' },
+      { day: 4, title: 'Gulmarg to Srinagar via Sonmarg', body: 'Snow day in Sonmarg if the road is open; otherwise a day in Srinagar.', stay: 'Hotel, Srinagar', meals: 'Breakfast, dinner' },
+      { day: 5, title: 'Departure', body: 'Transfer for your flight or train.', meals: 'Breakfast' },
+    ],
+    inclusions: [
+      'Heated hotel rooms as per itinerary on twin-sharing',
+      'Daily breakfast and dinner',
+      'Private vehicle with driver (snow-chain equipped where needed)',
+      'Airport or railway station pickup and drop',
+    ],
+    exclusions: [
+      'Flights or train fare',
+      'Gondola tickets, ski lessons and equipment hire',
+      'Local union cabs and sledges',
+      'Lunch and personal expenses',
+    ],
+    faqs: [
+      { q: 'Is it too cold for children and older parents?', a: 'It is cold, well below freezing at night, but hotels are heated. Pack thermals, and we keep the days short.' },
+      { q: 'What happens if snow closes a road?', a: 'Flights and roads can be delayed after heavy snow. We rearrange the day and keep a buffer before your departure.' },
+    ],
+    notFor: [
+      { title: 'Travellers who hate the cold', body: 'Chillai Kalan, the coldest spell, runs from late December to late January.' },
+      { title: 'Tight flight connections', body: 'Snow can delay flights. Avoid same-day onward connections.' },
+    ],
+    tone: 'snow',
+    image: '',
+  },
+  // ─────────────────────────────── LADAKH ────────────────────────────────
   {
     "slug": "3-nights-ladakh-tour",
     "name": "Leh Short Escape",
@@ -1160,6 +1455,8 @@ export const PACKAGES: Pkg[] = [
     "destination": "nubra-pangong",
     "destinationName": "Ladakh",
     "regions": [
+      "srinagar",
+      "sonmarg",
       "nubra-pangong",
       "leh",
       "ladakh-monasteries"

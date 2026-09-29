@@ -9,7 +9,7 @@ import { PackageCard, SectionHead, Faq, JsonLd } from '@/components/cards';
 import { PageHero, FactStrip } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 import { StickyMobileCta } from '@/components/sticky-mobile-cta';
-import { SITE, addressLine, inr, whatsAppLink } from '@/lib/site';
+import { SITE, PRICE_ON_REQUEST, addressLine, cheapestPrice, fromPrice, inr, offerJsonLd, whatsAppLink } from '@/lib/site';
 
 type Params = Promise<{ city: string }>;
 
@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const c = getOriginCity(city);
   if (!c) return {};
 
-  const cheapest = c.packages
+  const cheapestList = c.packages
     .map((s) => getPackage(s))
-    .filter((p): p is NonNullable<typeof p> => Boolean(p))
-    .reduce((min, p) => (p.priceFrom < min ? p.priceFrom : min), Infinity);
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const cheapest = cheapestPrice(cheapestList);
 
   const title = `Ladakh Tour Packages from ${c.name}`;
-  const description = `Ladakh tour packages from ${c.name}. Land packages from ${inr(cheapest)} per person with hotels, the environmental fee and permits handled, a private 4×4 and 24×7 support from Leh. Honest advice on ${c.name} flights and timing.`;
+  const description = `Ladakh tour packages from ${c.name}. Land packages ${fromPrice(cheapest)} per person with hotels, the environmental fee and permits handled, a private 4×4 and 24×7 support from Leh. Honest advice on ${c.name} flights and timing.`;
 
   return {
     title,
@@ -53,7 +53,7 @@ export default async function PackagesFromCity({ params }: { params: Params }) {
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
   if (packages.length === 0) notFound();
 
-  const cheapest = packages.reduce((min, p) => (p.priceFrom < min ? p.priceFrom : min), Infinity);
+  const cheapest = cheapestPrice(packages);
   const url = `${SITE.domain}/packages/from/${c.slug}`;
 
   const jsonLd = [
@@ -76,12 +76,7 @@ export default async function PackagesFromCity({ params }: { params: Params }) {
             name: p.name,
             description: p.summary,
             url: `${SITE.domain}/packages/${p.slug}`,
-            offers: {
-              '@type': 'Offer',
-              price: p.priceFrom,
-              priceCurrency: 'INR',
-              availability: 'https://schema.org/InStock',
-            },
+            ...offerJsonLd(p.priceFrom),
           },
         })),
       },
@@ -123,7 +118,7 @@ export default async function PackagesFromCity({ params }: { params: Params }) {
       >
         <FactStrip
           facts={[
-            ['Land package from', `${inr(cheapest)} per person`],
+            ['Land package from', cheapest ? `${inr(cheapest)} per person` : PRICE_ON_REQUEST],
             ['Itineraries', `${packages.length} built for ${c.name} travellers`],
             ['Arrival airport', 'Leh (IXL)'],
             ['Office', 'Leh — we run every trip ourselves'],
@@ -271,7 +266,7 @@ export default async function PackagesFromCity({ params }: { params: Params }) {
                     Land package from
                   </p>
                   <p className="display relative mt-1.5 text-[40px] leading-none text-paper-50">
-                    {inr(cheapest)}
+                    {cheapest ? inr(cheapest) : 'On request'}
                   </p>
                   <p className="relative mt-2 text-[12px] text-paper-200/70">
                     per person · twin-sharing

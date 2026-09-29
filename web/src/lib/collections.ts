@@ -5,9 +5,9 @@ import type { Tone } from './destinations';
  * query, sitting on flat `/packages/<slug>` URLs alongside the individual
  * package pages.
  *
- * These are listings, not new products. Every package they show is one of the
- * eleven in PACKAGES, and every price resolves from that data, so nothing here
- * invents a number.
+ * These are listings, not new products. Every package they show is in
+ * PACKAGES, and every price resolves from that data, so nothing here invents
+ * a number.
  */
 
 export type Collection = {
@@ -29,9 +29,59 @@ export type Collection = {
   styles: string[];
   tone: Tone;
   basePath?: string;
+  /** Show "on request" instead of the cheapest package price. */
+  priceOnRequest?: boolean;
+  /** Destination prefilled in the enquiry form. Defaults to Ladakh. */
+  enquiryDestination?: string;
 };
 
 export const COLLECTIONS: Collection[] = [
+  {
+    slug: 'kashmir-tour-packages',
+    h1: 'Kashmir tour packages',
+    seoTitle: 'Kashmir Tour Packages — Srinagar, Gulmarg, Pahalgam, Sonmarg & Gurez',
+    metaDescription:
+      'Kashmir tour packages planned in Srinagar: houseboat nights on Dal and Nigeen, Gulmarg, Pahalgam and Sonmarg, honeymoon and winter snow trips, and offbeat Gurez. Day-by-day itineraries, quoted for your dates.',
+    kicker: 'Planned in Srinagar',
+    lede:
+      'Five ways to see Kashmir, from the classic six-day circuit to two nights in Gurez. Every one is a starting point: tell us your dates, your group and your budget, and we quote the trip you actually want.',
+    crumbLabel: 'Kashmir',
+    body: [
+      'Most first trips follow the same shape: a night on a houseboat in Srinagar, a day up the Sindh valley to Sonmarg, the gondola and meadow at Gulmarg, and two nights by the Lidder in Pahalgam. Five or six nights covers it without rushing. Seven or eight lets you add the old city, Doodhpathri and a second night in Gulmarg.',
+      'Seasons change the trip completely. Tulips and almond blossom in spring, green meadows in summer, golden chinars in October and November, and snow from December to February, when Gulmarg becomes a ski resort. We tell you honestly what your dates will look like.',
+      'We price every trip for your dates rather than publishing a starting price, because season, hotel and houseboat category and group size move the cost more than anything else. You get a written, itemised quote before you pay anything.',
+    ],
+    packages: [
+      'kashmir-tour-package-5-nights',
+      'kashmir-tour-package-7-nights',
+      'kashmir-honeymoon-package',
+      'kashmir-winter-snow-tour',
+      'gurez-valley-tour',
+      'kashmir-ladakh-tour',
+    ],
+    faqs: [
+      {
+        q: 'How many days are enough for Kashmir?',
+        a: 'Five or six nights for Srinagar, Gulmarg, Pahalgam and Sonmarg. Add two or three nights for Gurez, Doodhpathri or a slower pace.',
+      },
+      {
+        q: 'What is the best time to visit Kashmir?',
+        a: 'April to June and September to November for most travellers. Late March to April for tulips, October to November for autumn colour, and December to February for snow.',
+      },
+      {
+        q: 'Do you arrange houseboat stays?',
+        a: 'Yes. We usually plan one night on a houseboat on Dal or Nigeen Lake and the rest in hotels, and tell you what each houseboat grade includes.',
+      },
+      {
+        q: 'Can we continue from Kashmir to Ladakh?',
+        a: 'Yes, by road over Zojila when it is open (usually May to October), with a night in Kargil. The Kashmir & Ladakh package does exactly that.',
+      },
+    ],
+    styles: [],
+    tone: 'lake',
+    priceOnRequest: true,
+    enquiryDestination: 'Kashmir',
+  },
   {
     slug: 'leh-ladakh-road-trip-packages',
     h1: 'Leh Ladakh road trip packages',

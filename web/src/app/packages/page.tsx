@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { SITE, inr } from '@/lib/site';
+import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd } from '@/lib/site';
 import { PACKAGES } from '@/lib/packages';
 import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
@@ -11,14 +11,14 @@ import { PackageCard, SectionHead, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 
 export const metadata: Metadata = {
-  title: 'Ladakh Tour Packages — 3 to 9 Nights, from Leh',
+  title: 'Kashmir & Ladakh Tour Packages — Srinagar, Gulmarg, Pahalgam, Gurez & Leh',
   description:
-    'Every Falcon Trails tour package in one place: Leh, Nubra, Pangong, Hanle, Kashmir to Ladakh, Manali to Leh and the bike trip. Day-by-day plans, clear inclusions, from ₹14,500 per person.',
+    'Every Falcon Trails tour package in one place: the classic Kashmir circuit, Kashmir honeymoon and winter trips, Gurez and offbeat Kashmir, plus Leh, Nubra, Pangong, Hanle and the Kashmir to Ladakh road trip. Day-by-day plans and clear inclusions.',
   alternates: { canonical: '/packages' },
 };
 
 export default function PackagesIndex() {
-  const cheapest = Math.min(...PACKAGES.map((p) => p.priceFrom));
+  const cheapest = cheapestPrice(PACKAGES);
 
   const jsonLd = [
     {
@@ -48,7 +48,7 @@ export default function PackagesIndex() {
       <JsonLd data={jsonLd} />
 
       <PageHero
-        kicker={`${PACKAGES.length} itineraries · from ${inr(cheapest)} per person`}
+        kicker={`${PACKAGES.length} itineraries · ${fromPrice(cheapest)}${cheapest ? ' per person' : ''}`}
         title="Every package, honestly priced."
         lede="Day-by-day plans, real inclusions, and exclusions written plainly rather than buried. Each one is a starting point — tell us your dates and we reshape it around you."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Packages' }]}
@@ -64,7 +64,7 @@ export default function PackagesIndex() {
           <span className="shrink-0 pr-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-500">
             Jump to
           </span>
-          {DESTINATIONS.map((d) => (
+          {DESTINATIONS.filter((d) => PACKAGES.some((p) => p.destination === d.slug)).map((d) => (
             <a
               key={d.slug}
               href={`#${d.slug}`}

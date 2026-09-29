@@ -5,16 +5,16 @@ import { SITE, inr, whatsAppLink } from '@/lib/site';
 
 type Props = {
   packageName: string;
-  priceFrom: number;
+  priceFrom?: number;
 };
 
 export function StickyMobileCta({ packageName, priceFrom }: Props) {
   return (
     <div className="sticky-mobile-cta">
       <div>
-        <span className="block text-[10px] uppercase tracking-wider text-paper-200/70">From</span>
-        <span className="text-[15px] font-bold text-gold-300">{inr(priceFrom)}</span>
-        <span className="text-[10px] text-paper-200/60"> / person</span>
+        <span className="block text-[10px] uppercase tracking-wider text-paper-200/70">{priceFrom ? 'From' : 'Pricing'}</span>
+        <span className="text-[15px] font-bold text-gold-300">{priceFrom ? inr(priceFrom) : 'On request'}</span>
+        {priceFrom ? <span className="text-[10px] text-paper-200/60"> / person</span> : null}
       </div>
 
       <div className="flex items-center gap-2">

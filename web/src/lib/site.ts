@@ -88,6 +88,27 @@ export function addressLine(): string {
   return [[street, city, region].filter(Boolean).join(', '), postalCode].filter(Boolean).join(' ');
 }
 
+/** Shown wherever a package or destination has no published price. */
+export const PRICE_ON_REQUEST = 'Price on request';
+
+/** Lowest published price in a list, or undefined when none are priced. */
+export function cheapestPrice(items: { priceFrom?: number }[]): number | undefined {
+  const prices = items.map((i) => i.priceFrom).filter((n): n is number => typeof n === 'number');
+  return prices.length ? Math.min(...prices) : undefined;
+}
+
+/** "from ₹14,500" or "price on request". */
+export function fromPrice(n?: number): string {
+  return typeof n === 'number' ? `from ${inr(n)}` : 'price on request';
+}
+
+/** Schema.org Offer, only when there is a price to state. */
+export function offerJsonLd(price: number | undefined, extra: Record<string, unknown> = {}) {
+  return typeof price === 'number'
+    ? { offers: { '@type': 'Offer', price, priceCurrency: 'INR', availability: 'https://schema.org/InStock', ...extra } }
+    : {};
+}
+
 /** ₹ with Indian digit grouping. 18500 → "₹18,500" */
 export function inr(n: number): string {
   return `₹${n.toLocaleString('en-IN')}`;

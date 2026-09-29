@@ -12,7 +12,7 @@ import { PackageCard, SectionHead, Faq, JsonLd } from '@/components/cards';
 import { PageHero, FactStrip } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 import { StickyMobileCta } from '@/components/sticky-mobile-cta';
-import { SITE, inr, whatsAppLink } from '@/lib/site';
+import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd, whatsAppLink } from '@/lib/site';
 
 type Params = Promise<{ slug: string }>;
 
@@ -23,6 +23,22 @@ type Params = Promise<{ slug: string }>;
  * fill in behind it. Keeping them flat matters — these collection slugs are
  * the exact commercial queries they target.
  */
+/** Default advisory for the Ladakh packages, which share the same altitude risks. */
+const LADAKH_NOT_FOR = [
+  {
+    title: 'Anyone who wants to rush the altitude',
+    body: 'We will not move the high passes or Pangong earlier to fit more in. The first afternoon in Leh stays empty on every route.',
+  },
+  {
+    title: 'Travellers who need to stay connected everywhere',
+    body: 'Prepaid SIMs from other states generally do not work in Ladakh, and coverage is patchy or absent at Pangong, Hanle and on the high passes. Postpaid connections work in Leh.',
+  },
+  {
+    title: 'Anyone with a cardiac or pulmonary condition',
+    body: 'Speak to your doctor before booking anything at this altitude, and then to us. We will build the gentlest route that is safe for you.',
+  },
+];
+
 export function generateStaticParams() {
   return [
     ...PACKAGES.map((p) => ({ slug: p.slug })),
@@ -50,8 +66,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     };
   }
 
-  const title = `${p.name} — ${p.nights} Nights ${p.days} Days ${p.destinationName} Package from ${inr(p.priceFrom)}`;
-  const description = `${p.summary} Day-by-day itinerary, clear inclusions and exclusions, pricing from ${inr(p.priceFrom)} per person. Route: ${p.route.join(' → ')}.`;
+  const title = `${p.name} — ${p.nights} Nights ${p.days} Days ${p.destinationName} Package${p.priceFrom ? ` from ${inr(p.priceFrom)}` : ''}`;
+  const description = `${p.summary} Day-by-day itinerary, clear inclusions and exclusions, ${p.priceFrom ? `pricing from ${inr(p.priceFrom)} per person` : 'priced on request for your dates'}. Route: ${p.route.join(' → ')}.`;
 
   return {
     title,
@@ -103,20 +119,16 @@ export default async function PackageDetail({ params }: { params: Params }) {
           },
         })),
       },
-      image: [p.image],
+      ...(p.image ? { image: [p.image] } : {}),
       author: {
         '@type': 'Organization',
         name: SITE.name,
         url: SITE.domain,
       },
-      offers: {
-        '@type': 'Offer',
-        price: p.priceFrom,
-        priceCurrency: 'INR',
-        availability: 'https://schema.org/InStock',
+      ...offerJsonLd(p.priceFrom, {
         url,
         description: `Per person on twin-sharing. ${p.nights} nights / ${p.days} days.`,
-      },
+      }),
     },
     {
       '@context': 'https://schema.org',
@@ -160,7 +172,7 @@ export default async function PackageDetail({ params }: { params: Params }) {
             ['Duration', `${p.nights} nights / ${p.days} days`],
             ['Route', p.route.join(' → ')],
             ['Best months', p.bestMonths],
-            ['From', `${inr(p.priceFrom)} per person`],
+            ['From', p.priceFrom ? `${inr(p.priceFrom)} per person` : PRICE_ON_REQUEST],
           ]}
         />
       </PageHero>
@@ -188,14 +200,16 @@ export default async function PackageDetail({ params }: { params: Params }) {
             {/* Byline: the team that plans and runs the trip */}
             <div data-reveal className="mt-4 flex items-center gap-3 rounded-xl border border-paper-300 bg-paper-50/80 px-4 py-3 text-[12.5px] text-ink-600">
               <div className="grid size-8 place-items-center rounded-full bg-gold-400 font-bold text-ink-950 text-[12px] shadow-sm">
-                LV
+                {SITE.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase()}
               </div>
               <div>
                 <p className="font-semibold text-ink-900 leading-none">
                   Planned and run by the {SITE.name} team in Srinagar
                 </p>
                 <p className="text-[11px] text-ink-500 mt-0.5">
-                  Sequenced by altitude · all permits handled · private vehicle with an experienced driver
+                  {(p.region ?? 'ladakh') === 'ladakh'
+                    ? 'Sequenced by altitude · all permits handled · private vehicle with an experienced driver'
+                    : 'Paced for the roads · stays chosen by us · private vehicle with an experienced driver'}
                 </p>
               </div>
             </div>
@@ -319,21 +333,15 @@ export default async function PackageDetail({ params }: { params: Params }) {
                     We believe in transparent expectations before booking rather than surprises after landing. This trip may not suit you if:
                   </p>
                   <ul className="mt-4 space-y-2.5 text-[13.5px] text-ink-800">
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-amber-700 font-bold">•</span>
-                      <span><strong>Anyone who wants to rush the altitude:</strong> We will not move the high passes or Pangong earlier to fit more in. The first afternoon in Leh stays empty on every route.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-amber-700 font-bold">•</span>
-                      <span><strong>Travellers who need to stay connected everywhere:</strong> Prepaid SIMs from other states generally do not work in Ladakh, and coverage is patchy or absent at Pangong, Hanle and on the high passes. Postpaid connections work in Leh.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-amber-700 font-bold">•</span>
-                      <span><strong>Anyone with a cardiac or pulmonary condition:</strong> Speak to your doctor before booking anything at this altitude, and then to us. We will build the gentlest route that is safe for you.</span>
-                    </li>
+                    {(p.notFor ?? LADAKH_NOT_FOR).map((n) => (
+                      <li key={n.title} className="flex items-start gap-2.5">
+                        <span className="text-amber-700 font-bold">•</span>
+                        <span><strong>{n.title}:</strong> {n.body}</span>
+                      </li>
+                    ))}
                   </ul>
                   <p className="mt-4 text-[12px] text-ink-600 border-t border-amber-200/80 pt-3">
-                    If any of these apply to your party, speak to us. We will adapt the route, add rest days, or suggest a lower-altitude itinerary.
+                    If any of these apply to your party, speak to us. We will adapt the route, add rest days, or suggest a different itinerary.
                   </p>
                 </div>
               </div>
@@ -359,13 +367,13 @@ export default async function PackageDetail({ params }: { params: Params }) {
                 >
                   <div aria-hidden className="grain absolute inset-0" />
                   <p className="relative text-[10.5px] uppercase tracking-[0.16em] text-paper-200/70">
-                    Starting from
+                    {p.priceFrom ? 'Starting from' : 'Pricing'}
                   </p>
                   <p className="display relative mt-1.5 text-[40px] leading-none text-paper-50">
-                    {inr(p.priceFrom)}
+                    {p.priceFrom ? inr(p.priceFrom) : 'On request'}
                   </p>
                   <p className="relative mt-2 text-[12px] text-paper-200/70">
-                    per person · twin-sharing
+                    {p.priceFrom ? 'per person · twin-sharing' : 'itemised quote for your dates'}
                   </p>
                 </div>
 

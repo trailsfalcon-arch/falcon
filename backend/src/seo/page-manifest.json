@@ -2,6 +2,71 @@
   {
     "tier": 1,
     "family": "package",
+    "url": "/packages/kashmir-tour-package-5-nights",
+    "h1": "Kashmir Classic",
+    "title": "Kashmir Classic — 5 Nights 6 Days Kashmir Package | Falcon Trails",
+    "primary": "kashmir tour package 5 nights",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 1
+  },
+  {
+    "tier": 1,
+    "family": "package",
+    "url": "/packages/kashmir-tour-package-7-nights",
+    "h1": "Kashmir in Depth",
+    "title": "Kashmir in Depth — 7 Nights 8 Days Kashmir Package | Falcon Trails",
+    "primary": "kashmir tour package 7 nights",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 2
+  },
+  {
+    "tier": 1,
+    "family": "package",
+    "url": "/packages/kashmir-honeymoon-package",
+    "h1": "Kashmir Honeymoon",
+    "title": "Kashmir Honeymoon — 5 Nights 6 Days Kashmir Package | Falcon Trails",
+    "primary": "kashmir honeymoon package",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 3
+  },
+  {
+    "tier": 1,
+    "family": "package",
+    "url": "/packages/gurez-valley-tour",
+    "h1": "Offbeat Kashmir: Gurez & Doodhpathri",
+    "title": "Offbeat Kashmir: Gurez & Doodhpathri — 6 Nights 7 Days Kashmir Package | Falcon Trails",
+    "primary": "gurez valley tour",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 4
+  },
+  {
+    "tier": 1,
+    "family": "package",
+    "url": "/packages/kashmir-winter-snow-tour",
+    "h1": "Kashmir in Winter",
+    "title": "Kashmir in Winter — 4 Nights 5 Days Kashmir Package | Falcon Trails",
+    "primary": "kashmir winter snow tour",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 5
+  },
+  {
+    "tier": 1,
+    "family": "package",
     "url": "/packages/3-nights-ladakh-tour",
     "h1": "Leh Short Escape",
     "title": "Leh Short Escape — 3 Nights 4 Days Ladakh Package | Falcon Trails",
@@ -10,7 +75,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 1
+    "id": 6
   },
   {
     "tier": 1,
@@ -23,7 +88,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 2
+    "id": 7
   },
   {
     "tier": 1,
@@ -36,7 +101,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 3
+    "id": 8
   },
   {
     "tier": 1,
@@ -49,7 +114,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 4
+    "id": 9
   },
   {
     "tier": 1,
@@ -62,7 +127,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 5
+    "id": 10
   },
   {
     "tier": 1,
@@ -75,7 +140,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 6
+    "id": 11
   },
   {
     "tier": 1,
@@ -88,7 +153,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 7
+    "id": 12
   },
   {
     "tier": 1,
@@ -101,7 +166,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 8
+    "id": 13
   },
   {
     "tier": 1,
@@ -114,7 +179,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 9
+    "id": 14
   },
   {
     "tier": 1,
@@ -127,7 +192,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 10
+    "id": 15
   },
   {
     "tier": 1,
@@ -140,7 +205,72 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 11
+    "id": 16
+  },
+  {
+    "tier": 2,
+    "family": "destination",
+    "url": "/destinations/srinagar",
+    "h1": "A city on the water, and the start of every Kashmir trip",
+    "title": "Srinagar Tour Packages | Falcon Trails",
+    "primary": "srinagar tour packages",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 17
+  },
+  {
+    "tier": 2,
+    "family": "destination",
+    "url": "/destinations/gulmarg",
+    "h1": "Meadows in summer, powder snow in winter",
+    "title": "Gulmarg Tour Packages | Falcon Trails",
+    "primary": "gulmarg tour packages",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 18
+  },
+  {
+    "tier": 2,
+    "family": "destination",
+    "url": "/destinations/pahalgam",
+    "h1": "The Lidder valley, pine forest and river",
+    "title": "Pahalgam Tour Packages | Falcon Trails",
+    "primary": "pahalgam tour packages",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 19
+  },
+  {
+    "tier": 2,
+    "family": "destination",
+    "url": "/destinations/sonmarg",
+    "h1": "The meadow of gold, on the road to Ladakh",
+    "title": "Sonmarg Tour Packages | Falcon Trails",
+    "primary": "sonmarg tour packages",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 20
+  },
+  {
+    "tier": 2,
+    "family": "destination",
+    "url": "/destinations/offbeat-kashmir",
+    "h1": "Gurez, Doodhpathri, Yusmarg and the valleys most visitors miss",
+    "title": "Offbeat Kashmir Tour Packages | Falcon Trails",
+    "primary": "offbeat kashmir tour packages",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 21
   },
   {
     "tier": 2,
@@ -153,7 +283,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 12
+    "id": 22
   },
   {
     "tier": 2,
@@ -166,7 +296,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 13
+    "id": 23
   },
   {
     "tier": 2,
@@ -179,7 +309,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 14
+    "id": 24
   },
   {
     "tier": 2,
@@ -192,7 +322,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 15
+    "id": 25
   },
   {
     "tier": 3,
@@ -205,7 +335,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 16
+    "id": 26
   },
   {
     "tier": 3,
@@ -218,7 +348,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 17
+    "id": 27
   },
   {
     "tier": 3,
@@ -231,7 +361,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 18
+    "id": 28
   },
   {
     "tier": 3,
@@ -244,7 +374,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 19
+    "id": 29
   },
   {
     "tier": 3,
@@ -257,7 +387,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 20
+    "id": 30
   },
   {
     "tier": 3,
@@ -270,7 +400,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 21
+    "id": 31
   },
   {
     "tier": 3,
@@ -283,7 +413,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 22
+    "id": 32
   },
   {
     "tier": 3,
@@ -296,7 +426,20 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 23
+    "id": 33
+  },
+  {
+    "tier": 4,
+    "family": "collection",
+    "url": "/packages/kashmir-tour-packages",
+    "h1": "Kashmir tour packages",
+    "title": "Kashmir Tour Packages — Srinagar, Gulmarg, Pahalgam, Sonmarg & Gurez | Falcon Trails",
+    "primary": "kashmir tour packages",
+    "impr": null,
+    "clicks": null,
+    "conv": null,
+    "words": null,
+    "id": 34
   },
   {
     "tier": 4,
@@ -309,7 +452,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 24
+    "id": 35
   },
   {
     "tier": 4,
@@ -322,7 +465,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 25
+    "id": 36
   },
   {
     "tier": 4,
@@ -335,7 +478,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 26
+    "id": 37
   },
   {
     "tier": 4,
@@ -348,7 +491,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 27
+    "id": 38
   },
   {
     "tier": 5,
@@ -361,7 +504,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 28
+    "id": 39
   },
   {
     "tier": 5,
@@ -374,7 +517,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 29
+    "id": 40
   },
   {
     "tier": 5,
@@ -387,7 +530,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 30
+    "id": 41
   },
   {
     "tier": 5,
@@ -400,7 +543,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 31
+    "id": 42
   },
   {
     "tier": 5,
@@ -413,7 +556,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 32
+    "id": 43
   },
   {
     "tier": 6,
@@ -426,7 +569,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 33
+    "id": 44
   },
   {
     "tier": 6,
@@ -439,7 +582,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 34
+    "id": 45
   },
   {
     "tier": 6,
@@ -452,7 +595,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 35
+    "id": 46
   },
   {
     "tier": 6,
@@ -465,7 +608,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 36
+    "id": 47
   },
   {
     "tier": 6,
@@ -478,7 +621,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 37
+    "id": 48
   },
   {
     "tier": 6,
@@ -491,7 +634,7 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 38
+    "id": 49
   },
   {
     "tier": 6,
@@ -504,6 +647,6 @@
     "clicks": null,
     "conv": null,
     "words": null,
-    "id": 39
+    "id": 50
   }
 ]

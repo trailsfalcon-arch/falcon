@@ -8,6 +8,9 @@ import { SITE, whatsAppLink } from '@/lib/site';
 import { captureAttribution, getAttributionPayload, captureContext } from '@/lib/attribution';
 
 const DESTINATIONS = [
+  { id: 'Kashmir Classic', name: 'Kashmir Classic', sub: 'Srinagar houseboat, Gulmarg, Pahalgam, Sonmarg', emoji: '🛶' },
+  { id: 'Offbeat Kashmir', name: 'Offbeat Kashmir', sub: 'Gurez, Doodhpathri, Yusmarg, Lolab', emoji: '🌲' },
+  { id: 'Kashmir in Winter', name: 'Kashmir in Winter', sub: 'Snow in Gulmarg and Sonmarg, Dec–Feb', emoji: '❄️' },
   { id: 'Leh & Sham Valley', name: 'Leh & Sham Valley', sub: 'Leh, the monasteries, Sham Valley. No high passes', emoji: '🏔️' },
   { id: 'Nubra & Pangong', name: 'Nubra & Pangong', sub: 'Khardung La, Hunder, Turtuk, Pangong Tso', emoji: '✨' },
   { id: 'Hanle & Tso Moriri', name: 'Hanle & Tso Moriri', sub: 'Dark Sky Reserve, Umling La, Changthang', emoji: '🌌' },
@@ -15,10 +18,10 @@ const DESTINATIONS = [
 ];
 
 const DURATIONS = [
-  { id: '3-4N', label: '3 to 4 Nights', hint: 'Leh, with Nubra on four' },
-  { id: '5-6N', label: '5 to 6 Nights', hint: 'Honeymoon, monasteries, Hanle' },
-  { id: '7N', label: '7 Nights', hint: 'Nubra, Turtuk & Pangong' },
-  { id: '8N+', label: '8+ Nights', hint: 'The whole of Ladakh' },
+  { id: '3-4N', label: '3 to 4 Nights', hint: 'Srinagar and one valley, or Leh' },
+  { id: '5-6N', label: '5 to 6 Nights', hint: 'The classic Kashmir circuit' },
+  { id: '7N', label: '7 Nights', hint: 'Kashmir in depth, or Nubra & Pangong' },
+  { id: '8N+', label: '8+ Nights', hint: 'Kashmir and Ladakh together' },
 ];
 
 const HOTEL_TIERS = [
@@ -29,7 +32,7 @@ const HOTEL_TIERS = [
 
 export default function PlanMyTripPage() {
   const [step, setStep] = useState(1);
-  const [destination, setDestination] = useState('Nubra & Pangong');
+  const [destination, setDestination] = useState('Kashmir Classic');
   const [duration, setDuration] = useState('5-6N');
   const [hotelTier, setHotelTier] = useState('Deluxe');
   const [month, setMonth] = useState('Next Month');
@@ -153,7 +156,7 @@ export default function PlanMyTripPage() {
                 <div className="space-y-6">
                   <div>
                     <h3 className="display d3 text-ink-950">Where would you like to travel?</h3>
-                    <p className="text-sm text-ink-600 mt-1">Pick the part of Ladakh you most want to see. We will build the rest around it.</p>
+                    <p className="text-sm text-ink-600 mt-1">Pick what you most want to see. We will build the rest around it.</p>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {DESTINATIONS.map((d) => (

@@ -7,7 +7,7 @@ import { PackageCard, Faq, JsonLd } from '@/components/cards';
 import { PageHero, FactStrip } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 import { StickyMobileCta } from '@/components/sticky-mobile-cta';
-import { SITE, inr, whatsAppLink } from '@/lib/site';
+import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd, whatsAppLink } from '@/lib/site';
 
 /**
  * Renders a package collection — a curated listing that answers one
@@ -20,10 +20,7 @@ export function CollectionPage({ c }: { c: Collection }) {
     .map((s) => getPackage(s))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
-  const cheapest = packages.reduce(
-    (min, p) => (p.priceFrom < min ? p.priceFrom : min),
-    Infinity,
-  );
+  const cheapest = c.priceOnRequest ? undefined : cheapestPrice(packages);
   const basePath = c.basePath ?? '/packages';
   const url = `${SITE.domain}${basePath}/${c.slug}`;
 
@@ -51,12 +48,7 @@ export function CollectionPage({ c }: { c: Collection }) {
             name: p.name,
             description: p.summary,
             url: `${SITE.domain}/packages/${p.slug}`,
-            offers: {
-              '@type': 'Offer',
-              price: p.priceFrom,
-              priceCurrency: 'INR',
-              availability: 'https://schema.org/InStock',
-            },
+            ...offerJsonLd(p.priceFrom),
           },
         })),
       },
@@ -100,9 +92,9 @@ export function CollectionPage({ c }: { c: Collection }) {
       >
         <FactStrip
           facts={[
-            ['From', `${inr(cheapest)} per person`],
+            ['From', cheapest ? `${inr(cheapest)} per person` : PRICE_ON_REQUEST],
             ['Itineraries', `${packages.length} to compare`],
-            ['Pricing', 'Per person · twin-sharing'],
+            ['Pricing', cheapest ? 'Per person · twin-sharing' : 'Quoted for your dates'],
             ['Operated by', 'Our own team in Srinagar'],
           ]}
         />
@@ -163,21 +155,21 @@ export function CollectionPage({ c }: { c: Collection }) {
                 <div className="relative px-6 py-7" style={{ background: TONE_HERO[c.tone] }}>
                   <div aria-hidden className="grain absolute inset-0" />
                   <p className="relative text-[10.5px] uppercase tracking-[0.16em] text-paper-200/70">
-                    Starting from
+                    {cheapest ? 'Starting from' : 'Pricing'}
                   </p>
                   <p className="display relative mt-1.5 text-[40px] leading-none text-paper-50">
-                    {inr(cheapest)}
+                    {cheapest ? inr(cheapest) : 'On request'}
                   </p>
                   <p className="relative mt-2 text-[12px] text-paper-200/70">
-                    per person · twin-sharing
+                    {cheapest ? 'per person · twin-sharing' : 'itemised quote for your dates'}
                   </p>
                 </div>
 
                 <div className="p-6">
                   <p className="text-[13.5px] leading-relaxed text-ink-600">
-                    Every price on this page is the real, complete land cost —
-                    not a teaser that grows when you enquire. Exclusions are
-                    published on each package page rather than buried.
+                    Your written quote lists exactly what is and is not included
+                    before you pay anything. Exclusions are published on each
+                    package page rather than buried.
                   </p>
 
                   <div className="mt-6 grid gap-2.5">
@@ -241,7 +233,7 @@ export function CollectionPage({ c }: { c: Collection }) {
             </div>
           </div>
           <div data-reveal="right" className="glass-dark rounded-2xl p-6 md:p-8" id="enquiry">
-            <EnquiryForm source={`collection_${c.slug}`} destination="Ladakh" light />
+            <EnquiryForm source={`collection_${c.slug}`} destination={c.enquiryDestination ?? 'Ladakh'} light />
           </div>
         </div>
       </section>

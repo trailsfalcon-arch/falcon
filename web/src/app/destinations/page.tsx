@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { SITE, inr } from '@/lib/site';
-import { DESTINATIONS } from '@/lib/destinations';
+import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd } from '@/lib/site';
+import { DESTINATIONS, REGION_NAMES, type Region } from '@/lib/destinations';
 import { packagesFor } from '@/lib/packages';
 import { DestinationCard, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 
 export const metadata: Metadata = {
-  title: 'Ladakh Destinations — Leh, Monasteries, Nubra, Pangong & Hanle',
+  title: 'Kashmir & Ladakh Destinations — Srinagar, Gulmarg, Pahalgam, Sonmarg, Leh & Nubra',
   description:
-    'The four regions of Ladakh we plan trips around: Leh and the Sham Valley, the monasteries, Nubra and Pangong, and Hanle. Honest advice on altitude, permits and when to go.',
+    'The places we plan trips around: Srinagar and Dal Lake, Gulmarg, Pahalgam, Sonmarg and offbeat Kashmir, plus Leh, the monasteries, Nubra, Pangong and Hanle in Ladakh. Honest advice on seasons, roads and when to go.',
   alternates: { canonical: '/destinations' },
 };
 
@@ -27,7 +27,7 @@ export default function DestinationsIndex() {
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'Himalayan destinations by Falcon Trails',
+      name: `Kashmir and Ladakh destinations by ${SITE.name}`,
       itemListElement: DESTINATIONS.map((d, i) => ({
         '@type': 'ListItem',
         position: i + 1,
@@ -43,18 +43,29 @@ export default function DestinationsIndex() {
 
       <PageHero
         kicker="The ground we cover"
-        title="Four Ladakhs, one journey."
-        lede="Each region asks for a different pace, which is exactly why we never sell a single fixed route. Most trips combine two or three of them, in an order the altitude decides."
+        title="Kashmir and Ladakh, one team."
+        lede="Each place asks for a different pace, which is why we never sell a single fixed route. Most trips combine two or three of them, in an order the roads and the altitude decide."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Destinations' }]}
         background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.90) 100%), radial-gradient(140% 120% at 24% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
       />
 
       <section className="mesh-warm section">
         <div className="wrap">
-          <div data-reveal-group className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {DESTINATIONS.map((d) => (
-              <DestinationCard key={d.slug} d={d} tall />
-            ))}
+          <div className="space-y-14">
+            {(Object.keys(REGION_NAMES) as Region[]).map((region) => {
+              const list = DESTINATIONS.filter((d) => d.region === region);
+              if (list.length === 0) return null;
+              return (
+                <div key={region}>
+                  <h2 className="display d3 text-ink-900">{REGION_NAMES[region]}</h2>
+                  <div data-reveal-group className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    {list.map((d) => (
+                      <DestinationCard key={d.slug} d={d} tall />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -72,7 +83,7 @@ export default function DestinationsIndex() {
               >
                 <div className="md:col-span-4">
                   <span className="display text-[13px] tabular-nums text-paper-400">
-                    0{i + 1}
+                    {String(i + 1).padStart(2, '0')}
                   </span>
                   <h2 className="display d3 mt-2 text-ink-900">
                     <Link href={`/destinations/${d.slug}`} className="link-sweep">
@@ -83,7 +94,7 @@ export default function DestinationsIndex() {
                     {[
                       ['Best time', d.bestMonths],
                       ['Ideal length', d.idealDuration],
-                      ['Starts from', `${inr(d.startingFrom)} pp`],
+                      ['Starts from', d.startingFrom ? `${inr(d.startingFrom)} pp` : PRICE_ON_REQUEST],
                       ['Airport', d.airport],
                     ].map(([k, v]) => (
                       <div key={k} className="flex gap-3">
@@ -125,7 +136,7 @@ export default function DestinationsIndex() {
                                 </span>
                               </span>
                               <span className="flex shrink-0 items-center gap-1.5 text-gold-700">
-                                {inr(p.priceFrom)}
+                                {p.priceFrom ? inr(p.priceFrom) : PRICE_ON_REQUEST}
                                 <ArrowUpRight
                                   className="arrow-slide size-3.5"
                                   strokeWidth={2.2}

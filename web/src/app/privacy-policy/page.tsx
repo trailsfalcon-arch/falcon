@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="mt-3 list-disc pl-6 space-y-1.5 text-[14.5px] text-ink-700">
                 <li>Designing tailored day-by-day travel itineraries and generating transparent price estimates.</li>
-                <li>Connecting you with an assigned trip planner in Srinagar via phone, WhatsApp, or email.</li>
+                <li>Connecting you with an assigned trip planner via phone, WhatsApp, or email.</li>
                 <li>Processing hotel, camp and local transport bookings upon quotation confirmation.</li>
                 <li><strong>Strict Supplier Protection:</strong> We never sell, rent, or trade your personal information to third-party marketing databases.</li>
               </ul>
@@ -89,8 +89,8 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="mt-4 p-5 rounded-2xl bg-paper-100 border border-paper-200 text-[14px] text-ink-800">
                 <p className="font-semibold text-ink-950">{SITE.legalName}</p>
-                <p>{addressLine()}, India</p>
-                <p className="mt-1">{SITE.phone.display ? `Direct: ${SITE.phone.display} · ` : ''}Email: {SITE.email}</p>
+                <p>{addressLine()}, {SITE.address.region} {SITE.address.postalCode}, India</p>
+                <p className="mt-1">Direct: {SITE.phone.display} · Email: {SITE.email}</p>
               </div>
             </div>
           </div>

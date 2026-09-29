@@ -1,28 +1,28 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
-import { SITE } from '@/lib/site';
+import { Marcellus, Jost } from 'next/font/google';
+import { SITE, HAS_RATING } from '@/lib/site';
 import { SiteChrome } from '@/components/site-chrome';
 import { RevealProvider, ScrollProgress } from '@/components/reveal';
 import './globals.css';
 
-/** The brand type pairing. */
-const cormorant = Cormorant_Garamond({
+/** The Falcon Trails pairing, as on falcontrails.in: Marcellus + Jost. */
+const marcellus = Marcellus({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  weight: '400',
+  variable: '--font-marcellus',
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const jost = Jost({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jakarta',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-jost',
 });
 
 export const viewport: Viewport = {
-  themeColor: '#0a1428',
+  themeColor: '#0b141d',
   width: 'device-width',
   initialScale: 1,
 };
@@ -34,24 +34,25 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description:
-    'Kashmir, Ladakh and Jammu tour packages from a Srinagar-based team. Day-by-day itineraries, permits handled and itemised quotes.',
+    'Kashmir tour packages from a Srinagar-based team, local since 2010: Srinagar, Gulmarg, Pahalgam, Sonamarg and offbeat Gurez, Amarnath and Vaishno Devi yatras, group departures, Ladakh by road and journeys across India.',
   applicationName: SITE.name,
   authors: [{ name: SITE.name, url: SITE.domain }],
   creator: SITE.name,
   publisher: SITE.name,
   keywords: [
-    'Ladakh tour packages',
-    'Leh Ladakh tour package',
     'Kashmir tour packages',
+    'Srinagar tour package',
+    'Gulmarg Pahalgam tour',
+    'Kashmir houseboat stay',
+    'Kashmir honeymoon package',
+    'Kashmir family tour',
+    'Gurez valley tour',
+    'offbeat Kashmir',
+    'Amarnath Yatra package',
+    'Vaishno Devi tour package',
+    'Kashmir group tour',
+    'Srinagar to Leh road trip',
     'travel agency in Srinagar',
-    'Nubra Valley tour',
-    'Pangong Lake tour',
-    'Hanle Dark Sky Reserve',
-    'Ladakh honeymoon package',
-    'Ladakh group tour',
-    'Leh Ladakh bike trip',
-    'Manali to Leh tour',
-    'Kashmir Ladakh tour',
   ],
   openGraph: {
     type: 'website',
@@ -60,13 +61,13 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: 'Kashmir & Ladakh Tour Packages | Falcon Trails — Srinagar-based Tour Operator',
     description:
-      'Kashmir, Ladakh and Jammu, planned properly by a Srinagar-based team.',
+      'Kashmir, planned by locals. Houseboats, Gulmarg, Pahalgam, offbeat Gurez, yatras and group departures from a Srinagar-based team.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kashmir & Ladakh Tour Packages | Falcon Trails',
     description:
-      'Kashmir, Ladakh and Jammu, planned properly by a Srinagar-based team.',
+      'Kashmir, planned by locals. Journeys across India — and beyond.',
   },
   robots: {
     index: true,
@@ -95,12 +96,13 @@ const orgJsonLd = {
   name: SITE.name,
   legalName: SITE.legalName,
   url: SITE.domain,
-  ...(SITE.phone.tel ? { telephone: SITE.phone.tel } : {}),
+  telephone: SITE.phone.tel,
   email: SITE.email,
+  foundingDate: SITE.founded,
   priceRange: '₹₹',
   address: {
     '@type': 'PostalAddress',
-    ...(SITE.address.street ? { streetAddress: SITE.address.street } : {}),
+    ...(SITE.address.street && { streetAddress: SITE.address.street }),
     addressLocality: SITE.address.city,
     addressRegion: SITE.address.region,
     postalCode: SITE.address.postalCode,
@@ -123,8 +125,15 @@ const orgJsonLd = {
     { '@type': 'Place', name: 'Ladakh' },
     { '@type': 'Place', name: 'Jammu' },
   ],
-  // No aggregateRating until there are real Falcon Trails reviews on Google:
-  // rating markup that does not match the Business Profile is a violation.
+  // Only Falcon Trails' own Google rating may go here (see SITE.stats).
+  ...(HAS_RATING && {
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: SITE.stats.rating,
+      reviewCount: SITE.stats.reviewCount,
+      bestRating: '5',
+    },
+  }),
 };
 
 const webSiteJsonLd = {
@@ -143,7 +152,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${cormorant.variable} ${jakarta.variable}`}
+      className={`${marcellus.variable} ${jost.variable}`}
       // The inline script below adds a `js` class to <html> before React
       // hydrates, so server and client className strings differ by design.
       // Scoped to this element — it silences nothing else in the tree.

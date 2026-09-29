@@ -2,49 +2,48 @@
 
 /* ============================================================================
    FALCON TRAILS — DESIGN SYSTEM
-   Premium editorial. Brand palette sampled from the Falcon Trails logo and
-   the live landers: royal blue banner, deep navy, muted gold border, paper.
-   Token NAMES are inherited from the Glitz system (pine = the primary dark
-   brand scale, gold = accent) so every component keeps working; the VALUES
-   are Ladakh's.
+   Palette and type from falcontrails.in: night navy, falcon gold, a teal
+   accent from the logo's arc, ivory paper; Marcellus (display) + Jost (body).
+   Token NAMES are kept (pine = the dark brand scale, gold = accent) so every
+   component keeps working; the VALUES are Falcon Trails'.
    ========================================================================= */
 
 @theme {
-  /* --- Paper: warm off-white neutrals (never pure white, never pure grey) */
-  --color-paper-50:  #fbfaf7;
-  --color-paper-100: #f6f4ef;
-  --color-paper-200: #efece4;
-  --color-paper-300: #e2ddd1;
-  --color-paper-400: #c9c1b0;
-  --color-paper-500: #a39a87;
+  /* --- Paper: the brand's ivory and parchment (never pure white) */
+  --color-paper-50:  #fbf8f2;
+  --color-paper-100: #f3eee3;
+  --color-paper-200: #e7dfcd;
+  --color-paper-300: #d8cdb5;
+  --color-paper-400: #bfb296;
+  --color-paper-500: #9c8f74;
 
-  /* --- Ink: warm-black text ramp --- */
-  --color-ink-950: #070f1f;
-  --color-ink-900: #0d1b30;
-  --color-ink-850: #14233c;
-  --color-ink-800: #1c2a42;
-  --color-ink-700: #2c3a53;
-  --color-ink-600: #43506a;
-  --color-ink-500: #5b6880;
-  --color-ink-400: #8792a6;
-  --color-ink-300: #b4bccb;
-  --color-ink-200: #d9dee7;
-  --color-ink-100: #edf0f5;
-  --color-ink-50: #f8fafc;
+  /* --- Ink: night-navy text ramp --- */
+  --color-ink-950: #0b141d;
+  --color-ink-900: #0f1b26;
+  --color-ink-850: #14222f;
+  --color-ink-800: #1b2a3a;
+  --color-ink-700: #243648;
+  --color-ink-600: #3d5063;
+  --color-ink-500: #5e6f7f;
+  --color-ink-400: #94a2ae;
+  --color-ink-300: #b9c3cb;
+  --color-ink-200: #dbe1e6;
+  --color-ink-100: #edf0f2;
+  --color-ink-50: #f7f8f9;
 
   /* --- Signal / Royal Sapphire Blue --- */
   --color-signal-600: #173f86;
-  --color-signal-500: #1e4fa8;
-  --color-signal-400: #3670d8;
+  --color-signal-500: #243648;
+  --color-signal-400: #1d4a5a;
   --color-signal-300: #6fa0f5;
   --color-signal-200: #d9e5fb;
 
-  /* --- Brand / Himalayan Gold --- */
-  --color-brand-600: #a8842f;
-  --color-brand-500: #c9a961;
-  --color-brand-400: #d8bf80;
-  --color-brand-300: #e8d5a0;
-  --color-brand-200: #f4ecd6;
+  /* --- Brand gold (alias used by shared components) --- */
+  --color-brand-600: #b8923e;
+  --color-brand-500: #d4af5a;
+  --color-brand-400: #dcb95f;
+  --color-brand-300: #e8c766;
+  --color-brand-200: #f5ecd2;
 
   /* --- Operational & Financial Verdicts --- */
   --color-healthy-500: #16a34a;
@@ -54,29 +53,35 @@
   --color-loss-500: #dc2626;
   --color-loss-400: #ef4444;
 
-  /* --- Pine: the logo's deep green. Primary dark surface. */
-  --color-pine-50:  #eef3fd;
-  --color-pine-100: #d9e5fb;
-  --color-pine-200: #b3cbf6;
-  --color-pine-300: #6fa0f5;
-  --color-pine-400: #3670d8;
-  --color-pine-500: #1e4fa8;
-  --color-pine-600: #193f8a;
-  --color-pine-700: #16294f;
-  --color-pine-800: #101f3d;
-  --color-pine-900: #0a1428;
-  --color-pine-950: #070f1f;
+  /* --- Pine: the brand's night navy. Primary dark surface. */
+  --color-pine-50:  #eef2f5;
+  --color-pine-100: #d8e1e8;
+  --color-pine-200: #b3c3d0;
+  --color-pine-300: #7f97aa;
+  --color-pine-400: #4f6a80;
+  --color-pine-500: #2f4a61;
+  --color-pine-600: #243648;
+  --color-pine-700: #1b2a3a;
+  --color-pine-800: #14222f;
+  --color-pine-900: #0f1b26;
+  --color-pine-950: #0b141d;
 
-  /* --- Gold: the logo's sun. Accent + CTA only, never a background wash. */
-  --color-gold-50:  #fbf8ee;
-  --color-gold-100: #f6eed8;
-  --color-gold-200: #eedfb7;
-  --color-gold-300: #e8d5a0;
-  --color-gold-400: #d8bf80;
-  --color-gold-500: #c9a961;
-  --color-gold-600: #a8842f;
-  --color-gold-700: #86682a;
-  --color-gold-800: #634d22;
+  /* --- Gold: the falcon. Accent + CTA only, never a background wash. */
+  --color-gold-50:  #fbf7ec;
+  --color-gold-100: #f5ecd2;
+  --color-gold-200: #eddcaa;
+  --color-gold-300: #e8c766;
+  --color-gold-400: #dcb95f;
+  --color-gold-500: #d4af5a;
+  --color-gold-600: #b8923e;
+  --color-gold-700: #8f7030;
+  --color-gold-800: #6a5325;
+
+  /* --- Teal: the logo's arc. Secondary accent (links on dark, tags). */
+  --color-teal-300: #5fd3c6;
+  --color-teal-400: #1fb6a6;
+  --color-teal-500: #179b8e;
+  --color-teal-600: #127a70;
 
   /* --- Saffron: warm secondary for pilgrimage / autumn contexts */
   --color-saffron-400: #e08b32;
@@ -88,8 +93,8 @@
   --color-danger:  #b3261e;
 
   /* --- Type */
-  --font-display: var(--font-cormorant), 'Georgia', serif;
-  --font-body: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-marcellus), 'Georgia', serif;
+  --font-body: var(--font-jost), system-ui, -apple-system, sans-serif;
 
   /* --- Motion tokens. One vocabulary so nothing feels off-tempo. */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -100,11 +105,11 @@
   --dur-slow: 620ms;
 
   /* --- Elevation. Warm-tinted shadows; grey shadows look dead on paper. */
-  --shadow-sm: 0 1px 2px rgba(7, 15, 31, 0.05);
-  --shadow-md: 0 4px 16px -4px rgba(7, 15, 31, 0.10), 0 2px 6px -2px rgba(7, 15, 31, 0.06);
-  --shadow-lg: 0 18px 44px -12px rgba(7, 15, 31, 0.18), 0 6px 16px -6px rgba(7, 15, 31, 0.08);
-  --shadow-xl: 0 32px 72px -20px rgba(7, 15, 31, 0.26), 0 12px 28px -12px rgba(7, 15, 31, 0.12);
-  --shadow-gold: 0 12px 32px -10px rgba(201, 169, 97, 0.45);
+  --shadow-sm: 0 1px 2px rgba(11, 20, 29, 0.05);
+  --shadow-md: 0 4px 16px -4px rgba(11, 20, 29, 0.10), 0 2px 6px -2px rgba(11, 20, 29, 0.06);
+  --shadow-lg: 0 18px 44px -12px rgba(11, 20, 29, 0.18), 0 6px 16px -6px rgba(11, 20, 29, 0.08);
+  --shadow-xl: 0 32px 72px -20px rgba(11, 20, 29, 0.26), 0 12px 28px -12px rgba(11, 20, 29, 0.12);
+  --shadow-gold: 0 12px 32px -10px rgba(212, 175, 90, 0.45);
 }
 
 /* ============================================================================
@@ -131,19 +136,19 @@
   --color-ink-300: #1c2a42;  /* body copy */
   --color-ink-200: #101f3d;  /* strong text — navy 700 */
   --color-ink-100: #0a1428;  /* headings — navy 800 */
-  --color-ink-50:  #070f1f;  /* deepest — navy 900 */
+  --color-ink-50:  #0b141d;  /* deepest — navy 900 */
 
   /* Royal blue from the logo banner. 500 is the button, 600 carries text. */
   --color-signal-600: #173f86;
-  --color-signal-500: #1e4fa8;
+  --color-signal-500: #243648;
   --color-signal-400: #2f63c9;
   --color-signal-300: #6fa0f5;
   --color-signal-200: #dbe6fb;
 
   /* Gold from the logo border: muted, never amber. 600/500 are readable. */
   --color-brand-600: #8a6a22;
-  --color-brand-500: #a8842f;
-  --color-brand-400: #c9a961;
+  --color-brand-500: #b8923e;
+  --color-brand-400: #d4af5a;
   --color-brand-300: #e8d5a0;
   --color-brand-200: #f3ead6;
 
@@ -178,6 +183,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+/* Grid children default to min-width: auto, so on a phone a single column
+   stretches to its widest content (a route ribbon, a form) and the right edge
+   is clipped by body's overflow-x. Let them shrink to the column instead. */
+.grid > * {
+  min-width: 0;
 }
 
 ::selection {
@@ -350,9 +362,9 @@ body {
   to   { transform: translate3d(-50%, 0, 0); }
 }
 @keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(201,169,97, 0.5); }
-  70%  { box-shadow: 0 0 0 14px rgba(201,169,97, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(201,169,97, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(212,175,90, 0.5); }
+  70%  { box-shadow: 0 0 0 14px rgba(212,175,90, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,175,90, 0); }
 }
 
 .anim-rise { animation: rise-in 900ms var(--ease-out-soft) both; }
@@ -377,16 +389,16 @@ body {
 /* Warm aurora mesh — sits behind light sections */
 .mesh-warm {
   background:
-    radial-gradient(58% 48% at 12% 8%,  rgba(201,169,97, 0.16), transparent 62%),
-    radial-gradient(52% 44% at 88% 22%, rgba(30,79,168, 0.12),  transparent 60%),
+    radial-gradient(58% 48% at 12% 8%,  rgba(212,175,90, 0.16), transparent 62%),
+    radial-gradient(52% 44% at 88% 22%, rgba(23,155,142, 0.12),  transparent 60%),
     radial-gradient(60% 52% at 50% 100%, rgba(224, 139, 50, 0.10), transparent 64%);
 }
 
 /* Deep pine mesh — behind dark sections */
 .mesh-pine {
   background:
-    radial-gradient(62% 52% at 18% 6%,  rgba(30,79,168, 0.55), transparent 64%),
-    radial-gradient(50% 46% at 84% 30%, rgba(201,169,97, 0.14), transparent 58%),
+    radial-gradient(62% 52% at 18% 6%,  rgba(23,155,142, 0.55), transparent 64%),
+    radial-gradient(50% 46% at 84% 30%, rgba(212,175,90, 0.14), transparent 58%),
     var(--color-pine-950);
 }
 
@@ -543,7 +555,7 @@ body {
 .btn-ghost-light:hover {
   border-color: var(--color-gold-300);
   color: var(--color-gold-200);
-  background: rgba(201,169,97, 0.08);
+  background: rgba(212,175,90, 0.08);
 }
 
 /* Light sweep across a button on hover */
@@ -669,8 +681,8 @@ body {
   background: rgba(253, 251, 247, 0.78);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(201,169,97, 0.22);
-  box-shadow: 0 8px 32px 0 rgba(7, 15, 31, 0.08);
+  border: 1px solid rgba(212,175,90, 0.22);
+  box-shadow: 0 8px 32px 0 rgba(11, 20, 29, 0.08);
 }
 
 .glass-dark {
@@ -685,16 +697,16 @@ body {
   background: rgba(253, 248, 231, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(201,169,97, 0.35);
+  border: 1px solid rgba(212,175,90, 0.35);
   box-shadow: 0 8px 24px -4px rgba(201, 154, 18, 0.25);
 }
 
 .glow-gold {
-  box-shadow: 0 0 35px -5px rgba(201,169,97, 0.35);
+  box-shadow: 0 0 35px -5px rgba(212,175,90, 0.35);
 }
 
 .glow-pine {
-  box-shadow: 0 0 35px -5px rgba(30,79,168, 0.35);
+  box-shadow: 0 0 35px -5px rgba(23,155,142, 0.35);
 }
 
 .card-tilt {
@@ -703,7 +715,7 @@ body {
 .card-tilt:hover {
   transform: translateY(-4px) scale(1.01);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(201,169,97, 0.45);
+  border-color: rgba(212,175,90, 0.45);
 }
 
 /* Sticky mobile booking/enquiry bar */
@@ -720,7 +732,7 @@ body {
   background: rgba(10, 36, 25, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(201,169,97, 0.3);
+  border-top: 1px solid rgba(212,175,90, 0.3);
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
 }
 @media (min-width: 768px) {

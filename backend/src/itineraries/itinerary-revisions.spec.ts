@@ -59,7 +59,7 @@ describe('ItinerariesService Revisions', () => {
   it('creates an itinerary revision with an incremented version and frozen snapshot', async () => {
     const mockItinerary = {
       id: 'iti-1',
-      code: 'LV-ITI-2026-0001',
+      code: 'FT-ITI-2026-0001',
       title: '6D Magical Ladakh',
       totalPax: 4,
       leadId: 'lead-1',
@@ -100,7 +100,7 @@ describe('ItinerariesService Revisions', () => {
     );
 
     expect(rev.revisionNumber).toBe(1);
-    expect(rev.title).toBe('LV-ITI-2026-0001 (v1)');
+    expect(rev.title).toBe('FT-ITI-2026-0001 (v1)');
     expect(rev.totalSell).toBe(52000);
     expect(rev.changeSummary).toBe('Initial quote presented to client');
     expect(prismaMock.activity.create).toHaveBeenCalledWith(

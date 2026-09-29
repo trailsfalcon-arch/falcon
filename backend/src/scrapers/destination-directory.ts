@@ -587,7 +587,9 @@ export const MASTER_DESTINATION_HOTELS: DirectoryProperty[] = [
     altitudeMeters: 3048,
     propertyType: VendorType.CAMP,
     sourceUrl: 'https://www.denubracamp.com',
-    phone: '+91 96229 55386',
+    // The number that shipped here belonged to another tour operator, not the
+    // camp. Left blank until the camp's own number is verified.
+    phone: '',
     email: 'info@denubracamp.com',
     address: 'Hunder Sand Dunes, Nubra Valley, Ladakh 194401',
     starRating: 3,

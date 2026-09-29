@@ -1,44 +1,33 @@
-import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { Public } from '../common/decorators/public.decorator';
 import { InterviewAiService } from './interview-ai.service';
+import { SubmitAnswerDto } from './dto/submit-answer.dto';
 
 /**
- * Candidate-facing AI interview. Public to the staff JWT guard, but every
- * session route needs the scoped token issued by `login`, and that token only
- * opens the one interview it was issued for.
+ * Candidate-facing AI interview. Public, but every route needs the invite
+ * token from the link HR sends (staff issue it from the interview screen).
+ * The token is unguessable, expires, and can be rotated; there is no lookup
+ * by phone number or interview id. Responses never include the candidate's
+ * phone or the AI's evaluation.
  */
 @Public()
+@Throttle({ default: { limit: 20, ttl: 60000 } })
 @Controller('interviews/candidate')
 export class CandidateInterviewController {
   constructor(private readonly aiService: InterviewAiService) {}
 
-  /** Mobile number + six-digit access code from HR -> candidate token. */
-  @Throttle({ default: { limit: 5, ttl: 60000 } })
-  @Post('login')
-  login(@Body() body: { phone?: unknown; code?: unknown }) {
-    return this.aiService.loginCandidateByPhone(body?.phone, body?.code);
+  @Get(':token/session')
+  getSession(@Param('token') token: string) {
+    return this.aiService.candidateSession(token);
   }
 
-  @Get(':id/session')
-  async getSession(
-    @Param('id') id: string,
-    @Headers('x-candidate-token') token?: string,
-  ) {
-    await this.aiService.verifyCandidateToken(token, id);
-    return this.aiService.candidateSession(id);
-  }
-
-  @Throttle({ default: { limit: 20, ttl: 60000 } })
-  @Post(':id/answer')
-  async submitAnswer(
-    @Param('id') id: string,
-    @Headers('x-candidate-token') token: string | undefined,
-    @Body() body: { questionIndex?: unknown; answer?: unknown },
-  ) {
-    await this.aiService.verifyCandidateToken(token, id);
-    return this.aiService.submitAnswer(id, body?.questionIndex, body?.answer, {
-      candidate: true,
-    });
+  /**
+   * Answer the current question. Answers are write-once and sequential; the
+   * reply is warm feedback and the next question, never a score.
+   */
+  @Post(':token/answer')
+  submitAnswer(@Param('token') token: string, @Body() body: SubmitAnswerDto) {
+    return this.aiService.candidateAnswer(token, body.questionIndex, body.answer);
   }
 }

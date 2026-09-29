@@ -31,66 +31,33 @@ const config: NextConfig = {
   },
 
   async redirects() {
-    // The Ads landers on go.ladakhvacation.in use flat slugs
-    // (/4-nights-ladakh-tour/, /ladakh-tour-from-delhi/). The same paths on
-    // the main domain send people to the equivalent page here, so a lander
-    // URL typed or shared against the wrong host still lands somewhere useful.
-    const landerPackages = [
-      '3-nights-ladakh-tour',
-      '4-nights-ladakh-tour',
-      '5-nights-ladakh-tour',
-      '6-nights-ladakh-tour',
-      '7-nights-ladakh-tour',
-      '8-nights-ladakh-tour',
-      'ladakh-honeymoon-packages',
-      'ladakh-group-tour',
-      'leh-ladakh-bike-trip',
-      'kashmir-ladakh-tour',
-      'manali-ladakh-tour',
-    ];
-    const landerCities = ['delhi', 'mumbai', 'bengaluru', 'hyderabad', 'chennai', 'pune', 'kolkata', 'ahmedabad'];
-
     return [
-      ...landerPackages.map((slug) => ({
-        source: `/${slug}`,
-        destination: `/packages/${slug}`,
-        permanent: true,
-      })),
-      ...landerCities.map((city) => ({
-        source: `/ladakh-tour-from-${city}`,
-        destination: `/packages/from/${city}`,
-        permanent: true,
-      })),
-      { source: '/ladakh-tour-packages', destination: '/packages', permanent: true },
-      { source: '/travel-agency-in-leh', destination: '/about', permanent: true },
-
-      // Short vanity URLs → destination hubs.
-      { source: '/kashmir', destination: '/packages/kashmir-tour-packages', permanent: true },
+      // Short vanity URLs, including the paths falcontrails.in's launch page
+      // linked on go.falcontrails.in (/kashmir/, /ladakh/, /amarnath/,
+      // /vaishno-devi/).
+      { source: '/kashmir', destination: '/destinations/srinagar', permanent: false },
       { source: '/srinagar', destination: '/destinations/srinagar', permanent: true },
       { source: '/gulmarg', destination: '/destinations/gulmarg', permanent: true },
       { source: '/pahalgam', destination: '/destinations/pahalgam', permanent: true },
-      { source: '/sonmarg', destination: '/destinations/sonmarg', permanent: true },
+      { source: '/sonamarg', destination: '/destinations/sonamarg', permanent: true },
+      { source: '/gurez', destination: '/destinations/offbeat-kashmir', permanent: true },
       { source: '/offbeat-kashmir', destination: '/destinations/offbeat-kashmir', permanent: true },
-      { source: '/gurez', destination: '/packages/gurez-valley-tour', permanent: true },
-      { source: '/leh', destination: '/destinations/leh', permanent: true },
-      { source: '/monasteries', destination: '/destinations/ladakh-monasteries', permanent: true },
-      { source: '/nubra', destination: '/destinations/nubra-pangong', permanent: true },
-      { source: '/pangong', destination: '/destinations/nubra-pangong', permanent: true },
-      { source: '/hanle', destination: '/destinations/hanle', permanent: true },
+      { source: '/ladakh', destination: '/destinations/ladakh', permanent: true },
+      { source: '/amarnath', destination: '/packages/amarnath-yatra-baltal', permanent: false },
+      { source: '/vaishno-devi', destination: '/packages/vaishno-devi-yatra', permanent: false },
+      { source: '/golden-triangle', destination: '/packages/golden-triangle-5-nights', permanent: false },
 
       // Travel-style shorthands.
       { source: '/honeymoon', destination: '/travel-styles/honeymoon', permanent: true },
       { source: '/family', destination: '/travel-styles/family', permanent: true },
-      { source: '/adventure', destination: '/travel-styles/adventure', permanent: true },
-      { source: '/culture', destination: '/travel-styles/culture', permanent: true },
-      { source: '/group', destination: '/travel-styles/group', permanent: true },
+      { source: '/group-departures', destination: '/travel-styles/group-departures', permanent: true },
+      { source: '/pilgrimages', destination: '/travel-styles/sacred-journeys', permanent: true },
+      { source: '/international', destination: '/travel-styles/the-world', permanent: true },
 
       // There is no /travel-styles index page — send it to packages, which
       // cross-links every style.
       { source: '/travel-styles', destination: '/packages', permanent: false },
-
       { source: '/tours', destination: '/packages', permanent: true },
-      { source: '/testimonials', destination: '/reviews', permanent: true },
     ];
   },
 };

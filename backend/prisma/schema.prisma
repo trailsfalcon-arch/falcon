@@ -1,4 +1,4 @@
-// Ladakh Vacation CRM — Prisma schema
+// Falcon Trails CRM — Prisma schema
 // Phase 1: User + Role.  Phase 3: Lead + Activity.
 
 generator client {
@@ -73,7 +73,7 @@ enum ItineraryItemKind {
 
 model Itinerary {
   id   String @id @default(cuid())
-  /// Sequential per year — LV-ITI-2026-0001. Same convention as quotes and
+  /// Sequential per year — FT-ITI-2026-0001. Same convention as quotes and
   /// bookings; race-safe via withNumberRetry.
   code       String  @unique
   shareToken String? @unique
@@ -278,7 +278,7 @@ enum InterviewOutcome {
 model Employee {
   id String @id @default(cuid())
 
-  /// Human-friendly code, e.g. LV-EMP-2026-0001. Sequential per year — same
+  /// Human-friendly code, e.g. FT-EMP-2026-0001. Sequential per year — same
   /// pattern as quoteNumber / bookingNumber so ops recognise it on sight.
   code String @unique
 
@@ -426,6 +426,17 @@ model Interview {
   outcome       InterviewOutcome @default(PENDING)
   outcomeNote   String?
 
+  // --- candidate self-service AI interview ---
+  /// SHA-256 of the candidate's invite token. The raw token is only ever in
+  /// the link staff send; lookups hash the presented token and match here.
+  candidateTokenHash      String?   @unique
+  /// The same token, encrypted (INTEGRATION_KEY), so staff can re-copy the
+  /// active link without rotating it.
+  candidateTokenEnc       String?
+  candidateTokenExpiresAt DateTime?
+  /// Set when the last answer is submitted. Answers are locked from then on.
+  aiCompletedAt           DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -440,7 +451,7 @@ model Interview {
 model SeoSite {
   id String @id @default(cuid())
 
-  /// Human name — "Ladakh Vacation main site", "Kashmir landing pages".
+  /// Human name — "Falcon Trails main site", "Kashmir landing pages".
   name String
   /// Homepage URL — the crawler starts here.
   url  String @unique
@@ -1425,7 +1436,7 @@ enum IntegrationTestStatus {
  */
 /// Which web property an analytics or ads credential measures.
 ///
-/// go.ladakhvacation.in and ladakhvacation.in need separate projects on every
+/// go.falcontrails.in and falcontrails.in need separate projects on every
 /// analytics vendor: one is paid traffic on noindex pages with a single goal,
 /// the other is organic browse behaviour. Pooled into one project, sessions,
 /// engagement and every dashboard average becomes a blend of two unlike
@@ -1721,8 +1732,8 @@ enum ContentTone {
 model SocialAccount {
   id           String         @id @default(uuid())
   platform     SocialPlatform
-  accountName  String         // e.g. "Ladakh Vacation Official"
-  handle       String         // e.g. "@ladakhvacation"
+  accountName  String         // e.g. "Falcon Trails Official"
+  handle       String         // e.g. "@falcontrails"
   externalId   String         // Page ID or IG Business ID
   accessToken  String         // Encrypted AES-256-GCM
   expiresAt    DateTime?

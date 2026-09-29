@@ -22,14 +22,16 @@ import {
   Volume2,
   VolumeX,
   X,
+  ExternalLink,
 } from 'lucide-react';
 import {
   api,
   ApiError,
   openBinary,
+  candidateInviteUrl,
+  type CandidateInviteLink,
   type InterviewDetail,
   type InterviewQuestionItem,
-  candidateInvite,
 } from '@/lib/api';
 import { Panel, PanelBody, PanelHeader, PanelTitle } from '@/components/ui/panel';
 import { Button } from '@/components/ui/button';
@@ -53,7 +55,7 @@ export default function InterviewDetailPage() {
 
   // Copy candidate link state
   const [copied, setCopied] = useState(false);
-  const [invite, setInvite] = useState<{ accessCode: string; loginUrl: string; message: string } | null>(null);
+  const [link, setLink] = useState<CandidateInviteLink | null>(null);
 
   // Live AI session modal
   const [sessionOpen, setSessionOpen] = useState(false);
@@ -72,15 +74,36 @@ export default function InterviewDetailPage() {
     load();
   }, [load]);
 
-  const ivId = iv?.id;
-  const ivName = iv?.candidateName;
-  const ivRole = iv?.role;
+  const loadLink = useCallback(async () => {
+    try {
+      setLink(await api.get<CandidateInviteLink>(`/interviews/${id}/candidate-link`));
+    } catch {
+      setLink(null);
+    }
+  }, [id]);
+
   useEffect(() => {
-    if (!ivId || !ivName || !ivRole) return;
-    candidateInvite({ id: ivId, candidateName: ivName, role: ivRole })
-      .then(setInvite)
-      .catch(() => setInvite(null));
-  }, [ivId, ivName, ivRole]);
+    loadLink();
+  }, [loadLink]);
+
+  /** The active invite URL, issuing one first if the candidate has none. */
+  async function ensureInviteUrl(): Promise<string> {
+    if (link?.token) return candidateInviteUrl(link.token);
+    const issued = await api.post<CandidateInviteLink>(`/interviews/${id}/candidate-link`, {});
+    setLink(issued);
+    return candidateInviteUrl(issued.token!);
+  }
+
+  /** Issue a new link; the one sent earlier stops working. */
+  async function regenerateLink() {
+    if (link?.token && !window.confirm('Create a new link? The link sent earlier will stop working.')) return;
+    setError(null);
+    try {
+      setLink(await api.post<CandidateInviteLink>(`/interviews/${id}/candidate-link`, {}));
+    } catch (e) {
+      setError(e instanceof ApiError ? e.message : 'Could not create the link.');
+    }
+  }
 
   async function patch(body: Record<string, unknown>) {
     setBusy(true);
@@ -123,20 +146,36 @@ export default function InterviewDetailPage() {
     }
   }
 
-  // Copy the candidate invite (login link + access code)
-  function copyCandidateLink() {
-    if (!invite) return;
-    navigator.clipboard.writeText(invite.message);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+  // Copy Candidate Direct Link
+  async function copyCandidateLink() {
+    if (typeof window === 'undefined') return;
+    try {
+      const url = await ensureInviteUrl();
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (e) {
+      setError(e instanceof ApiError ? e.message : 'Could not copy the link.');
+    }
   }
 
   // WhatsApp Candidate Invite
-  function openWhatsAppInvite() {
-    if (!iv || !invite) return;
-    const cleanPhone = iv.candidatePhone.replace(/[^0-9]/g, '');
-    const waUrl = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${encodeURIComponent(invite.message)}`;
-    window.open(waUrl, '_blank');
+  async function openWhatsAppInvite() {
+    if (!iv) return;
+    // Open the tab synchronously so the popup blocker allows it, then point it
+    // at WhatsApp once the link exists.
+    const tab = window.open('', '_blank');
+    try {
+      const url = await ensureInviteUrl();
+      const cleanPhone = iv.candidatePhone.replace(/[^0-9]/g, '');
+      const message = `Hello ${iv.candidateName}, greetings from Falcon Trails! We invite you to complete your friendly AI interview session for the position of "${iv.role}".\n\nPlease open this link to begin in simple English (it is only for you and works for 7 days):\n${url}\n\nAll the best!`;
+      const waUrl = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${encodeURIComponent(message)}`;
+      if (tab) tab.location.href = waUrl;
+      else window.location.href = waUrl;
+    } catch (e) {
+      tab?.close();
+      setError(e instanceof ApiError ? e.message : 'Could not create the link.');
+    }
   }
 
   if (loading) {
@@ -220,7 +259,7 @@ export default function InterviewDetailPage() {
             variant="secondary"
             size="sm"
             onClick={copyCandidateLink}
-            title="Copy the candidate invite with login link and access code"
+            title="Copy direct session link for the candidate"
           >
             {copied ? (
               <>
@@ -328,7 +367,13 @@ export default function InterviewDetailPage() {
 
         <div className="space-y-6">
           <RatingPanel iv={iv} busy={busy} onSave={patch} onRunAi={runAiEvaluation} />
-          <CandidatePortalAccessCard invite={invite} onCopy={copyCandidateLink} onWhatsApp={openWhatsAppInvite} />
+          <CandidatePortalAccessCard
+            link={link}
+            copied={copied}
+            onCopy={copyCandidateLink}
+            onWhatsApp={openWhatsAppInvite}
+            onRegenerate={regenerateLink}
+          />
         </div>
       </div>
 
@@ -484,7 +529,7 @@ function AiScorecardCard({
               No AI evaluation recorded yet
             </p>
             <p className="mt-1 text-xs text-ink-400 max-w-md mx-auto">
-              Launch the live session with the candidate or send them their direct link. Once answers are recorded, click &quot;Run AI Evaluation&quot; to determine candidate suitability.
+              Launch the live session with the candidate or send them their direct link. Once answers are recorded, click &quot;Run AI Evaluation&quot; for a suggested score. The AI only recommends; set the outcome yourself.
             </p>
           </div>
         )}
@@ -780,44 +825,82 @@ function RatingPanel({
 /* ------------------------------------------------------------------ */
 
 function CandidatePortalAccessCard({
-  invite,
+  link,
+  copied,
   onCopy,
   onWhatsApp,
+  onRegenerate,
 }: {
-  invite: { accessCode: string; loginUrl: string } | null;
+  link: CandidateInviteLink | null;
+  copied: boolean;
   onCopy: () => void;
   onWhatsApp: () => void;
+  onRegenerate: () => void;
 }) {
+  const portalUrl = link?.token ? candidateInviteUrl(link.token) : null;
+
   return (
     <Panel className="border-ink-800">
       <PanelHeader>
         <PanelTitle className="text-xs uppercase tracking-wider text-ink-400">
-          Candidate Portal Access
+          Candidate Portal Link
         </PanelTitle>
       </PanelHeader>
       <PanelBody className="space-y-3 p-4">
         <p className="text-xs text-ink-400 leading-relaxed">
-          The candidate opens the login page and enters their mobile number and this access code.
-          Send it only to the candidate.
+          A private link only this candidate can use, valid for 7 days. Answers lock once
+          submitted, and the candidate never sees the AI&apos;s score.
         </p>
 
-        <div className="rounded-lg border border-ink-800 bg-ink-950/80 p-2 text-[11px] text-ink-400 break-all select-all font-mono">
-          {invite ? invite.loginUrl : 'Loading…'}
-        </div>
-        <div className="flex items-center justify-between rounded-lg border border-ink-800 bg-ink-950/80 px-3 py-2">
-          <span className="text-[11px] uppercase tracking-wider text-ink-500">Access code</span>
-          <span className="font-mono text-base tracking-[0.3em] text-gold-400 select-all">
-            {invite ? invite.accessCode : '••••••'}
-          </span>
-        </div>
+        {portalUrl ? (
+          <>
+            <div className="rounded-lg border border-ink-800 bg-ink-950/80 p-2 text-[11px] text-ink-400 break-all select-all font-mono">
+              {portalUrl}
+            </div>
+            {link?.expiresAt && (
+              <p className="text-[11px] text-ink-500">Expires {shortDate(link.expiresAt)}</p>
+            )}
+          </>
+        ) : (
+          <p className="rounded-lg border border-dashed border-ink-800 p-2 text-[11.5px] text-ink-500">
+            No active link. Copy or WhatsApp creates one.
+          </p>
+        )}
+        {link?.completedAt && (
+          <p className="text-[11px] text-healthy-400">Candidate completed the interview.</p>
+        )}
 
         <div className="flex gap-2">
-          <Button variant="secondary" size="sm" onClick={onCopy} disabled={!invite} className="flex-1 text-xs">
-            <Copy className="size-3.5" /> Copy invite
+          <Button variant="secondary" size="sm" onClick={onCopy} className="flex-1 text-xs">
+            {copied ? <Check className="size-3.5 text-healthy-400" /> : <Copy className="size-3.5" />}
+            {copied ? 'Copied' : 'Copy'}
           </Button>
-          <Button variant="secondary" size="sm" onClick={onWhatsApp} disabled={!invite} className="flex-1 text-xs">
+          <Button variant="secondary" size="sm" onClick={onWhatsApp} className="flex-1 text-xs">
             <MessageCircle className="size-3.5 text-[#25D366]" /> WhatsApp
           </Button>
+        </div>
+
+        <div className="flex items-center justify-between pt-1">
+          {portalUrl ? (
+            <a
+              href={portalUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-[11.5px] text-gold-400 hover:text-gold-300"
+            >
+              <span>Open candidate portal</span>
+              <ExternalLink className="size-3" />
+            </a>
+          ) : (
+            <span />
+          )}
+          <button
+            type="button"
+            onClick={onRegenerate}
+            className="inline-flex items-center gap-1 text-[11.5px] text-ink-400 hover:text-ink-200"
+          >
+            <RotateCcw className="size-3" /> {portalUrl ? 'New link' : 'Create link'}
+          </button>
         </div>
       </PanelBody>
     </Panel>

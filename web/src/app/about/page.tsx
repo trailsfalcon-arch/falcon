@@ -7,8 +7,8 @@ import { PageHero } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 
 export const metadata: Metadata = {
-  title: 'About Us — A Srinagar-Based Tour Operator',
-  description: `${SITE.name} is a Srinagar-based tour operator for Kashmir, Ladakh and Jammu, founded by a guide who has been showing travellers Kashmir since 2010.`,
+  title: 'About Us — A Srinagar-Based Kashmir & Ladakh Tour Operator',
+  description: `Falcon Trails is a Srinagar-based travel company for Kashmir, Ladakh and Jammu, founded by ${SITE.founder.name}, in Kashmir tourism since ${SITE.founder.since}.`,
   alternates: { canonical: '/about' },
 };
 
@@ -16,22 +16,22 @@ const VALUES = [
   {
     n: '01',
     t: 'We answer our own phone',
-    b: 'No call centre, no ticketing queue. The planner who writes your itinerary is the one who answers when plans change on the road.',
+    b: 'No call centre, no ticketing queue. The planner who writes your itinerary is the one who answers at 11pm when a pass closes.',
   },
   {
     n: '02',
-    t: 'Honest advice first',
-    b: 'If your dates, your days or your route are wrong for what you want, we say so before we quote. In Ladakh that means acclimatising around Leh before the high passes.',
+    t: 'Season and road first',
+    b: 'We plan around the season and the road, not a checklist. If your dates are wrong for what you want (Gurez in April, Zojila in December) we say so.',
   },
   {
     n: '03',
     t: 'No middlemen in the chain',
-    b: 'We work with drivers, hotels, houseboats and camps directly, so there is no chain of commissions between you and the people serving you.',
+    b: 'We deal directly with drivers, houseboat owners and hotels, and we only sell stays we know. No chain of commissions between you and the people serving you.',
   },
   {
     n: '04',
     t: 'The price is the price',
-    b: 'An itemised quote showing what each night and each transfer costs, with exclusions listed plainly, and a written itinerary before you pay anything.',
+    b: 'An itemised quote showing what each night and each vehicle costs, and exclusions listed plainly. A written itinerary and invoice before you pay anything.',
   },
 ];
 
@@ -49,11 +49,11 @@ export default function AboutPage() {
       <JsonLd data={jsonLd} />
 
       <PageHero
-        kicker="Srinagar · Kashmir, Ladakh & Jammu"
-        title="Planned by people who live here."
-        lede="The people planning your trip are the people running it: a Srinagar-based team, not an intermediary reselling somebody else’s trip."
+        kicker={`Srinagar, Kashmir · Est. ${SITE.founded}`}
+        title="Kashmir first. Planned by locals."
+        lede="The people planning your trip are the people running it: a Srinagar-based travel company, not an intermediary reselling somebody else’s trip."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.40) 0%, rgba(11,20,29,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #1d4a5a 0%, #14222f 46%, #0b141d 100%)"
       />
 
       <section className="section-sm mesh-warm">
@@ -61,25 +61,29 @@ export default function AboutPage() {
           <div className="md:col-span-7" data-reveal>
             <div className="space-y-5">
               <p className="text-[17.5px] leading-[1.75] text-ink-800">
-                {SITE.name} was started by Shahid Parvez Khan, who began guiding
-                travellers around Kashmir in 2010, hosting guests from South Africa,
-                Malaysia, Singapore, Indonesia, Thailand, Spain and the UK.
+                Falcon Trails is a Srinagar-based travel company for Kashmir,
+                Ladakh and Jammu. It was founded by {SITE.founder.name}, who has
+                worked in Kashmir tourism since {SITE.founder.since}: first as a
+                guide for international travellers, then selling and running
+                Kashmir holidays for a destination management company.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                After years on the ground, he moved into planning and selling
-                holidays for a Srinagar travel company, building itineraries,
-                negotiating with hotels and leading its direct-to-traveller sales
-                team. {SITE.name} is the independent company that grew out of
-                that work.
+                Every route is sequenced by season and travel time rather than
+                by how many sights fit into a day. Permits and fees are arranged
+                before you arrive, and you get a written itinerary and an
+                itemised quote before you pay anything.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                We plan trips across Kashmir, Ladakh and Jammu: Srinagar and its
-                houseboats, Gulmarg, Pahalgam and Sonmarg, and the high road into
-                Ladakh. Every quote is itemised, and the person who plans your trip
-                is the person you talk to while you are travelling.
+                There is no chain of commissions between you and the people
+                actually serving you. When plans change on the road, the person
+                who replies is part of our own team, not a call centre.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                We speak Kashmiri, Urdu, Hindi, Punjabi and English.
+                What we are not is a marketplace. We start from Kashmir: Srinagar,
+                Gulmarg, Pahalgam and Sonamarg, the offbeat valleys and the Jammu
+                side, and Ladakh by the Srinagar road. Kerala, the North East, the
+                Golden Triangle and trips abroad we plan one at a time, with the
+                same care.
               </p>
             </div>
           </div>
@@ -91,8 +95,8 @@ export default function AboutPage() {
               </h2>
               <dl className="mt-5 space-y-4">
                 {[
-                  [Clock, 'Guiding since', '2010, Srinagar'],
-                  [Users, 'Languages', 'Kashmiri · Urdu · Hindi · Punjabi · English'],
+                  [Clock, 'Based in', 'Srinagar, Kashmir'],
+                  [Users, 'Founder', `${SITE.founder.name}, in Kashmir tourism since ${SITE.founder.since}`],
                   [MapPin, 'Coverage', 'Kashmir · Ladakh · Jammu'],
                 ].map(([Icon, k, v]) => {
                   const I = Icon as typeof Clock;
@@ -115,7 +119,11 @@ export default function AboutPage() {
               </dl>
 
               <div className="mt-6 border-t border-paper-300 pt-5">
-                <p className="text-[13px] leading-relaxed text-ink-600">{addressLine()}</p>
+                <p className="text-[13px] leading-relaxed text-ink-600">
+                  {addressLine()}
+                  <br />
+                  {SITE.address.region} {SITE.address.postalCode}
+                </p>
                 <p className="mt-3 text-[13px] text-ink-600">{SITE.hours}</p>
                 <Link href="/contact" className="btn btn-gold mt-5 w-full">
                   Talk to us
@@ -130,7 +138,7 @@ export default function AboutPage() {
         <div
           aria-hidden
           className="blob right-[-8%] top-[8%] h-[420px] w-[420px]"
-          style={{ background: 'rgba(201,169,97,0.14)' }}
+          style={{ background: 'rgba(212,175,90,0.14)' }}
         />
         <div className="wrap relative">
           <SectionHead light kicker="How we work" title="Four rules we do not bend." />

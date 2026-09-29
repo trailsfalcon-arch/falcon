@@ -49,7 +49,7 @@ describe('PermitsService', () => {
   it('creates permit application with travellers and logs activity', async () => {
     prismaMock.booking.findUnique.mockResolvedValue({
       id: 'book-1',
-      bookingNumber: 'LV-BK-2026-0001',
+      bookingNumber: 'FT-BK-2026-0001',
       leadId: 'lead-1',
     });
 

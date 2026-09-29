@@ -6,9 +6,9 @@ import { EnquiryForm } from '@/components/enquiry-form';
 import { SITE } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Travel Agent Partners — Ground Operations in Ladakh',
+  title: 'Travel Agent Partners — Ground Operations in Kashmir',
   description:
-    'Partner with Falcon Trails for ground operations in Ladakh: a Srinagar-based team with direct relationships with drivers, camps and hotels, environmental fees and permits handled, and 24×7 on-ground support.',
+    'Partner with Falcon Trails for ground operations in Kashmir and Ladakh: a Srinagar-based team with direct relationships with drivers, houseboats and hotels, itemised net rates, and a named coordinator on the ground.',
   alternates: { canonical: '/partner-with-us' },
 };
 
@@ -16,32 +16,32 @@ export default function PartnerWithUsPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Ground operations in Ladakh for travel agents',
+    name: 'Ground operations in Kashmir for travel agents',
     provider: { '@id': `${SITE.domain}/#org` },
-    description: 'Ground operations in Ladakh for travel agents across India: vehicles, stays, permits and on-ground support from a Srinagar-based team.',
+    description: 'Ground operations in Kashmir and Ladakh for travel agents across India: vehicles, stays, yatra logistics and on-ground support from a Srinagar-based team.',
     url: `${SITE.domain}/partner-with-us`,
   };
 
   const advantages = [
     {
       icon: Car,
-      title: 'Private vehicles, experienced drivers',
-      desc: 'Innova Crysta or Xylo with drivers who run these passes every week of the season, each vehicle carrying oxygen, an oximeter and a first-aid kit.',
+      title: 'Private cabs, local drivers',
+      desc: 'Drivers who know every valley road, and a straight briefing for your clients on the union taxis and fixed rates at Pahalgam, Sonamarg and Gulmarg.',
     },
     {
       icon: Building2,
       title: 'Direct relationships with stays',
-      desc: 'Hotels in Leh and camps at Nubra, Pangong and Sarchu that we deal with directly. No chain of commissions in between.',
+      desc: 'Houseboats, hotels and camps across Kashmir that we deal with directly. No chain of commissions in between.',
     },
     {
       icon: ShieldCheck,
-      title: 'Permits, handled',
-      desc: 'The Ladakh environmental fee for Indian guests, and Protected Area Permits for foreign nationals, for Nubra, Pangong, Hanle, Tso Moriri and Umling La, paid and printed before your clients arrive.',
+      title: 'Yatras and permits, handled',
+      desc: 'Amarnath and Vaishno Devi logistics around the official schedules, and Ladakh permits for clients continuing by road.',
     },
     {
       icon: Headphones,
-      title: 'A named coordinator',
-      desc: 'One point of contact for airport transfers, check-ins, route changes when a pass closes, and on-ground assistance 24×7.',
+      title: 'A named trip coordinator',
+      desc: 'One point of contact for airport transfers, check-ins, and route changes when a road closes or the weather turns.',
     },
   ];
 
@@ -51,8 +51,8 @@ export default function PartnerWithUsPage() {
 
       <PageHero
         kicker="B2B Travel Partner Network"
-        title="Your ground team in Kashmir & Ladakh"
-        lede="Sell Ladakh with a Srinagar-based team running the ground for you: vehicles, stays, permits and one named coordinator for every group."
+        title="Your ground team in Kashmir"
+        lede="Sell Kashmir with a Srinagar-based team running the ground for you: vehicles, houseboats, hotels and a coordinator who actually picks up."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Partner With Us' },
@@ -66,10 +66,10 @@ export default function PartnerWithUsPage() {
               <div>
                 <p className="kicker">Why Retail Agents Choose Us</p>
                 <h2 className="display d2 mt-2 text-ink-950">
-                  The local team your clients need at 3,500 m
+                  The local team your clients need in Kashmir
                 </h2>
                 <p className="mt-4 text-[15.5px] leading-relaxed text-ink-700 max-w-xl">
-                  Selling Ladakh from Mumbai, Delhi, Ahmedabad or Bengaluru means answering for permits, altitude, closed passes and camps you have never seen. We handle all of that on the ground, and sequence every route by altitude so your clients have the trip you sold them.
+                  Selling Kashmir from Mumbai, Delhi, Ahmedabad or Bengaluru means answering for houseboats you have never seen, union taxi rules, closed roads and yatra schedules. We handle all of that on the ground, so your clients have the trip you sold them.
                 </p>
               </div>
 

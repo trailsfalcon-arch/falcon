@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#16294F"/><path d="M8 50 L24 30 L32 38 L42 24 L56 50 Z" fill="#C9A961" opacity="0.35"/><text x="32" y="40" text-anchor="middle" font-family="DejaVu Serif, Georgia, serif" font-weight="700" font-size="26" fill="#C9A961">FT</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <rect width="40" height="40" rx="9" fill="#0B141D"/>
+  <g transform="translate(0 2)">
+    <circle cx="20" cy="17" r="13" fill="none" stroke="#D4AF5A" stroke-width="1.6"/>
+    <path d="M14 30 Q20 22 26 30" fill="none" stroke="#179B8E" stroke-width="3"/>
+    <path d="M12 17 q6 -6 14 -2 l-4 3 4 1 -6 2 q-5 1 -8 -4z" fill="#D4AF5A"/>
+    <path d="M16 11 l3 2 3 -2" fill="none" stroke="#D4AF5A" stroke-width="1.4"/>
+  </g>
+</svg>

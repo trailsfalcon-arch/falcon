@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
-import { SITE, addressLine, whatsAppLink } from '@/lib/site';
+import { SITE, whatsAppLink, addressLine } from '@/lib/site';
 import { JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 
 export const metadata: Metadata = {
-  title: 'Contact Us — Talk to a Trip Planner in Srinagar',
-  description: `Contact ${SITE.name}. ${SITE.phone.display ? `WhatsApp or call ${SITE.phone.display}, email` : 'Email'} ${SITE.email}, or send an enquiry. Our team in Srinagar replies within hours, ${SITE.hours}.`,
+  title: 'Contact Us — Talk to a Kashmir & Ladakh Trip Planner',
+  description: `Contact Falcon Trails. WhatsApp or call ${SITE.phone.display}, email ${SITE.email}, or send an enquiry. Our team replies within hours, ${SITE.hours}.`,
   alternates: { canonical: '/contact' },
 };
 
@@ -39,8 +39,7 @@ const CHANNELS = [
     external: false,
     accent: 'bg-pine-700 text-paper-50',
   },
-  // Phone channels only appear once a number is configured.
-].filter((c) => Boolean(c.value));
+];
 
 export default function ContactPage() {
   const jsonLd = [
@@ -67,10 +66,10 @@ export default function ContactPage() {
 
       <PageHero
         kicker="Get in touch"
-        title="Talk to someone who's actually in Kashmir."
+        title="Talk to someone who actually runs the trip."
         lede={`Our office is in Srinagar. We are on WhatsApp ${SITE.hours}, and the person who replies is the person who will run your trip.`}
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.40) 0%, rgba(11,20,29,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #1d4a5a 0%, #14222f 46%, #0b141d 100%)"
       />
 
       <section className="mesh-warm section-sm">
@@ -114,6 +113,8 @@ export default function ContactPage() {
                     </p>
                     <p className="mt-1 text-[15px] leading-snug text-ink-900">
                       {addressLine()}
+                      <br />
+                      {SITE.address.region} {SITE.address.postalCode}
                     </p>
                     <p className="mt-2.5 inline-flex items-center gap-2 text-[12.5px] text-ink-600">
                       <Clock className="size-3.5 text-gold-600" strokeWidth={2} />
@@ -132,9 +133,10 @@ export default function ContactPage() {
                 <strong className="font-semibold text-ink-900">
                   Planning for peak season?
                 </strong>{' '}
-                Leh hotels and the Nubra and Pangong camps for May–June book out
-                months ahead. Message us early even if your dates are not final
-                &mdash; we will tell you what needs locking in first.
+                Houseboats and hotels in Gulmarg and Pahalgam for April–June, and
+                everything around the Amarnath Yatra, book out months ahead. Message
+                us early even if your dates are not final &mdash; we will tell you
+                what needs locking in first.
               </p>
             </div>
           </div>

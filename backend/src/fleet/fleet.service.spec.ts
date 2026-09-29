@@ -37,7 +37,7 @@ describe('FleetService', () => {
   it('prevents vehicle double-booking during overlapping circuits', async () => {
     prismaMock.booking.findUnique.mockResolvedValue({
       id: 'book-2',
-      bookingNumber: 'LV-BK-2026-0002',
+      bookingNumber: 'FT-BK-2026-0002',
     });
 
     prismaMock.vehicle.findUnique.mockResolvedValue({
@@ -51,7 +51,7 @@ describe('FleetService', () => {
       circuit: 'Leh - Nubra - Pangong',
       startDate: new Date('2026-09-25'),
       endDate: new Date('2026-09-30'),
-      booking: { bookingNumber: 'LV-BK-2026-0001' },
+      booking: { bookingNumber: 'FT-BK-2026-0001' },
     });
 
     await expect(
@@ -68,7 +68,7 @@ describe('FleetService', () => {
   it('successfully creates fleet assignment when vehicle and driver are free', async () => {
     prismaMock.booking.findUnique.mockResolvedValue({
       id: 'book-3',
-      bookingNumber: 'LV-BK-2026-0003',
+      bookingNumber: 'FT-BK-2026-0003',
     });
 
     prismaMock.vehicle.findUnique.mockResolvedValue({

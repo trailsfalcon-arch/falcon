@@ -1,9 +1,8 @@
 # Falcon Trails — Main Website
 
 The public-facing marketing site at **falcontrails.in**. Sits alongside the
-CRM (`/frontend`) and API (`/backend`) in this monorepo; unrelated to the
-Google Ads landing pages at `go.falcontrails.in` (that's the PHP site in
-`C:\xampp\htdocs\glitzzz`, indexed off).
+CRM (`/frontend`) and API (`/backend`) in this monorepo. Any Google Ads
+landing pages at `go.falcontrails.in` live outside this repo.
 
 ## Stack
 

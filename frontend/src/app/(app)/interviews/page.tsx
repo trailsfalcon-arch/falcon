@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Briefcase, Plus, X, Bot, Copy, Check, Sparkles } from 'lucide-react';
-import { api, ApiError, candidateInvite, type InterviewRow } from '@/lib/api';
+import { api, ApiError, candidateInviteUrl, type CandidateInviteLink, type InterviewRow } from '@/lib/api';
 import { Panel, PanelBody, PanelHeader, PanelTitle } from '@/components/ui/panel';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
@@ -168,16 +168,21 @@ export default function InterviewsPage() {
                       <button
                         type="button"
                         onClick={async () => {
+                          if (typeof window === 'undefined') return;
                           try {
-                            const { message } = await candidateInvite(iv);
-                            await navigator.clipboard.writeText(message);
+                            // Re-copy the active invite; issue one only if none exists.
+                            let link = await api.get<CandidateInviteLink>(`/interviews/${iv.id}/candidate-link`);
+                            if (!link.token) {
+                              link = await api.post<CandidateInviteLink>(`/interviews/${iv.id}/candidate-link`, {});
+                            }
+                            await navigator.clipboard.writeText(candidateInviteUrl(link.token!));
                             setCopiedId(iv.id);
                             setTimeout(() => setCopiedId(null), 2000);
-                          } catch (e) {
-                            setError(e instanceof ApiError ? e.message : 'Could not copy the invite.');
+                          } catch {
+                            window.alert('Could not copy the candidate link. Open the interview and try again.');
                           }
                         }}
-                        title="Copy candidate invite (login link + access code)"
+                        title="Copy candidate AI interview link"
                         className="rounded p-1 text-ink-400 hover:bg-ink-800 hover:text-gold-400"
                       >
                         {copiedId === iv.id ? (

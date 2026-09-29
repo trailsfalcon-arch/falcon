@@ -19,16 +19,18 @@ install is rebranded by filling in that screen.
 Invoices print a GSTIN, PAN or bank block only when the profile has one. There
 are no sample tax or bank values anywhere.
 
-The public website in `web/` is Falcon Trails' own marketing site and reads
-`web/src/lib/site.ts`, with contact details from build-time variables:
+The public website in `web/` is Falcon Trails' own marketing site. Its name,
+phone (+91 96222 10290), email and address live in `web/src/lib/site.ts`;
+keep them identical to Settings → Company profile and the Google Business
+Profile. Its content (destinations, itineraries, the five ways to travel) is
+in `web/src/lib/`, and photos are CC-licensed from Wikimedia Commons, credited
+on `/image-credits`.
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_SITE_PHONE` | Public phone/WhatsApp, e.g. `+91 98765 43210`. Call and WhatsApp buttons hide while unset. |
-| `NEXT_PUBLIC_SITE_EMAIL` | Defaults to `info@falcontrails.in`. |
-| `NEXT_PUBLIC_SITE_STREET` | Street line of the Srinagar office, optional. |
-| `NEXT_PUBLIC_SITE_URL` | CRM's idea of the public site, defaults to `https://falcontrails.in`. |
-| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container, optional. |
+| `NEXT_PUBLIC_LEAD_CAPTURE_URL` | Backend enquiry endpoint. Required: without it forms show an error instead of guessing a host. |
+| `NEXT_PUBLIC_API_URL` | Backend API for the CRM at `/login`. |
+| `NEXT_PUBLIC_SITE_URL` | The CRM's idea of the public site, defaults to `https://falcontrails.in`. |
 The `frontend` folder remains the CRM source; `web/scripts/sync-crm.mjs` copies
 its routes and utilities into the combined app before each build.
 
@@ -140,9 +142,9 @@ enquiry to `/api/leads/capture` on the Render backend. After changing it, run
 
 ## Content
 
-The website's packages, destinations, city pages and FAQs were inherited from
-the Ladakh Vacation site. Their itineraries, inclusions and prices must be
-replaced with Falcon Trails' own before launch. After adding or renaming a
+Packages show "Price on request" until a price is set in
+`web/src/lib/packages.ts`. Inclusions are typical Kashmir terms: confirm them
+before launch. After adding or renaming a
 website page, run `node seo/generate-manifest.mjs` so the CRM's SEO dashboard
 audits the new URL.
 

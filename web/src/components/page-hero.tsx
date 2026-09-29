@@ -7,7 +7,7 @@ import { ChevronRight } from 'lucide-react';
  * hero so every page feels like the same site, but shorter so content starts
  * above the fold on a laptop.
  */
-const DEFAULT_HERO_BG = 'linear-gradient(160deg, #0a1428 0%, #16294f 60%, #1e4fa8 160%)';
+const DEFAULT_HERO_BG = 'linear-gradient(160deg, #0a1428 0%, #14222f 60%, #243648 160%)';
 
 export function PageHero({
   kicker,
@@ -50,7 +50,7 @@ export function PageHero({
       <div
         aria-hidden
         className="blob -z-10 left-[8%] top-[10%] h-[340px] w-[340px]"
-        style={{ background: 'rgba(201,169,97,0.16)' }}
+        style={{ background: 'rgba(212,175,90,0.16)' }}
       />
       <div aria-hidden className="grain absolute inset-0 -z-10" />
 

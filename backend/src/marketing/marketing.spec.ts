@@ -22,7 +22,7 @@ describe('Marketing Module', () => {
         toName: 'Rohan Sharma',
         subject: 'Autumn in Kashmir Promo',
         htmlContent: '<p>Special package discount</p>',
-        unsubscribeUrl: 'https://ladakh-vacation-crm.vercel.app/api/marketing/unsubscribe/token-123',
+        unsubscribeUrl: 'https://falcontrails.in/api/marketing/unsubscribe/token-123',
       });
 
       await expect(delivery).rejects.toThrow('Email is not configured');

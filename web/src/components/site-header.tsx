@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Menu, X, Phone, ChevronDown, ArrowRight } from 'lucide-react';
-import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd } from '@/lib/site';
-import { DESTINATIONS, REGION_NAMES } from '@/lib/destinations';
+import { SITE, priceText } from '@/lib/site';
+import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
-import { REVIEWS } from '@/lib/reviews';
 import { Wordmark } from './logo';
+import { REVIEWS } from '@/lib/reviews';
 
 type Drop = 'destinations' | 'styles' | null;
 
@@ -118,7 +118,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            {SITE.phone.tel && (
             <a
               href={`tel:${SITE.phone.tel}`}
               className="group flex items-center gap-2 rounded-full border border-paper-300 px-3.5 py-2 text-[13px] font-medium text-ink-700 transition-colors duration-200 hover:border-gold-400 hover:bg-gold-50 hover:text-gold-700"
@@ -126,7 +125,6 @@ export function SiteHeader() {
               <Phone className="size-3.5 transition-transform duration-300 group-hover:rotate-12" strokeWidth={2} />
               {SITE.phone.display}
             </a>
-            )}
             <Link href="/plan-my-trip" className="btn btn-gold btn-shine">
               Plan my trip
             </Link>
@@ -152,7 +150,7 @@ export function SiteHeader() {
           ].join(' ')}
         >
           {drop === 'destinations' && (
-            <div className="wrap grid grid-cols-5 gap-3 py-8">
+            <div className="wrap grid grid-cols-4 gap-3 py-8">
               {DESTINATIONS.map((d) => (
                 <Link
                   key={d.slug}
@@ -164,10 +162,10 @@ export function SiteHeader() {
                     <ArrowRight className="arrow-slide size-4 text-gold-600 opacity-0 transition-opacity group-hover:opacity-100" />
                   </div>
                   <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-500">
-                    {d.regions.length} places · {d.idealDuration}
+                    {d.regions.length} regions · {d.idealDuration}
                   </p>
                   <p className="mt-2 text-[12px] font-medium text-gold-700">
-                    {d.startingFrom ? `${fromPrice(d.startingFrom)} pp` : REGION_NAMES[d.region]}
+                    {priceText(d.startingFrom, ' pp')}
                   </p>
                 </Link>
               ))}
@@ -223,7 +221,7 @@ export function SiteHeader() {
                   <MobileLink key={d.slug} href={`/destinations/${d.slug}`}>
                     {d.name}
                     <span className="text-[12px] text-ink-500">
-                      {d.startingFrom ? fromPrice(d.startingFrom) : REGION_NAMES[d.region]}
+                      {priceText(d.startingFrom)}
                     </span>
                   </MobileLink>
                 ))}
@@ -259,12 +257,10 @@ export function SiteHeader() {
                 <Link href="/plan-my-trip" className="btn btn-gold w-full">
                   Plan my trip
                 </Link>
-                {SITE.phone.tel && (
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost w-full">
                   <Phone className="size-4" strokeWidth={2} />
                   {SITE.phone.display}
                 </a>
-                )}
               </div>
             </nav>
           </div>

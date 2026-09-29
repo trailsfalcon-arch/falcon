@@ -1,11 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/site';
-import { REVIEWS } from '@/lib/reviews';
 import { DESTINATIONS } from '@/lib/destinations';
 import { PACKAGES } from '@/lib/packages';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
-import { COLLECTIONS } from '@/lib/collections';
-import { ORIGIN_CITIES } from '@/lib/origin-cities';
+import { REVIEWS } from '@/lib/reviews';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -16,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.domain}/packages`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE.domain}/plan-my-trip`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE.domain}/partner-with-us`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    ...(REVIEWS.length > 0
+    ...(REVIEWS.length
       ? [{ url: `${SITE.domain}/reviews`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.6 }]
       : []),
     { url: `${SITE.domain}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
@@ -49,32 +47,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  /**
-   * Curated package collections. These share the flat /packages/<slug> space
-   * with individual packages and target commercial queries, so they carry the
-   * same priority.
-   */
-  const collections: MetadataRoute.Sitemap = COLLECTIONS.map((c) => ({
-    url: `${SITE.domain}/packages/${c.slug}`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  }));
-
-  /** Origin-city landing pages, one per departure city the landers target. */
-  const originCities: MetadataRoute.Sitemap = ORIGIN_CITIES.map((c) => ({
-    url: `${SITE.domain}/packages/from/${c.slug}`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  }));
-
   return [
     ...statics,
     ...destinations,
     ...packages,
-    ...collections,
-    ...originCities,
     ...styles,
   ];
 }

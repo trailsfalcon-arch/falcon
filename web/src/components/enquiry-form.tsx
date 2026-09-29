@@ -97,12 +97,10 @@ export function EnquiryForm({
             >
               WhatsApp us now
             </a>
-            {SITE.phone.tel && (
             <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
               <Phone className="size-4" strokeWidth={2} />
               {SITE.phone.display}
             </a>
-            )}
           </div>
         </div>
       </div>
@@ -153,8 +151,6 @@ export function EnquiryForm({
               className={`${field} cursor-pointer appearance-none`}
             >
               <option value="">Not sure yet</option>
-              <option value="Kashmir" className="text-ink-900">Kashmir (anywhere)</option>
-              <option value="Ladakh" className="text-ink-900">Ladakh (anywhere)</option>
               {DESTINATIONS.map((d) => (
                 <option key={d.slug} value={d.name} className="text-ink-900">
                   {d.name}
@@ -192,14 +188,14 @@ export function EnquiryForm({
             placeholder={
               packageName
                 ? `Interested in ${packageName} — tell us group size, dates, anything specific.`
-                : 'E.g. 6 nights in Kashmir in late April, family of four, one grandparent.'
+                : 'E.g. 5 nights in Kashmir in late April, family of four, one grandparent.'
             }
           />
         </label>
 
         {error && (
           <p role="alert" className="rounded-lg border border-red-300 bg-red-50 px-3.5 py-2.5 text-[12.5px] text-red-800">
-            Could not send ({error}). {SITE.phone.display ? `Please WhatsApp us on ${SITE.phone.display} instead — we will get straight back to you.` : `Please email us at ${SITE.email} instead — we will get straight back to you.`}
+            Could not send ({error}). Please WhatsApp us on {SITE.phone.display} instead — we will get straight back to you.
           </p>
         )}
 

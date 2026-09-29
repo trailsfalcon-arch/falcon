@@ -6,7 +6,7 @@ import { isCrmPath } from '@/lib/crm-routes';
  * Host-based Router for Unified Vercel Deployment.
  * Allows a single Next.js project on Vercel to serve both:
  *   1. The public SEO website on falcontrails.in
- *   2. The staff CRM portal on its own host (or crm.falcontrails.in)
+ *   2. The staff CRM portal on falcontrails.in (or crm.falcontrails.in)
  */
 export function middleware(request: NextRequest) {
   const host = (request.headers.get('host') || '').toLowerCase();

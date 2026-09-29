@@ -1,21 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { SITE } from '@/lib/site';
+import { notFound } from 'next/navigation';
+import { Star } from 'lucide-react';
+import { SITE, HAS_RATING } from '@/lib/site';
 import { REVIEWS } from '@/lib/reviews';
 import { ReviewCard, SectionHead, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 
 export const metadata: Metadata = {
-  title: `Guest Reviews — What Travellers Say About ${SITE.name}`,
-  description: `What travellers say about their trips with ${SITE.name}.`,
+  title: 'Guest Reviews — What Travellers Say About Falcon Trails',
+  description: 'What travellers say about their Kashmir and Ladakh trips with Falcon Trails.',
   alternates: { canonical: '/reviews' },
-  // An empty reviews page is thin content: keep it out of search until the
-  // first genuine reviews are added in lib/reviews.ts.
-  ...(REVIEWS.length === 0 ? { robots: { index: false, follow: true } } : {}),
 };
 
 export default function ReviewsPage() {
+  // No page until there are real reviews to show.
+  if (REVIEWS.length === 0) notFound();
+
   const jsonLd = [
     {
       '@context': 'https://schema.org',
@@ -32,18 +34,26 @@ export default function ReviewsPage() {
       <JsonLd data={jsonLd} />
 
       <PageHero
-        kicker="Guest reviews"
+        kicker={HAS_RATING ? `${SITE.stats.rating} out of 5 · ${SITE.stats.reviewCount} reviews` : 'Guest reviews'}
         title="The reviews are the itinerary."
-        lede={
-          REVIEWS.length > 0
-            ? 'A few of the things travellers have told us after their trips.'
-            : 'We are a new company, so there are no reviews to show yet. We will only ever publish reviews from guests who actually travelled with us.'
-        }
+        lede="A few of the things travellers have told us after their trips. The full, unfiltered set lives on our Google Business Profile."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]}
-        background="linear-gradient(180deg, rgba(10,8,4,0.42) 0%, rgba(10,8,4,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #a8842f 0%, #634d22 46%, #120d04 100%)"
-      />
+        background="linear-gradient(180deg, rgba(10,8,4,0.42) 0%, rgba(10,8,4,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #b8923e 0%, #6a5325 46%, #120d04 100%)"
+      >
+        {HAS_RATING && (
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="size-6 fill-gold-400 text-gold-400" strokeWidth={0} />
+            ))}
+          </div>
+          <span className="text-[14px] text-paper-200/75">
+            Averaged across Google and direct guest feedback
+          </span>
+        </div>
+        )}
+      </PageHero>
 
-      {REVIEWS.length > 0 && (
       <section className="mesh-warm section">
         <div className="wrap">
           <div data-reveal-group className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -59,7 +69,6 @@ export default function ReviewsPage() {
           </p>
         </div>
       </section>
-      )}
 
       <section className="section border-t border-paper-200 bg-paper-100">
         <div className="wrap grid items-start gap-12 lg:grid-cols-2">

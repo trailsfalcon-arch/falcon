@@ -18,7 +18,9 @@ import {
   prorate,
   SalaryComponents,
 } from './salary-math';
-import { brand } from '../common/brand';
+
+/** Candidate invite-token columns never leave the API in a staff response. */
+const TOKEN_FIELDS = { candidateTokenHash: true, candidateTokenEnc: true } as const;
 
 @Injectable()
 export class HrService {
@@ -28,10 +30,10 @@ export class HrService {
   // Employees
   // ==========================================================================
 
-  /** FT-EMP-2026-0001 style (prefix from the company profile), sequential per year. */
+  /** FT-EMP-2026-0001 style, sequential per year. */
   private async nextEmployeeCode(): Promise<string> {
     const year = new Date().getFullYear();
-    const prefix = `${brand().documentPrefix}-EMP-${year}-`;
+    const prefix = `FT-EMP-${year}-`;
     const last = await this.prisma.employee.findFirst({
       where: { code: { startsWith: prefix } },
       orderBy: { code: 'desc' },
@@ -307,6 +309,7 @@ export class HrService {
         outcome: dto.outcome ?? 'PENDING',
         outcomeNote: dto.outcomeNote ?? null,
       },
+      omit: TOKEN_FIELDS,
     });
   }
 
@@ -326,6 +329,7 @@ export class HrService {
       include: {
         interviewer: { select: { id: true, fullName: true } },
       },
+      omit: TOKEN_FIELDS,
     });
   }
 
@@ -333,6 +337,7 @@ export class HrService {
     const iv = await this.prisma.interview.findUnique({
       where: { id },
       include: { interviewer: { select: { id: true, fullName: true } } },
+      omit: TOKEN_FIELDS,
     });
     if (!iv) throw new NotFoundException('Interview not found');
     return iv;
@@ -362,7 +367,13 @@ export class HrService {
     if (dto.outcome !== undefined) data.outcome = dto.outcome;
     if (dto.outcomeNote !== undefined) data.outcomeNote = dto.outcomeNote;
 
-    return this.prisma.interview.update({ where: { id }, data });
+    return this.prisma.interview.update({ where: { id }, data, omit: TOKEN_FIELDS });
+  }
+
+  /** Clear the answer lock after staff regenerate the questions. */
+  async reopenAiInterview(id: string) {
+    await this.prisma.interview.update({ where: { id }, data: { aiCompletedAt: null } });
+    return this.findInterview(id);
   }
 
   /** Hard-delete — interviews have no downstream financial relations. */

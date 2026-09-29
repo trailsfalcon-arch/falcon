@@ -8,31 +8,29 @@ import { SITE, whatsAppLink } from '@/lib/site';
 import { captureAttribution, getAttributionPayload, captureContext } from '@/lib/attribution';
 
 const DESTINATIONS = [
-  { id: 'Kashmir Classic', name: 'Kashmir Classic', sub: 'Srinagar houseboat, Gulmarg, Pahalgam, Sonmarg', emoji: '🛶' },
-  { id: 'Offbeat Kashmir', name: 'Offbeat Kashmir', sub: 'Gurez, Doodhpathri, Yusmarg, Lolab', emoji: '🌲' },
-  { id: 'Kashmir in Winter', name: 'Kashmir in Winter', sub: 'Snow in Gulmarg and Sonmarg, Dec–Feb', emoji: '❄️' },
-  { id: 'Leh & Sham Valley', name: 'Leh & Sham Valley', sub: 'Leh, the monasteries, Sham Valley. No high passes', emoji: '🏔️' },
-  { id: 'Nubra & Pangong', name: 'Nubra & Pangong', sub: 'Khardung La, Hunder, Turtuk, Pangong Tso', emoji: '✨' },
-  { id: 'Hanle & Tso Moriri', name: 'Hanle & Tso Moriri', sub: 'Dark Sky Reserve, Umling La, Changthang', emoji: '🌌' },
-  { id: 'Overland', name: 'Overland to Leh', sub: 'Manali–Leh or Srinagar–Leh by road, or by bike', emoji: '🛣️' },
+  { id: 'Kashmir', name: 'Kashmir', sub: 'Srinagar, Gulmarg, Pahalgam, Sonamarg', emoji: '🏔️' },
+  { id: 'Offbeat Kashmir', name: 'Offbeat Kashmir', sub: 'Gurez, Doodhpathri, Yusmarg', emoji: '🌲' },
+  { id: 'Pilgrimage', name: 'Amarnath or Vaishno Devi', sub: 'Yatras with a guide and stays arranged', emoji: '🕉️' },
+  { id: 'Ladakh', name: 'Ladakh via Srinagar', sub: 'Zojila, Kargil, Leh, Nubra, Pangong', emoji: '🛣️' },
+  { id: 'Beyond', name: 'Kerala, North East or abroad', sub: 'The Golden Triangle, international trips', emoji: '✈️' },
 ];
 
 const DURATIONS = [
-  { id: '3-4N', label: '3 to 4 Nights', hint: 'Srinagar and one valley, or Leh' },
-  { id: '5-6N', label: '5 to 6 Nights', hint: 'The classic Kashmir circuit' },
-  { id: '7N', label: '7 Nights', hint: 'Kashmir in depth, or Nubra & Pangong' },
-  { id: '8N+', label: '8+ Nights', hint: 'Kashmir and Ladakh together' },
+  { id: '2-3N', label: '2 to 3 Nights', hint: 'A yatra, or Srinagar and Gulmarg' },
+  { id: '4-5N', label: '4 to 5 Nights', hint: 'Srinagar, Gulmarg and Pahalgam' },
+  { id: '6-7N', label: '6 to 7 Nights', hint: 'Add Sonamarg, Doodhpathri or Gurez' },
+  { id: '8N+', label: '8+ Nights', hint: 'Kashmir and Ladakh by road' },
 ];
 
 const HOTEL_TIERS = [
-  { id: 'Standard', name: 'Standard 3★', desc: 'Centrally located 3★ hotels, houseboats and deluxe camps' },
-  { id: 'Deluxe', name: 'Deluxe 4★', desc: '4★ hotels, deluxe houseboats and the better camps' },
-  { id: 'Luxury', name: 'Luxury', desc: 'The best available rooms, houseboats and luxury tented camps' },
+  { id: 'Standard', name: 'Standard 3★', desc: 'Clean, well-located 3★ hotels and a standard houseboat' },
+  { id: 'Deluxe', name: 'Deluxe 4★', desc: '4★ hotels and a deluxe houseboat on Dal or Nigeen' },
+  { id: 'Luxury', name: 'Luxury', desc: 'The best available rooms and a luxury houseboat' },
 ];
 
 export default function PlanMyTripPage() {
   const [step, setStep] = useState(1);
-  const [destination, setDestination] = useState('Kashmir Classic');
+  const [destination, setDestination] = useState('Kashmir');
   const [duration, setDuration] = useState('5-6N');
   const [hotelTier, setHotelTier] = useState('Deluxe');
   const [month, setMonth] = useState('Next Month');
@@ -95,7 +93,7 @@ export default function PlanMyTripPage() {
       <PageHero
         kicker="Interactive Itinerary Creator"
         title="Custom Holiday Planner"
-        lede="Answer 4 quick questions and a planner in Srinagar will build a day-by-day itinerary around your dates, your group and the altitude."
+        lede="Answer 4 quick questions and a planner will build a day-by-day itinerary around your dates, your group and the season."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Plan My Trip' },
@@ -111,7 +109,7 @@ export default function PlanMyTripPage() {
               </div>
               <h2 className="display d2 text-ink-950">Your Custom Trip Plan is in Motion!</h2>
               <p className="text-[15.5px] leading-relaxed text-ink-700 max-w-lg mx-auto">
-                Thank you, <strong>{name}</strong>. A planner in Srinagar is reviewing your <strong>{destination}</strong>, <strong>{duration}</strong> request and will share a day-by-day proposal, usually the same day.
+                Thank you, <strong>{name}</strong>. A planner is reviewing your <strong>{destination}</strong>, <strong>{duration}</strong> request and will share a day-by-day proposal, usually the same day.
               </p>
               <div className="pt-4 flex flex-wrap justify-center gap-3">
                 <a
@@ -312,7 +310,7 @@ export default function PlanMyTripPage() {
                 <form onSubmit={handleFinalSubmit} className="space-y-5">
                   <div>
                     <h3 className="display d3 text-ink-950">Where Should We Send Your Itinerary?</h3>
-                    <p className="text-sm text-ink-600 mt-1">Our team in Srinagar will prepare your quote and message you.</p>
+                    <p className="text-sm text-ink-600 mt-1">Our team will prepare your quote and message you.</p>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-paper-100 border border-paper-300 text-xs text-ink-700 flex items-center justify-between">

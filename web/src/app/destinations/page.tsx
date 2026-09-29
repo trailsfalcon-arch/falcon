@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { SITE, PRICE_ON_REQUEST, cheapestPrice, fromPrice, inr, offerJsonLd } from '@/lib/site';
-import { DESTINATIONS, REGION_NAMES, type Region } from '@/lib/destinations';
+import { SITE, priceText } from '@/lib/site';
+import { DESTINATIONS } from '@/lib/destinations';
 import { packagesFor } from '@/lib/packages';
 import { DestinationCard, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 
 export const metadata: Metadata = {
-  title: 'Kashmir & Ladakh Destinations — Srinagar, Gulmarg, Pahalgam, Sonmarg, Leh & Nubra',
+  title: 'Kashmir Destinations — Srinagar, Gulmarg, Pahalgam, Sonamarg & Gurez',
   description:
-    'The places we plan trips around: Srinagar and Dal Lake, Gulmarg, Pahalgam, Sonmarg and offbeat Kashmir, plus Leh, the monasteries, Nubra, Pangong and Hanle in Ladakh. Honest advice on seasons, roads and when to go.',
+    'Where we plan trips: Srinagar and Dal Lake, Gulmarg, Pahalgam, Sonamarg, offbeat Kashmir from Gurez to Doodhpathri, and Ladakh by road from Srinagar. Honest advice on seasons, roads and local rules.',
   alternates: { canonical: '/destinations' },
 };
 
@@ -27,7 +27,7 @@ export default function DestinationsIndex() {
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: `Kashmir and Ladakh destinations by ${SITE.name}`,
+      name: 'Himalayan destinations by Falcon Trails',
       itemListElement: DESTINATIONS.map((d, i) => ({
         '@type': 'ListItem',
         position: i + 1,
@@ -43,29 +43,18 @@ export default function DestinationsIndex() {
 
       <PageHero
         kicker="The ground we cover"
-        title="Kashmir and Ladakh, one team."
-        lede="Each place asks for a different pace, which is why we never sell a single fixed route. Most trips combine two or three of them, in an order the roads and the altitude decide."
+        title="Kashmir, valley by valley."
+        lede="Each valley asks for a different pace, which is why we never sell a single fixed route. Most trips combine three or four of them, in an order that fits the season and the roads."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Destinations' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.90) 100%), radial-gradient(140% 120% at 24% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.40) 0%, rgba(11,20,29,0.90) 100%), radial-gradient(140% 120% at 24% 8%, #1d4a5a 0%, #14222f 46%, #0b141d 100%)"
       />
 
       <section className="mesh-warm section">
         <div className="wrap">
-          <div className="space-y-14">
-            {(Object.keys(REGION_NAMES) as Region[]).map((region) => {
-              const list = DESTINATIONS.filter((d) => d.region === region);
-              if (list.length === 0) return null;
-              return (
-                <div key={region}>
-                  <h2 className="display d3 text-ink-900">{REGION_NAMES[region]}</h2>
-                  <div data-reveal-group className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                    {list.map((d) => (
-                      <DestinationCard key={d.slug} d={d} tall />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+          <div data-reveal-group className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {DESTINATIONS.map((d) => (
+              <DestinationCard key={d.slug} d={d} tall />
+            ))}
           </div>
         </div>
       </section>
@@ -83,7 +72,7 @@ export default function DestinationsIndex() {
               >
                 <div className="md:col-span-4">
                   <span className="display text-[13px] tabular-nums text-paper-400">
-                    {String(i + 1).padStart(2, '0')}
+                    0{i + 1}
                   </span>
                   <h2 className="display d3 mt-2 text-ink-900">
                     <Link href={`/destinations/${d.slug}`} className="link-sweep">
@@ -94,7 +83,7 @@ export default function DestinationsIndex() {
                     {[
                       ['Best time', d.bestMonths],
                       ['Ideal length', d.idealDuration],
-                      ['Starts from', d.startingFrom ? `${inr(d.startingFrom)} pp` : PRICE_ON_REQUEST],
+                      ['Price', d.startingFrom ? priceText(d.startingFrom, ' pp') : 'On request'],
                       ['Airport', d.airport],
                     ].map(([k, v]) => (
                       <div key={k} className="flex gap-3">
@@ -136,7 +125,7 @@ export default function DestinationsIndex() {
                                 </span>
                               </span>
                               <span className="flex shrink-0 items-center gap-1.5 text-gold-700">
-                                {p.priceFrom ? inr(p.priceFrom) : PRICE_ON_REQUEST}
+                                {p.priceFrom ? priceText(p.priceFrom) : 'On request'}
                                 <ArrowUpRight
                                   className="arrow-slide size-3.5"
                                   strokeWidth={2.2}

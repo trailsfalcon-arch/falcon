@@ -1,7 +1,7 @@
 /**
- * Ladakh Vacation landing-page beacon. Drop this file on any marketing page:
+ * Falcon Trails landing-page beacon. Drop this file on any marketing page:
  *
- *   <script src="https://<your-frontend>/lv-track.js"
+ *   <script src="https://<your-frontend>/ft-track.js"
  *           data-api="https://<your-backend>/api"
  *           data-slug="ladakh-honeymoon-packages"></script>
  *
@@ -110,7 +110,7 @@
       window.lvTrack.visitId = data.visitId;
       // Late attach: if any form was marked before /visits responded, fill it.
       document
-        .querySelectorAll('form[data-lv-attached] input[name=visitId]')
+        .querySelectorAll('form[data-ft-attached] input[name=visitId]')
         .forEach(function (el) { el.value = data.visitId; });
     })
     .catch(function () { /* silent — we never break the page for tracking */ });

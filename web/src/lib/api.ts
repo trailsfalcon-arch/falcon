@@ -7,13 +7,11 @@
  * agencies, move to an httpOnly cookie set by the backend.
  */
 
-import { getBrand } from './brand';
-
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api';
 
-const TOKEN_KEY = 'lv.token';
-const USER_KEY = 'lv.user';
+const TOKEN_KEY = 'ft.token';
+const USER_KEY = 'ft.user';
 
 export interface SessionUser {
   id: string;
@@ -55,8 +53,6 @@ export class ApiError extends Error {
   }
 }
 
-const CANDIDATE_HEADER = 'X-Candidate-Token';
-
 async function request<T>(
   path: string,
   init: RequestInit = {},
@@ -77,17 +73,6 @@ async function request<T>(
   }
 
   if (res.status === 401) {
-    // A rejected candidate interview token must not sign staff out.
-    if (headers.has(CANDIDATE_HEADER)) {
-      let message = 'Please log in to your interview again.';
-      try {
-        const body = await res.json();
-        if (typeof body?.message === 'string') message = body.message;
-      } catch {
-        /* keep the default message */
-      }
-      throw new ApiError(message, 401);
-    }
     tokenStore.clear();
     if (
       typeof window !== 'undefined' &&
@@ -158,66 +143,6 @@ export const api = {
   },
 };
 
-// ---- Candidate AI interview (no staff login) ---------------------------------
-
-/** Per-interview token from /interviews/candidate/login, kept for this tab only. */
-export const candidateTokenStore = {
-  key: (interviewId: string) => `lv_candidate_${interviewId}`,
-  get(interviewId: string): string | null {
-    if (typeof window === 'undefined') return null;
-    try {
-      return window.sessionStorage.getItem(this.key(interviewId));
-    } catch {
-      return null;
-    }
-  },
-  set(interviewId: string, token: string) {
-    try {
-      window.sessionStorage.setItem(this.key(interviewId), token);
-    } catch {
-      /* private mode: the candidate logs in again on reload */
-    }
-  },
-  clear(interviewId: string) {
-    try {
-      window.sessionStorage.removeItem(this.key(interviewId));
-    } catch {
-      /* ignore */
-    }
-  },
-};
-
-function candidateHeaders(interviewId: string) {
-  return { [CANDIDATE_HEADER]: candidateTokenStore.get(interviewId) ?? '' };
-}
-
-export const candidateApi = {
-  get: <T>(interviewId: string, path: string) =>
-    request<T>(path, { headers: candidateHeaders(interviewId) }),
-  post: <T>(interviewId: string, path: string, body?: unknown) =>
-    request<T>(path, {
-      method: 'POST',
-      headers: candidateHeaders(interviewId),
-      body: JSON.stringify(body ?? {}),
-    }),
-};
-
-/** Staff: the login link, access code and a ready-to-send invite message. */
-export async function candidateInvite(iv: { id: string; candidateName: string; role: string }) {
-  const { accessCode, loginPath } = await api.get<{ accessCode: string; loginPath: string }>(
-    `/interviews/${iv.id}/candidate-access`,
-  );
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  const loginUrl = `${origin}${loginPath}`;
-  const message =
-    `Hello ${iv.candidateName}, greetings from ${getBrand().brandName}! ` +
-    `Please take your short AI interview for the "${iv.role}" job in simple English.\n\n` +
-    `1. Open: ${loginUrl}\n` +
-    `2. Enter this mobile number\n` +
-    `3. Enter access code: ${accessCode}\n\n` +
-    'Do not share this code. All the best!';
-  return { accessCode, loginUrl, message };
-}
 
 /**
  * Fetch a binary asset (PDF, image) and open it in a new tab. We can't just
@@ -1160,6 +1085,31 @@ export interface InterviewAiSession {
   strengths?: string | null;
   concerns?: string | null;
   outcomeNote?: string | null;
+}
+
+/** What a candidate sees: no phone number, no scorecard, no interviewer notes. */
+export interface CandidateInterviewSession {
+  candidateName: string;
+  role: string;
+  scheduledAt: string;
+  durationMinutes: number | null;
+  questions: Pick<InterviewQuestionItem, 'question' | 'answer' | 'feedback'>[];
+  currentQuestionIndex: number;
+  answeredCount: number;
+  totalQuestions: number;
+  isCompleted: boolean;
+}
+
+/** A candidate's active AI-interview invite link (staff only). */
+export interface CandidateInviteLink {
+  token: string | null;
+  expiresAt: string | null;
+  completedAt?: string | null;
+}
+
+export function candidateInviteUrl(token: string): string {
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://falcontrails.in';
+  return `${origin}/interview/session/${token}`;
 }
 
 export interface AiAnswerResponse {

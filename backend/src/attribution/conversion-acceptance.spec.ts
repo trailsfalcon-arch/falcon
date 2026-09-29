@@ -11,13 +11,13 @@ describe('Google conversion provider acceptance',()=>{
   it('refreshes OAuth and requires an accepted result for this click',async()=>{
     const fetcher=jest.fn().mockResolvedValueOnce({ok:true,text:async()=>JSON.stringify({access_token:'token'})}).mockResolvedValueOnce({ok:true,json:async()=>({results:[{gclid:'click'}]})});
     global.fetch=fetcher as any;
-    await expect(service().uploadClickConversion({gclid:'click',value:50000,orderId:'LV-B-test'})).resolves.toEqual({accepted:true});
+    await expect(service().uploadClickConversion({gclid:'click',value:50000,orderId:'FT-B-test'})).resolves.toEqual({accepted:true});
     const payload=JSON.parse(fetcher.mock.calls[1][1].body);
     expect(payload.conversions[0].conversionDateTime).toMatch(/\+00:00$/);
-    expect(payload.conversions[0].orderId).toBe('LV-B-test');
+    expect(payload.conversions[0].orderId).toBe('FT-B-test');
   });
   it('rejects an HTTP-success response containing a partial failure',async()=>{
     global.fetch=jest.fn().mockResolvedValueOnce({ok:true,text:async()=>JSON.stringify({access_token:'token'})}).mockResolvedValueOnce({ok:true,json:async()=>({partialFailureError:{code:3},results:[{}]})}) as any;
-    await expect(service().uploadClickConversion({gclid:'click',value:50000,orderId:'LV-B-test'})).rejects.toThrow('did not accept');
+    await expect(service().uploadClickConversion({gclid:'click',value:50000,orderId:'FT-B-test'})).rejects.toThrow('did not accept');
   });
 });

@@ -21,8 +21,6 @@ const lib = (f) => import(path.join(root, 'web/src/lib', f).replace(/\\/g, '/').
 
 const { PACKAGES } = await lib('packages.ts');
 const { DESTINATIONS } = await lib('destinations.ts');
-const { COLLECTIONS } = await lib('collections.ts');
-const { ORIGIN_CITIES } = await lib('origin-cities.ts');
 const { TRAVEL_STYLES } = await lib('travel-styles.ts');
 const { REVIEWS } = await lib('reviews.ts');
 
@@ -52,28 +50,6 @@ for (const d of DESTINATIONS) {
     primary: d.seoTitle.toLowerCase(),
   });
 }
-// Tier 3: departure-city pages.
-for (const c of ORIGIN_CITIES) {
-  push({
-    tier: 3,
-    family: 'packages-from-city',
-    url: `/packages/from/${c.slug}`,
-    h1: `Ladakh tour packages from ${c.name}`,
-    title: `Ladakh Tour Packages from ${c.name}${BRAND}`,
-    primary: `ladakh tour package from ${c.name.toLowerCase()}`,
-  });
-}
-// Tier 4: curated collections.
-for (const c of COLLECTIONS) {
-  push({
-    tier: 4,
-    family: 'collection',
-    url: `/packages/${c.slug}`,
-    h1: c.h1,
-    title: `${c.seoTitle}${BRAND}`,
-    primary: c.h1.toLowerCase(),
-  });
-}
 // Tier 5: travel styles.
 for (const s of TRAVEL_STYLES) {
   push({
@@ -87,15 +63,16 @@ for (const s of TRAVEL_STYLES) {
 }
 // Tier 6: index and trust pages.
 for (const [url, h1, primary] of [
-  ['/packages', 'Every package, honestly priced.', 'ladakh tour packages'],
-  ['/destinations', 'Four Ladakhs, one journey.', 'ladakh destinations'],
-  ['/about', 'Kashmir & Ladakh, planned by locals.', 'travel agency in srinagar'],
+  ['/packages', 'Every itinerary, planned from Srinagar.', 'kashmir tour packages'],
+  ['/destinations', 'Kashmir, valley by valley.', 'kashmir destinations'],
+  ['/about', 'Kashmir first. Planned by locals.', 'travel agency in srinagar'],
   // /reviews only exists once there are real reviews (web/src/lib/reviews.ts).
   ...(REVIEWS.length ? [['/reviews', 'Reviews', 'falcon trails reviews']] : []),
-  ['/faq', 'Frequently asked questions', 'ladakh trip faq'],
+  ['/faq', 'Frequently asked questions', 'kashmir trip faq'],
   ['/contact', 'Talk to someone who actually runs the trip.', 'kashmir ladakh tour operator contact'],
-  ['/plan-my-trip', 'Custom Holiday Planner', 'plan ladakh trip'],
-  ['/partner-with-us', 'Your ground team in Ladakh', 'ladakh dmc for travel agents'],
+  ['/plan-my-trip', 'Custom Holiday Planner', 'plan kashmir trip'],
+  ['/partner-with-us', 'Your ground team in Kashmir', 'kashmir dmc for travel agents'],
+  ['/image-credits', 'Image credits', 'falcon trails image credits'],
 ]) {
   push({ tier: 6, family: 'core', url, h1, title: `${h1}${BRAND}`, primary });
 }

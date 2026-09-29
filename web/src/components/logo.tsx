@@ -1,7 +1,6 @@
 /**
- * Brand mark: the Falcon Trails emblem (a falcon over a mountain ridge).
- * Placeholder artwork, served from /public as a small SVG; swap the file for
- * the final logo when it is designed.
+ * Brand mark: the Falcon Trails emblem from falcontrails.in (the falcon in a
+ * gold ring over a teal arc), served from /public as a small SVG.
  */
 export function Mark({ className = 'size-9' }: { className?: string }) {
   return (
@@ -9,8 +8,8 @@ export function Mark({ className = 'size-9' }: { className?: string }) {
     <img
       src="/ft-emblem.svg"
       alt=""
-      width={64}
-      height={64}
+      width={40}
+      height={40}
       className={`${className} object-contain`}
       aria-hidden
     />
@@ -24,24 +23,15 @@ export function Wordmark({
   light?: boolean;
   className?: string;
 }) {
+  // As on falcontrails.in: the emblem, then FALCON TRAILS in spaced Marcellus.
   return (
     <span className={`flex items-center gap-2.5 ${className}`}>
-      <Mark className="size-9 shrink-0" />
-      <span className="flex flex-col leading-none">
-        <span
-          className="text-[19px] font-bold tracking-tight"
-          style={{ color: 'var(--color-gold-500)' }}
-        >
-          FALCON
-        </span>
-        <span
-          className="text-[10.5px] font-semibold tracking-[0.22em]"
-          style={{
-            color: light ? 'var(--color-paper-200)' : 'var(--color-pine-700)',
-          }}
-        >
-          TRAILS
-        </span>
+      <Mark className="size-10 shrink-0" />
+      <span
+        className="display whitespace-nowrap text-[18px] leading-none tracking-[0.2em]"
+        style={{ color: light ? 'var(--color-gold-500)' : 'var(--color-gold-700)' }}
+      >
+        FALCON TRAILS
       </span>
     </span>
   );

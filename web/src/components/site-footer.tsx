@@ -176,6 +176,9 @@ export function SiteFooter() {
             <Link href="/contact" className="transition-colors hover:text-gold-300">
               Contact
             </Link>
+            <Link href="/image-credits" className="transition-colors hover:text-gold-300">
+              Image credits
+            </Link>
             <span>Planned in Srinagar, Kashmir.</span>
           </div>
         </div>

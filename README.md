@@ -26,16 +26,17 @@ with Falcon Trails' own details before the site goes live:
 
 | What | Where |
 |---|---|
-| Phone / WhatsApp number (placeholder `+91 00000 00000`) | `web/src/lib/site.ts`, `backend/src/common/site.ts` |
-| Office street address | same two files |
+| Office street address | `web/src/lib/site.ts`, `backend/src/common/site.ts` |
 | Social profile links, Google Business Profile link | `web/src/lib/site.ts` |
 | Legal name, GSTIN, PAN, bank account, UPI | CRM -> Settings -> Company profile (printed on invoices only when set) |
 | Mailboxes on falcontrails.in (`info@`, and `reservations@` / `ops@` / `bookings@` if used) | your email host; Brevo sender verification |
 | Guest reviews and Google rating | `web/src/lib/reviews.ts`, `SITE.stats` (hidden while empty) |
-| Final logo (current one is a placeholder SVG) | `web/public/ft-emblem.svg`, `web/src/app/icon.svg`, `apple-icon.png` |
-| Package prices, inclusions and photos (inherited Ladakh content) | `web/src/lib/packages.ts`, `destinations.ts`, `web/public/img` |
-| Kashmir and Jammu packages and destination pages | not built yet |
-| Terms, cancellation and privacy policies | review with a lawyer; `web/src/app/*-policy`, `terms-and-conditions` |
+| Package prices (every package shows "Price on request" until `priceFrom` is set) | `web/src/lib/packages.ts`, `destinations.ts` (`startingFrom`) |
+| Review itineraries, inclusions and exclusions against what you sell | `web/src/lib/packages.ts` |
+| Group departure dates (currently "ask on WhatsApp") | `web/src/lib/travel-styles.ts` |
+| A licensed Vaishno Devi / Jammu photo (uses a gradient for now) | `web/public/img`, `PHOTO` in `destinations.ts`, `image-credits.ts` |
+| J&K Tourism registration, once you have it | FAQ page (`web/src/app/faq/page.tsx`) |
+| Payment terms, cancellation slabs and privacy policy (inherited; confirm and have a lawyer review) | `web/src/app/*-policy`, `terms-and-conditions` |
 
 Each app installs and runs inside its own folder. There is no workspace
 tooling.
@@ -131,8 +132,9 @@ forms at `/api/leads/capture` and their visit beacon at `/api/visits` (see
 
 ## Content
 
-The website's packages, destinations, city pages and FAQs live in
-`web/src/lib`. After adding or renaming a website page, run
+The website is Kashmir-first. Packages, destinations, travel styles and
+FAQs live in `web/src/lib`; photos are from Wikimedia Commons and every one
+must have a row in `web/src/lib/image-credits.ts` (shown at /image-credits). After adding or renaming a website page, run
 `node seo/generate-manifest.mjs` (then copy `frontend/src/lib/page-manifest.json`
 into `web/src/lib/`) so the CRM's SEO dashboard audits the new URL.
 

@@ -1,24 +1,24 @@
 import type { Metadata, Viewport } from 'next';
 import { GeistMono } from 'geist/font/mono';
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
+import { Marcellus, Jost } from 'next/font/google';
 import './globals.css';
 
 /**
- * The Falcon Trails brand pairing. Cormorant Garamond only on display
- * headings (dashboard greeting, hero numbers); Plus Jakarta Sans for body copy,
- * tables and forms. Geist Mono stays for figures and codes.
+ * The Falcon Trails pairing, as on falcontrails.in. Marcellus only on display
+ * headings (dashboard greeting, hero numbers); Jost for body copy, tables and
+ * forms. Geist Mono stays for figures and codes.
  */
-const cormorant = Cormorant_Garamond({
+const marcellus = Marcellus({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['500', '600', '700'],
-  variable: '--font-cormorant',
+  weight: '400',
+  variable: '--font-marcellus',
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const jost = Jost({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jakarta',
+  variable: '--font-jost',
 });
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jakarta.variable} ${GeistMono.variable} ${cormorant.variable}`}
+        className={`${jost.variable} ${GeistMono.variable} ${marcellus.variable}`}
       >
         {children}
       </body>

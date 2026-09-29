@@ -6,7 +6,7 @@
 export const SITE = {
   name: 'Falcon Trails',
   legalName: 'Falcon Trails',
-  tagline: 'Kashmir · Ladakh · Jammu',
+  tagline: 'Journeys across India — and beyond',
   domain: 'https://falcontrails.in',
   landerDomain: 'https://go.falcontrails.in',
 
@@ -14,19 +14,20 @@ export const SITE = {
    * NAP (name / address / phone). Local SEO depends on these matching the
    * Google Business Profile character-for-character across every citation.
    *
-   * TODO(brand): the phone and street below are PLACEHOLDERS. Replace them
-   * with the real Falcon Trails number and office address before launch; every
-   * call / WhatsApp button on the site uses them.
+   * Phone / WhatsApp is the number on falcontrails.in.
+   * TODO(brand): add the office street address once it is on the GBP.
    */
   founded: '2026',
+  /** Public launch, as announced on falcontrails.in. */
+  launched: '2026-08-14',
 
   /** The founder's own years in Kashmir tourism (guiding since 2010). */
-  founder: { name: 'Shahid Parvez Khan', since: '2010' },
+  founder: { name: 'Shahid Parvez Khan', since: '2010', countries: '12+' },
 
   phone: {
-    display: '+91 00000 00000',
-    tel: '+910000000000',
-    wa: '910000000000',
+    display: '+91 96222 10290',
+    tel: '+919622210290',
+    wa: '919622210290',
   },
   email: 'info@falcontrails.in',
 
@@ -103,4 +104,18 @@ export function inr(n: number): string {
 /** "Street, City", skipping the street while it is unset. */
 export function addressLine(): string {
   return [SITE.address.street, SITE.address.city].filter(Boolean).join(', ');
+}
+
+/**
+ * Price text for cards, sidebars and meta: "from ₹18,500" or, while a price
+ * is not set, "Price on request".
+ */
+export function priceText(n: number | null | undefined, suffix = ''): string {
+  return n ? `from ${inr(n)}${suffix}` : 'Price on request';
+}
+
+/** Lowest set price in a list, or null when none is priced yet. */
+export function lowestPrice(prices: (number | null | undefined)[]): number | null {
+  const set = prices.filter((n): n is number => typeof n === 'number' && n > 0);
+  return set.length ? Math.min(...set) : null;
 }

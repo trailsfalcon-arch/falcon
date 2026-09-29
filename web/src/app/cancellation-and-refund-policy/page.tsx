@@ -1,3 +1,6 @@
+// TODO(brand): the payment and cancellation terms here were inherited from the
+// codebase's previous owner. Confirm the deposit, balance and refund slabs you
+// actually offer, and have a lawyer review this page before relying on it.
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/page-hero';
 import { JsonLd } from '@/components/cards';
@@ -80,14 +83,14 @@ export default function CancellationPolicyPage() {
             <div className="border-t border-paper-300 pt-8">
               <h2 className="display d3 text-ink-950">2. Peak Season & Festive Bookings</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-700">
-                For peak-season dates, and for camps at Nubra, Pangong and Hanle, some hotels and camps apply stricter cancellation terms of their own. Where they do, we show those terms in your quote before you pay anything, and they apply in place of the slabs above for that part of the booking.
+                For peak-season dates, houseboats, the Amarnath Yatra season and some hotels and camps, suppliers apply stricter cancellation terms of their own. Where they do, we show those terms in your quote before you pay anything, and they apply in place of the slabs above for that part of the booking.
               </p>
             </div>
 
             <div className="border-t border-paper-300 pt-8">
               <h2 className="display d3 text-ink-950">3. Flight Disruptions & Force Majeure</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-700">
-                If a flight into Leh is cancelled for weather, or a pass or road closes because of snow, landslides or an administrative order, Falcon Trails will reschedule stays without penalty wherever suppliers permit and reroute the trip where it is safe to do so. Any unused transport days will be adjusted or refunded.
+                If a flight into Srinagar or Leh is cancelled for weather, or a pass or road closes because of snow, landslides or an administrative order, Falcon Trails will reschedule stays without penalty wherever suppliers permit and reroute the trip where it is safe to do so. Any unused transport days will be adjusted or refunded.
               </p>
             </div>
 

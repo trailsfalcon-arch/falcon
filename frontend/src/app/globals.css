@@ -50,8 +50,8 @@
   --color-loss-500:    #b91c1c;
   --color-loss-400:    #dc2626;
 
-  --font-sans:    var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-cormorant), 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-sans:    var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-marcellus), 'Marcellus', ui-serif, Georgia, serif;
   --font-mono:    var(--font-geist-mono), ui-monospace, monospace;
 
   --radius-panel: 14px;

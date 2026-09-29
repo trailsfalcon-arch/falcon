@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { SITE, inr } from '@/lib/site';
+import { SITE, priceText } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { packagesFor } from '@/lib/packages';
 import { DestinationCard, JsonLd } from '@/components/cards';
 import { PageHero } from '@/components/page-hero';
 
 export const metadata: Metadata = {
-  title: 'Ladakh Destinations — Leh, Monasteries, Nubra, Pangong & Hanle',
+  title: 'Kashmir Destinations — Srinagar, Gulmarg, Pahalgam, Sonamarg & Gurez',
   description:
-    'The four regions of Ladakh we plan trips around: Leh and the Sham Valley, the monasteries, Nubra and Pangong, and Hanle. Honest advice on altitude, permits and when to go.',
+    'Where we plan trips: Srinagar and Dal Lake, Gulmarg, Pahalgam, Sonamarg, offbeat Kashmir from Gurez to Doodhpathri, and Ladakh by road from Srinagar. Honest advice on seasons, roads and local rules.',
   alternates: { canonical: '/destinations' },
 };
 
@@ -43,10 +43,10 @@ export default function DestinationsIndex() {
 
       <PageHero
         kicker="The ground we cover"
-        title="Four Ladakhs, one journey."
-        lede="Each region asks for a different pace, which is exactly why we never sell a single fixed route. Most trips combine two or three of them, in an order the altitude decides."
+        title="Kashmir, valley by valley."
+        lede="Each valley asks for a different pace, which is why we never sell a single fixed route. Most trips combine three or four of them, in an order that fits the season and the roads."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Destinations' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.90) 100%), radial-gradient(140% 120% at 24% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.40) 0%, rgba(11,20,29,0.90) 100%), radial-gradient(140% 120% at 24% 8%, #1d4a5a 0%, #14222f 46%, #0b141d 100%)"
       />
 
       <section className="mesh-warm section">
@@ -83,7 +83,7 @@ export default function DestinationsIndex() {
                     {[
                       ['Best time', d.bestMonths],
                       ['Ideal length', d.idealDuration],
-                      ['Starts from', `${inr(d.startingFrom)} pp`],
+                      ['Price', d.startingFrom ? priceText(d.startingFrom, ' pp') : 'On request'],
                       ['Airport', d.airport],
                     ].map(([k, v]) => (
                       <div key={k} className="flex gap-3">
@@ -125,7 +125,7 @@ export default function DestinationsIndex() {
                                 </span>
                               </span>
                               <span className="flex shrink-0 items-center gap-1.5 text-gold-700">
-                                {inr(p.priceFrom)}
+                                {p.priceFrom ? priceText(p.priceFrom) : 'On request'}
                                 <ArrowUpRight
                                   className="arrow-slide size-3.5"
                                   strokeWidth={2.2}

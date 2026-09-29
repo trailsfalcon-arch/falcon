@@ -50,7 +50,7 @@ export const chartBase: Pick<
   'grid' | 'textStyle' | 'tooltip'
 > = {
   grid: { left: 8, right: 12, top: 16, bottom: 4, containLabel: true },
-  textStyle: { fontFamily: 'var(--font-jakarta), sans-serif', fontSize: 11 },
+  textStyle: { fontFamily: 'var(--font-jost), sans-serif', fontSize: 11 },
   tooltip: {
     backgroundColor: '#ffffff',
     borderColor: '#e2ddd1',

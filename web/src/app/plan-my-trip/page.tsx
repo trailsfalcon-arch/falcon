@@ -8,28 +8,29 @@ import { SITE, whatsAppLink } from '@/lib/site';
 import { captureAttribution, getAttributionPayload, captureContext } from '@/lib/attribution';
 
 const DESTINATIONS = [
-  { id: 'Leh & Sham Valley', name: 'Leh & Sham Valley', sub: 'Leh, the monasteries, Sham Valley. No high passes', emoji: '🏔️' },
-  { id: 'Nubra & Pangong', name: 'Nubra & Pangong', sub: 'Khardung La, Hunder, Turtuk, Pangong Tso', emoji: '✨' },
-  { id: 'Hanle & Tso Moriri', name: 'Hanle & Tso Moriri', sub: 'Dark Sky Reserve, Umling La, Changthang', emoji: '🌌' },
-  { id: 'Overland', name: 'Overland to Leh', sub: 'Manali–Leh or Srinagar–Leh by road, or by bike', emoji: '🛣️' },
+  { id: 'Kashmir', name: 'Kashmir', sub: 'Srinagar, Gulmarg, Pahalgam, Sonamarg', emoji: '🏔️' },
+  { id: 'Offbeat Kashmir', name: 'Offbeat Kashmir', sub: 'Gurez, Doodhpathri, Yusmarg', emoji: '🌲' },
+  { id: 'Pilgrimage', name: 'Amarnath or Vaishno Devi', sub: 'Yatras with a guide and stays arranged', emoji: '🕉️' },
+  { id: 'Ladakh', name: 'Ladakh via Srinagar', sub: 'Zojila, Kargil, Leh, Nubra, Pangong', emoji: '🛣️' },
+  { id: 'Beyond', name: 'Kerala, North East or abroad', sub: 'The Golden Triangle, international trips', emoji: '✈️' },
 ];
 
 const DURATIONS = [
-  { id: '3-4N', label: '3 to 4 Nights', hint: 'Leh, with Nubra on four' },
-  { id: '5-6N', label: '5 to 6 Nights', hint: 'Honeymoon, monasteries, Hanle' },
-  { id: '7N', label: '7 Nights', hint: 'Nubra, Turtuk & Pangong' },
-  { id: '8N+', label: '8+ Nights', hint: 'The whole of Ladakh' },
+  { id: '2-3N', label: '2 to 3 Nights', hint: 'A yatra, or Srinagar and Gulmarg' },
+  { id: '4-5N', label: '4 to 5 Nights', hint: 'Srinagar, Gulmarg and Pahalgam' },
+  { id: '6-7N', label: '6 to 7 Nights', hint: 'Add Sonamarg, Doodhpathri or Gurez' },
+  { id: '8N+', label: '8+ Nights', hint: 'Kashmir and Ladakh by road' },
 ];
 
 const HOTEL_TIERS = [
-  { id: 'Standard', name: 'Standard 3★', desc: 'Centrally located 3★ hotels in Leh and deluxe camps, all personally inspected' },
-  { id: 'Deluxe', name: 'Deluxe 4★', desc: '4★ hotels in Leh and the better camps at Nubra and Pangong' },
-  { id: 'Luxury', name: 'Luxury', desc: 'The best available rooms in Leh and luxury tented camps' },
+  { id: 'Standard', name: 'Standard 3★', desc: 'Clean, well-located 3★ hotels and a standard houseboat' },
+  { id: 'Deluxe', name: 'Deluxe 4★', desc: '4★ hotels and a deluxe houseboat on Dal or Nigeen' },
+  { id: 'Luxury', name: 'Luxury', desc: 'The best available rooms and a luxury houseboat' },
 ];
 
 export default function PlanMyTripPage() {
   const [step, setStep] = useState(1);
-  const [destination, setDestination] = useState('Nubra & Pangong');
+  const [destination, setDestination] = useState('Kashmir');
   const [duration, setDuration] = useState('5-6N');
   const [hotelTier, setHotelTier] = useState('Deluxe');
   const [month, setMonth] = useState('Next Month');
@@ -92,7 +93,7 @@ export default function PlanMyTripPage() {
       <PageHero
         kicker="Interactive Itinerary Creator"
         title="Custom Holiday Planner"
-        lede="Answer 4 quick questions and a planner will build a day-by-day itinerary around your dates, your group and the altitude."
+        lede="Answer 4 quick questions and a planner will build a day-by-day itinerary around your dates, your group and the season."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Plan My Trip' },
@@ -153,7 +154,7 @@ export default function PlanMyTripPage() {
                 <div className="space-y-6">
                   <div>
                     <h3 className="display d3 text-ink-950">Where would you like to travel?</h3>
-                    <p className="text-sm text-ink-600 mt-1">Pick the part of Ladakh you most want to see. We will build the rest around it.</p>
+                    <p className="text-sm text-ink-600 mt-1">Pick what you most want to see. We will build the rest around it.</p>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {DESTINATIONS.map((d) => (

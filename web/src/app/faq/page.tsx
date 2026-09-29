@@ -8,70 +8,68 @@ import { PageHero } from '@/components/page-hero';
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions — Booking, Payments & Travel',
   description:
-    'Answers on booking, payments, EMI, the Ladakh environmental fee, Protected Area Permits, altitude, the best months for Ladakh and what our tour packages include.',
+    'Answers on booking with Falcon Trails, prices, the best time to visit Kashmir, houseboats, local taxis, phones, yatras and group departures.',
   alternates: { canonical: '/faq' },
 };
 
+// TODO(brand): once Falcon Trails is registered with J&K Tourism, say so in
+// the second answer with the registration number.
 const GENERAL = [
   {
     q: "How do I book a trip with Falcon Trails?",
-    a: "Send an enquiry or WhatsApp us with your dates, group size and the shape of the trip you have in mind. A planner comes back with a written itinerary and an itemised quote, usually the same day. A 25% deposit confirms the booking, and the balance is due seven days before you arrive.",
+    a: "Send an enquiry or WhatsApp us with your dates, group size and what you want to see. We come back with a written day-by-day itinerary and an itemised quote. You pay only once you are happy with both.",
   },
   {
-    q: "Are you a registered travel agency, and how do I know my money is safe?",
-    a: "Yes — we are a Srinagar-based tour operator, not an intermediary reselling someone else’s trip. You get a written itinerary and an itemised invoice before any payment, a 25% deposit confirms the booking, and the balance is only due seven days before you arrive. Payments go to a company account, never to an individual.",
+    q: "How do I know my money is safe?",
+    a: "You get a written itinerary and an itemised quote before you pay anything, and an invoice for every payment. Ask us anything about a hotel or a vehicle before you commit; we will answer plainly.",
   },
   {
     q: "Why book with a local operator rather than a big portal?",
-    a: "Because the people answering your questions are the people running your trip. We own the relationships with the drivers, camps and hotels directly, so there is no chain of commissions between you and the person actually serving you — and when a pass closes at 11pm, the person who replies is sitting in Leh, not in a call centre in another state.",
+    a: "Because the people answering your questions are the people running your trip, from Srinagar. Our founder has guided travellers in Kashmir since 2010. There is no chain of commissions between you and the people serving you.",
   },
   {
-    q: "How does payment work? Is EMI available?",
-    a: "A 25% deposit confirms your dates and locks your stays; the balance is due seven days before arrival. We accept UPI, bank transfer and all major cards, and offer no-cost EMI on cards for three, six and nine months. You receive an itemised quote showing exactly what each night and each vehicle costs — never a single lump sum.",
+    q: "Why are prices shown as 'on request'?",
+    a: "Kashmir prices move with the season, the hotel category and the size of your group. Rather than advertise a number that changes when you ask, we send an itemised quote for your dates, usually the same day.",
   },
   {
     q: "Can the itinerary be changed?",
-    a: "Every route on this page is a starting point. Add Turtuk, drop Pangong, extend Hanle, swap camps for hotels, travel with a toddler or a ninety-year-old — we build around it. Roughly two-thirds of our bookings end up as fully custom itineraries.",
+    a: "Always. Every package is a starting point: add a night, swap Gulmarg for Doodhpathri, or combine Kashmir with a yatra or Ladakh.",
   },
   {
-    q: "How bad is the altitude, honestly?",
-    a: "Leh sits at 3,500 m and roughly one traveller in four feels mild breathlessness or a headache on day one. That is why our first 48 hours are deliberately low-effort and why we never drive to Pangong early in a trip. Every vehicle carries oxygen and an oximeter, and your driver is trained to recognise AMS. If you have a cardiac or pulmonary condition, speak to your doctor and then to us.",
+    q: "When is the best time to visit Kashmir?",
+    a: "Kashmir is open all year. March–April brings blossom and the Tulip Garden; May–August is green and busy; October has autumn colour; December–February brings snow in Gulmarg and Pahalgam.",
   },
   {
-    q: "Do I need permits, and do you arrange them?",
-    a: "Indian travellers do not need an Inner Line Permit. For Nubra, Pangong, Hanle, Tso Moriri and Umling La we pay the Ladakh environmental fee and the daily wildlife fee, and the receipt is with you before you arrive. Foreign nationals need a Protected Area Permit for those areas, which we arrange. Leh town and the Sham Valley need neither. We only need a scan of your photo ID at booking.",
+    q: "Is one night on a houseboat enough?",
+    a: "For most travellers, yes. We suggest one night on Dal or Nigeen Lake and the rest in hotels.",
   },
   {
-    q: "When should I actually visit?",
-    a: "September and October are our honest pick — clear skies, thin crowds, golden poplars and the year’s best conditions at Hanle. May and June are the busiest and most photogenic for snow-lined passes. July and August are warmest but can see rain-related roadblocks. From November to March most high roads close.",
+    q: "Why do we need local taxis in Pahalgam, Sonamarg and Gulmarg?",
+    a: "Local rules reserve some routes, such as Aru, Betaab and Chandanwari from Pahalgam, for local union taxis at fixed rates. It is standard; we tell you the fares beforehand.",
   },
   {
-    q: "What kind of hotels do you use?",
-    a: "Leh stays are 3★ or 4★ depending on the package, always centrally located and personally inspected. At Nubra, Pangong and Sarchu we use deluxe or Swiss camps with attached bathrooms, heating and hot water — the only sensible option at that altitude. All rates are quoted on twin-sharing; single occupancy is available on request.",
+    q: "Will my phone work in Kashmir?",
+    a: "Prepaid SIMs from outside Jammu & Kashmir do not work here. Postpaid connections do, and most hotels and houseboats have Wi-Fi.",
   },
   {
-    q: "Should I fly into Leh or drive up?",
-    a: "Flying is faster but drops you at 3,500 m in ninety minutes, so acclimatisation matters more. Driving in via Manali or Srinagar takes two to three days and lets your body adjust gradually. We plan both, and often recommend flying in and driving out.",
+    q: "Do you arrange the Amarnath Yatra and Vaishno Devi?",
+    a: "Yes, with a guide, stays arranged and help with the paperwork. The Amarnath Yatra runs only in the season set by the Shrine Board each year and needs registration and a health certificate.",
+  },
+  {
+    q: "Do you run group departures?",
+    a: "Yes: fixed-date Kashmir groups and Amarnath group departures. Message us on WhatsApp for the current dates and seats left.",
   },
   {
     q: "Do you book flights?",
-    a: "You book the flight; we handle everything that happens after you land. Send us your flight times before you ticket and we will confirm they fit the itinerary. We time the airport pickup to your actual arrival, and if your connection slips we move the pickup at no charge.",
+    a: "We can advise and book on request, but most travellers book their own flights to Srinagar. Our quotes are for everything on the ground.",
   },
   {
-    q: "Is the Manali–Leh highway safe?",
-    a: "It is a well-travelled route from roughly late May to mid-October, and our drivers run it weekly through the season. The road crosses five passes above 4,000 m, so we break the journey at Jispa and Sarchu rather than pushing through in a single day — that pacing is the biggest safety factor there is.",
-  },
-  {
-    q: "Is the Srinagar–Leh road open all year?",
-    a: "No. The Zoji La section typically opens from May to late October and closes with the first heavy snow. Outside that window we fly you into Leh and run the Ladakh half only, or move your dates — we will always tell you honestly rather than sell you a closed pass.",
-  },
-  {
-    q: "Do you work with travel agents and B2B partners?",
-    a: "Yes. We run ground operations in Ladakh for agencies across India. Use the partner page or contact us directly for partner rates and terms.",
+    q: "Do you work with travel agents?",
+    a: "Yes. We handle ground operations in Kashmir for travel agents; see the partner page or message us.",
   },
   {
     q: "What if something goes wrong during the trip?",
-    a: "You have one WhatsApp thread and one named coordinator for the whole trip. Passes close and plans change in Ladakh; what matters is that the person who picks up is here, and can reroute you the same day.",
+    a: "You have one WhatsApp thread with a named trip coordinator from arrival to departure. If a road closes or the weather turns, we change the plan with you.",
   },
 ];
 
@@ -105,7 +103,7 @@ export default function FaqPage() {
         title="Booking, payments and the fine print."
         lede="The questions that come up before every trip, answered plainly. Destination-specific questions live on each destination page."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.42) 0%, rgba(7,15,31,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #1e4fa8 0%, #101f3d 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.42) 0%, rgba(11,20,29,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #243648 0%, #101f3d 46%, #0b141d 100%)"
       />
 
       <section className="mesh-warm section-sm">

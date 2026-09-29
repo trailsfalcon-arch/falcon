@@ -15,8 +15,8 @@
  * the same. There is no GSTIN here on purpose: tax invoices read it from the
  * company profile (Settings) and are never printed with an invented number.
  *
- * TODO(brand): phoneDisplay and street are PLACEHOLDERS. Set the real
- * Falcon Trails number and office address here and in web/src/lib/site.ts.
+ * Phone is the WhatsApp number on falcontrails.in.
+ * TODO(brand): add the office street address here and in web/src/lib/site.ts.
  */
 export const COMPANY = {
   name: 'Falcon Trails',
@@ -24,7 +24,7 @@ export const COMPANY = {
   city: 'Srinagar',
   region: 'Jammu and Kashmir',
   postalCode: '190001',
-  phoneDisplay: '+91 00000 00000',
+  phoneDisplay: '+91 96222 10290',
   email: 'info@falcontrails.in',
   website: 'falcontrails.in',
 } as const;

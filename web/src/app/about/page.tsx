@@ -20,13 +20,13 @@ const VALUES = [
   },
   {
     n: '02',
-    t: 'Altitude comes first',
-    b: 'We refuse to sell a Pangong-on-day-two itinerary. Every route is sequenced by elevation, and if your dates or your days are wrong for what you want, we say so.',
+    t: 'Season and road first',
+    b: 'We plan around the season and the road, not a checklist. If your dates are wrong for what you want (Gurez in April, Zojila in December) we say so.',
   },
   {
     n: '03',
     t: 'No middlemen in the chain',
-    b: 'We own the relationships with drivers, camps and hotels directly, and every stay we sell has been personally inspected. That is why the same trip costs less.',
+    b: 'We deal directly with drivers, houseboat owners and hotels, and we only sell stays we know. No chain of commissions between you and the people serving you.',
   },
   {
     n: '04',
@@ -50,10 +50,10 @@ export default function AboutPage() {
 
       <PageHero
         kicker={`Srinagar, Kashmir · Est. ${SITE.founded}`}
-        title="Kashmir & Ladakh, planned by locals."
+        title="Kashmir first. Planned by locals."
         lede="The people planning your trip are the people running it: a Srinagar-based travel company, not an intermediary reselling somebody else’s trip."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.40) 0%, rgba(11,20,29,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #1d4a5a 0%, #14222f 46%, #0b141d 100%)"
       />
 
       <section className="section-sm mesh-warm">
@@ -68,7 +68,7 @@ export default function AboutPage() {
                 Kashmir holidays for a destination management company.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                Every route is sequenced by altitude and travel time rather than
+                Every route is sequenced by season and travel time rather than
                 by how many sights fit into a day. Permits and fees are arranged
                 before you arrive, and you get a written itinerary and an
                 itemised quote before you pay anything.
@@ -79,9 +79,11 @@ export default function AboutPage() {
                 who replies is part of our own team, not a call centre.
               </p>
               <p className="text-[15.5px] leading-[1.8] text-ink-600">
-                What we are not is a marketplace. We do one region, and we do it
-                properly: Srinagar, Gulmarg, Pahalgam and Sonamarg, the Jammu
-                side, and Ladakh via the Srinagar and Manali roads.
+                What we are not is a marketplace. We start from Kashmir: Srinagar,
+                Gulmarg, Pahalgam and Sonamarg, the offbeat valleys and the Jammu
+                side, and Ladakh by the Srinagar road. Kerala, the North East, the
+                Golden Triangle and trips abroad we plan one at a time, with the
+                same care.
               </p>
             </div>
           </div>
@@ -136,7 +138,7 @@ export default function AboutPage() {
         <div
           aria-hidden
           className="blob right-[-8%] top-[8%] h-[420px] w-[420px]"
-          style={{ background: 'rgba(201,169,97,0.14)' }}
+          style={{ background: 'rgba(212,175,90,0.14)' }}
         />
         <div className="wrap relative">
           <SectionHead light kicker="How we work" title="Four rules we do not bend." />

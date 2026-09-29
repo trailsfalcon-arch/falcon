@@ -3,55 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, X, Clock, MapPin, CalendarDays, Users, ArrowUpRight, Bed, Utensils, AlertTriangle } from 'lucide-react';
 import { PACKAGES, getPackage, packagesFor } from '@/lib/packages';
-import { COLLECTIONS, getCollection } from '@/lib/collections';
-import { ORIGIN_CITIES } from '@/lib/origin-cities';
-import { CollectionPage } from '@/components/collection-page';
 import { getDestination, TONE_HERO } from '@/lib/destinations';
 import { getTravelStyle } from '@/lib/travel-styles';
 import { PackageCard, SectionHead, Faq, JsonLd } from '@/components/cards';
 import { PageHero, FactStrip } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
 import { StickyMobileCta } from '@/components/sticky-mobile-cta';
-import { SITE, inr, whatsAppLink } from '@/lib/site';
+import { SITE, inr, priceText, whatsAppLink } from '@/lib/site';
 
 type Params = Promise<{ slug: string }>;
 
-/**
- * This route serves two page types on one flat URL space: individual packages
- * and curated collections (`/packages/leh-ladakh-road-trip-packages`).
- * Slugs are disjoint, so a package always wins the lookup and collections
- * fill in behind it. Keeping them flat matters — these collection slugs are
- * the exact commercial queries they target.
- */
 export function generateStaticParams() {
-  return [
-    ...PACKAGES.map((p) => ({ slug: p.slug })),
-    ...COLLECTIONS.map((c) => ({ slug: c.slug })),
-  ];
+  return PACKAGES.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const p = getPackage(slug);
 
-  if (!p) {
-    const c = getCollection(slug);
-    if (!c) return {};
-    return {
-      title: c.seoTitle,
-      description: c.metaDescription,
-      alternates: { canonical: `/packages/${c.slug}` },
-      openGraph: {
-        title: c.seoTitle,
-        description: c.metaDescription,
-        url: `${SITE.domain}/packages/${c.slug}`,
-        type: 'website',
-      },
-    };
-  }
+  if (!p) return {};
 
-  const title = `${p.name} — ${p.nights} Nights ${p.days} Days ${p.destinationName} Package from ${inr(p.priceFrom)}`;
-  const description = `${p.summary} Day-by-day itinerary, clear inclusions and exclusions, pricing from ${inr(p.priceFrom)} per person. Route: ${p.route.join(' → ')}.`;
+  const title = `${p.name} — ${p.nights} Nights ${p.days} Days ${p.destinationName} Package${
+    p.priceFrom ? ` from ${inr(p.priceFrom)}` : ''
+  }`;
+  const description = `${p.summary} Day-by-day itinerary, clear inclusions and exclusions${
+    p.priceFrom ? `, pricing from ${inr(p.priceFrom)} per person` : ''
+  }. Route: ${p.route.join(' → ')}.`;
 
   return {
     title,
@@ -70,11 +47,7 @@ export default async function PackageDetail({ params }: { params: Params }) {
   const { slug } = await params;
   const p = getPackage(slug);
 
-  if (!p) {
-    const c = getCollection(slug);
-    if (c) return <CollectionPage c={c} />;
-    notFound();
-  }
+  if (!p) notFound();
 
   const dest = getDestination(p.destination);
   const url = `${SITE.domain}/packages/${p.slug}`;
@@ -109,14 +82,17 @@ export default async function PackageDetail({ params }: { params: Params }) {
         name: SITE.name,
         url: SITE.domain,
       },
-      offers: {
-        '@type': 'Offer',
-        price: p.priceFrom,
-        priceCurrency: 'INR',
-        availability: 'https://schema.org/InStock',
-        url,
-        description: `Per person on twin-sharing. ${p.nights} nights / ${p.days} days.`,
-      },
+      // An Offer needs a real price; omit it while the price is on request.
+      ...(p.priceFrom && {
+        offers: {
+          '@type': 'Offer',
+          price: p.priceFrom,
+          priceCurrency: 'INR',
+          availability: 'https://schema.org/InStock',
+          url,
+          description: `Per person on twin-sharing. ${p.nights} nights / ${p.days} days.`,
+        },
+      }),
     },
     {
       '@context': 'https://schema.org',
@@ -160,7 +136,7 @@ export default async function PackageDetail({ params }: { params: Params }) {
             ['Duration', `${p.nights} nights / ${p.days} days`],
             ['Route', p.route.join(' → ')],
             ['Best months', p.bestMonths],
-            ['From', `${inr(p.priceFrom)} per person`],
+            ['Price', p.priceFrom ? `${priceText(p.priceFrom)} per person` : 'On request'],
           ]}
         />
       </PageHero>
@@ -188,14 +164,14 @@ export default async function PackageDetail({ params }: { params: Params }) {
             {/* Byline: the team that plans and runs the trip */}
             <div data-reveal className="mt-4 flex items-center gap-3 rounded-xl border border-paper-300 bg-paper-50/80 px-4 py-3 text-[12.5px] text-ink-600">
               <div className="grid size-8 place-items-center rounded-full bg-gold-400 font-bold text-ink-950 text-[12px] shadow-sm">
-                LV
+                FT
               </div>
               <div>
                 <p className="font-semibold text-ink-900 leading-none">
                   Planned and run by the {SITE.name} team
                 </p>
                 <p className="text-[11px] text-ink-500 mt-0.5">
-                  Sequenced by altitude · all permits handled · private 4×4 with a Ladakhi driver
+                  Local team in Srinagar · private cab · itemised quote before you pay
                 </p>
               </div>
             </div>
@@ -305,6 +281,7 @@ export default async function PackageDetail({ params }: { params: Params }) {
             </section>
 
             {/* ───────────── honest travel advisory / who this trip is not for */}
+            {p.advisory && p.advisory.length > 0 && (
             <section className="mt-14 rounded-2xl border border-amber-200 bg-amber-50/70 p-6 md:p-8" data-reveal>
               <div className="flex items-start gap-4">
                 <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-800">
@@ -315,29 +292,21 @@ export default async function PackageDetail({ params }: { params: Params }) {
                   <h2 className="display text-[22px] font-semibold text-ink-900 mt-1">
                     Who this {p.name} itinerary is NOT for
                   </h2>
-                  <p className="mt-2 text-[14px] leading-relaxed text-ink-700">
-                    We believe in transparent expectations before booking rather than surprises after landing. This trip may not suit you if:
-                  </p>
                   <ul className="mt-4 space-y-2.5 text-[13.5px] text-ink-800">
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-amber-700 font-bold">•</span>
-                      <span><strong>Anyone who wants to rush the altitude:</strong> We will not move the high passes or Pangong earlier to fit more in. The first afternoon in Leh stays empty on every route.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-amber-700 font-bold">•</span>
-                      <span><strong>Travellers who need to stay connected everywhere:</strong> Prepaid SIMs from other states generally do not work in Ladakh, and coverage is patchy or absent at Pangong, Hanle and on the high passes. Postpaid connections work in Leh.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-amber-700 font-bold">•</span>
-                      <span><strong>Anyone with a cardiac or pulmonary condition:</strong> Speak to your doctor before booking anything at this altitude, and then to us. We will build the gentlest route that is safe for you.</span>
-                    </li>
+                    {p.advisory.map((a) => (
+                      <li key={a.title} className="flex items-start gap-2.5">
+                        <span className="text-amber-700 font-bold">•</span>
+                        <span><strong>{a.title}:</strong> {a.body}</span>
+                      </li>
+                    ))}
                   </ul>
                   <p className="mt-4 text-[12px] text-ink-600 border-t border-amber-200/80 pt-3">
-                    If any of these apply to your party, speak to us. We will adapt the route, add rest days, or suggest a lower-altitude itinerary.
+                    If any of these apply to your party, speak to us and we will adapt the route.
                   </p>
                 </div>
               </div>
             </section>
+            )}
 
             {/* ───────────── faqs */}
             <section className="mt-16" data-reveal>
@@ -359,13 +328,13 @@ export default async function PackageDetail({ params }: { params: Params }) {
                 >
                   <div aria-hidden className="grain absolute inset-0" />
                   <p className="relative text-[10.5px] uppercase tracking-[0.16em] text-paper-200/70">
-                    Starting from
+                    {p.priceFrom ? 'Starting from' : 'Price'}
                   </p>
                   <p className="display relative mt-1.5 text-[40px] leading-none text-paper-50">
-                    {inr(p.priceFrom)}
+                    {p.priceFrom ? inr(p.priceFrom) : 'On request'}
                   </p>
                   <p className="relative mt-2 text-[12px] text-paper-200/70">
-                    per person · twin-sharing
+                    {p.priceFrom ? 'per person · twin-sharing' : 'Itemised quote on WhatsApp, usually the same day'}
                   </p>
                 </div>
 
@@ -473,48 +442,6 @@ export default async function PackageDetail({ params }: { params: Params }) {
           </div>
         </section>
       )}
-
-      {/*
-        Contextual cross-links. Package pages carry the most internal link
-        equity on the site, so this is the most effective place to pass it
-        down to the departure-city and comparison pages — which otherwise
-        sit orphaned and rank slowly regardless of how good they are.
-      */}
-      <section className="section-sm border-t border-paper-200">
-        <div className="wrap">
-          <p className="kicker" data-reveal>
-            Planning this trip
-          </p>
-          <div data-reveal-group className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {ORIGIN_CITIES.slice(0, 4).map((c) => (
-              <Link
-                key={c.slug}
-                href={`/packages/from/${c.slug}`}
-                className="lift group flex items-center justify-between gap-3 rounded-xl border border-paper-300 bg-paper-50 px-5 py-4 transition-colors hover:border-gold-400 hover:bg-white"
-              >
-                <span className="text-[14px] text-ink-800">
-                  Travelling from <span className="font-medium">{c.name}</span>?
-                </span>
-                <ArrowUpRight
-                  className="arrow-slide size-4 shrink-0 text-gold-600"
-                  strokeWidth={2.2}
-                />
-              </Link>
-            ))}
-          </div>
-          <div data-reveal className="mt-3 flex flex-wrap gap-2.5">
-            {COLLECTIONS.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/packages/${c.slug}`}
-                className="rounded-full border border-paper-300 bg-white px-4 py-2 text-[13px] text-ink-600 transition-colors hover:border-gold-400 hover:text-gold-700"
-              >
-                {c.crumbLabel}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ───────────── enquiry */}
       <section className="mesh-pine grain section relative isolate overflow-hidden">

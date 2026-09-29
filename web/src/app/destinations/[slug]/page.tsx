@@ -7,7 +7,7 @@ import { packagesFor } from '@/lib/packages';
 import { PackageCard, SectionHead, Faq, JsonLd } from '@/components/cards';
 import { PageHero, FactStrip } from '@/components/page-hero';
 import { EnquiryForm } from '@/components/enquiry-form';
-import { SITE, inr } from '@/lib/site';
+import { SITE, inr, priceText } from '@/lib/site';
 
 type Params = Promise<{ slug: string }>;
 
@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const d = getDestination(slug);
   if (!d) return {};
 
-  const title = `${d.seoTitle} — ${d.idealDuration} from ${inr(d.startingFrom)}`;
+  const title = `${d.seoTitle} — ${d.idealDuration}${d.startingFrom ? ` from ${inr(d.startingFrom)}` : ''}`;
   const description = `${d.seoTitle} from a Srinagar-based team. ${d.regions
     .slice(0, 4)
     .map((r) => r.name)
-    .join(', ')}. Best time: ${d.bestMonths}. All-inclusive itineraries from ${inr(d.startingFrom)} per person.`;
+    .join(', ')}. Best time: ${d.bestMonths}. Itineraries planned by a local team, with itemised quotes.`;
 
   return {
     title,
@@ -102,7 +102,7 @@ export default async function DestinationHub({ params }: { params: Params }) {
           facts={[
             ['Best time', d.bestMonths],
             ['Ideal length', d.idealDuration],
-            ['Starts from', `${inr(d.startingFrom)} per person`],
+            ['Price', d.startingFrom ? `${priceText(d.startingFrom)} per person` : 'On request'],
             ['Altitude', d.altitude],
           ]}
         />

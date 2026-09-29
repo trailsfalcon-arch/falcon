@@ -69,7 +69,7 @@ export default function ContactPage() {
         title="Talk to someone who actually runs the trip."
         lede={`Our office is in Srinagar. We are on WhatsApp ${SITE.hours}, and the person who replies is the person who will run your trip.`}
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}
-        background="linear-gradient(180deg, rgba(7,15,31,0.40) 0%, rgba(7,15,31,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #3670d8 0%, #16294f 46%, #070f1f 100%)"
+        background="linear-gradient(180deg, rgba(11,20,29,0.40) 0%, rgba(11,20,29,0.92) 100%), radial-gradient(140% 120% at 26% 8%, #1d4a5a 0%, #14222f 46%, #0b141d 100%)"
       />
 
       <section className="mesh-warm section-sm">
@@ -133,9 +133,10 @@ export default function ContactPage() {
                 <strong className="font-semibold text-ink-900">
                   Planning for peak season?
                 </strong>{' '}
-                Leh hotels and the Nubra and Pangong camps for May–June book out
-                months ahead. Message us early even if your dates are not final
-                &mdash; we will tell you what needs locking in first.
+                Houseboats and hotels in Gulmarg and Pahalgam for April–June, and
+                everything around the Amarnath Yatra, book out months ahead. Message
+                us early even if your dates are not final &mdash; we will tell you
+                what needs locking in first.
               </p>
             </div>
           </div>

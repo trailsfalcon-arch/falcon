@@ -178,6 +178,9 @@ export default function PublicItineraryViewPage({
 
   const selectedOption = data.options.find((o) => o.id === selectedOptionId) ?? data.options[0];
   const totalNights = Math.max(1, data.days.length - 1);
+  const isLadakh = /\b(ladakh|leh|nubra|pangong|kargil)\b/i.test(
+    [data.destination, data.title, ...data.days.map((d) => d.city ?? '')].join(' '),
+  );
   // Phone numbers come from Settings → Company profile, never hardcoded.
   const phoneDigits = data.company.phone.replace(/\D/g, '');
 
@@ -240,12 +243,13 @@ export default function PublicItineraryViewPage({
           </div>
           <div className="flex items-center gap-1.5 bg-ink-100 border border-ink-200 px-3 py-1.5 rounded-lg">
             <Compass className="size-4 text-warn-500" />
-            <span>Private Innova / 4x4 Circuit</span>
+            <span>Private cab throughout</span>
           </div>
         </div>
       </section>
 
-      {/* Altitude Profile & High-Altitude Safety Alert */}
+      {/* Altitude advisory: Ladakh proposals only. Kashmir circuits stay low. */}
+      {isLadakh && (
       <section className="px-4 sm:px-8 max-w-5xl mx-auto mb-8">
         <div className="bg-gradient-to-br from-ink-100 to-ink-100/90 border border-warn-500/30 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
           <div className="flex items-start gap-3.5 mb-4">
@@ -257,7 +261,7 @@ export default function PublicItineraryViewPage({
                 Altitude Curve & Acclimatization Advisory
               </h2>
               <p className="text-xs sm:text-sm text-ink-600 mt-0.5">
-                Ladakh sits above 11,000 feet. Your circuit has been doctor-calibrated with a 48-hour acclimatization buffer.
+                Leh sits above 11,000 feet. Rest on arrival, drink plenty of water, and take the first 48 hours gently. Typical heights on a Ladakh circuit:
               </p>
             </div>
           </div>
@@ -277,6 +281,7 @@ export default function PublicItineraryViewPage({
           </div>
         </div>
       </section>
+      )}
 
       {/* Package Tier Selection Cards */}
       {data.options.length > 0 && (

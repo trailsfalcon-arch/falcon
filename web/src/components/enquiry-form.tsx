@@ -188,7 +188,7 @@ export function EnquiryForm({
             placeholder={
               packageName
                 ? `Interested in ${packageName} — tell us group size, dates, anything specific.`
-                : 'E.g. 7 nights in Ladakh in late June, family of four, one grandparent.'
+                : 'E.g. 5 nights in Kashmir in late April, family of four, one grandparent.'
             }
           />
         </label>

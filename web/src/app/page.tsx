@@ -11,8 +11,8 @@ import {
   Car,
   BedDouble,
 } from 'lucide-react';
-import { SITE, inr, HAS_RATING } from '@/lib/site';
-import { DESTINATIONS } from '@/lib/destinations';
+import { SITE, HAS_RATING, whatsAppLink } from '@/lib/site';
+import { DESTINATIONS, TONE_BG } from '@/lib/destinations';
 import { FEATURED, PACKAGES } from '@/lib/packages';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
 import { REVIEWS } from '@/lib/reviews';
@@ -30,55 +30,64 @@ export const metadata = {
 };
 
 const TRUST = [
-  'Local operator, not a reseller',
-  'Kashmir · Ladakh · Jammu',
-  'Environmental fee and permits handled',
-  'Oxygen in every vehicle',
-  'Stays we have slept in',
-  '24×7 support',
-  'Itemised quotes, no-cost EMI',
+  'Local since 2010',
+  'Srinagar-based, not a reseller',
+  'Itemised quotes before you pay',
+  'Houseboats we know',
+  'One coordinator on WhatsApp',
+  'Amarnath & Vaishno Devi yatras',
+  'Group departures open now',
+];
+
+/** The five ways to travel, as on falcontrails.in. */
+const FIVE_WAYS = [
+  { slug: 'discover-india', label: 'Across the country', items: 'Kashmir & offbeat Kashmir · Ladakh · Kerala · North East' },
+  { slug: 'sacred-journeys', label: 'Pilgrimages, done right', items: 'Amarnath Yatra + guide · Vaishno Devi + guide' },
+  { slug: 'group-departures', label: 'Open now', items: 'Fixed-date Kashmir groups · Amarnath group departures' },
+  { slug: 'visitors-to-india', label: 'International', items: 'The Golden Triangle: Delhi · Agra · Jaipur' },
+  { slug: 'the-world', label: 'For Indian travellers', items: 'International packages, curated with the same care' },
 ];
 
 const WHY = [
   {
-    icon: ShieldCheck,
-    title: 'Altitude comes first, always',
-    body: 'We refuse to sell a Pangong-on-day-two itinerary. Our routes are sequenced by elevation, with an empty first afternoon in Leh and the high passes from day three, and oxygen in every vehicle.',
-  },
-  {
     icon: MapPin,
-    title: 'No middlemen in the chain',
-    body: 'We own the relationships with drivers, camps and hotels directly. That is why the same trip costs less, and why the people serving you are paid properly.',
-  },
-  {
-    icon: Car,
-    title: 'Private 4×4, Ladakhi driver',
-    body: 'An Innova Crysta or Xylo with a Ladakhi driver who has run these passes for years. Never a shared cab, never a stranger’s schedule.',
-  },
-  {
-    icon: BedDouble,
-    title: 'Stays we have slept in',
-    body: 'Centrally located 3★ and 4★ hotels in Leh, and deluxe camps at Nubra and Pangong with attached bathrooms, heating and hot water. Every one personally inspected.',
-  },
-  {
-    icon: Headphones,
-    title: 'One named planner, start to finish',
-    body: 'The person who writes your itinerary is the person who answers at 11pm when a pass closes. No handovers, no ticket numbers.',
+    title: 'Local since 2010',
+    body: 'Our founder started as a guide in Srinagar and has hosted travellers from more than twelve countries. We plan Kashmir from the ground, not from a call centre.',
   },
   {
     icon: Receipt,
-    title: 'Transparent pricing and EMI',
-    body: 'An itemised quote showing exactly what each night and each vehicle costs. A 25% deposit confirms your dates, and no-cost EMI is available on cards.',
+    title: 'Itemised quotes, honest pricing',
+    body: 'Every quote shows what each night and each vehicle costs, and exclusions are written plainly. You pay only once the plan and the price are right.',
+  },
+  {
+    icon: BedDouble,
+    title: 'Houseboats and hotels we know',
+    body: 'Houseboat quality varies enormously. We book the ones we know and tell you the category before you pay.',
+  },
+  {
+    icon: Car,
+    title: 'Private cab, local rules explained',
+    body: 'A private cab for your whole trip, and a straight briefing on the union taxis and fixed rates at Pahalgam, Sonamarg and Gulmarg.',
+  },
+  {
+    icon: Headphones,
+    title: 'One coordinator, start to finish',
+    body: 'One WhatsApp thread from your first message to your flight home. If a road closes or the weather turns, we change the plan with you.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Yatras handled on the ground',
+    body: 'Amarnath and Vaishno Devi with a guide who has walked the route, stays arranged around the official timings, and help with the paperwork.',
   },
 ];
 
 const SEASONS = [
-  { m: 'Apr', t: 'The quiet opening', d: 'Leh and the monasteries are open and empty. Cold nights, and some high camps not yet running.' },
-  { m: 'May – Jun', t: 'Snow on the passes', d: 'The busiest and most photogenic months. Snow-lined passes, and the Manali and Srinagar roads opening.' },
-  { m: 'Jul – Aug', t: 'Warmest weeks', d: 'Everything is open and the days are warm, but rain elsewhere can cause roadblocks. Build in a spare day.' },
-  { m: 'Sep – Oct', t: 'Our honest pick', d: 'Clear skies, thin crowds, golden poplars, and the year’s best conditions for the stars at Hanle.' },
-  { m: 'Nov – Dec', t: 'Roads closing', d: 'Most high roads close for the winter. Leh stays reachable by air, but the lakes and passes do not.' },
-  { m: 'Jan – Mar', t: 'Deep winter', d: 'Leh by air only, and well below freezing at night. A harder trip than the one most people picture.' },
+  { m: 'Mar – Apr', t: 'Blossom and tulips', d: 'Almond and cherry blossom, and the Tulip Garden for a few weeks. Cool days, cold nights.' },
+  { m: 'May – Jun', t: 'Green and busy', d: 'Meadows at their greenest and every valley open. Book early; this is peak season.' },
+  { m: 'Jul – Aug', t: 'Yatra season', d: 'Warm days and the Amarnath Yatra. Pahalgam and Sonamarg are busy; Gurez and the north are at their best.' },
+  { m: 'Sep – Oct', t: 'Our honest pick', d: 'Clear skies, thinner crowds, and the chinars turning red and gold in October.' },
+  { m: 'Nov', t: 'Late autumn', d: 'Quiet and crisp. The Gurez and Zojila roads start to close with the first heavy snow.' },
+  { m: 'Dec – Feb', t: 'Snow', d: 'Gulmarg and Pahalgam under snow, skiing in Gulmarg, and Dal Lake in winter light. Dress warm.' },
 ];
 
 export default function HomePage() {
@@ -101,30 +110,30 @@ export default function HomePage() {
           className="absolute inset-0 -z-20 bg-cover bg-center"
           style={{
             background:
-              'linear-gradient(180deg, rgba(7,15,31,0.45) 0%, rgba(7,15,31,0.65) 45%, rgba(7,15,31,0.95) 100%), url("/img/ladakh-hero.webp") center / cover',
+              'linear-gradient(180deg, rgba(11,20,29,0.45) 0%, rgba(11,20,29,0.65) 45%, rgba(11,20,29,0.95) 100%), url("/img/dal.webp") center / cover',
           }}
         />
         {/* drifting light blobs — pure decoration, aria-hidden */}
         <div
           aria-hidden
           className="blob -z-10 left-[6%] top-[12%] h-[380px] w-[380px]"
-          style={{ background: 'rgba(201,169,97,0.20)' }}
+          style={{ background: 'rgba(212,175,90,0.20)' }}
         />
         <div
           aria-hidden
           className="blob -z-10 right-[4%] top-[38%] h-[300px] w-[300px]"
-          style={{ background: 'rgba(30,79,168,0.30)', animationDelay: '-6s' }}
+          style={{ background: 'rgba(23,155,142,0.30)', animationDelay: '-6s' }}
         />
         <div aria-hidden className="grain absolute inset-0 -z-10" />
 
         <div className="wrap relative w-full pb-16 pt-32 md:pb-24 md:pt-40">
           <p className="anim-fade kicker kicker-light">
-            Srinagar-based Kashmir & Ladakh specialists
+            {SITE.tagline} · Srinagar, Kashmir
           </p>
 
           <h1 className="display d1 mt-5 max-w-[19ch] text-paper-50">
             <span className="mask">
-              <span style={{ animationDelay: '80ms' }}>Kashmir &amp; Ladakh,</span>
+              <span style={{ animationDelay: '80ms' }}>Kashmir,</span>
             </span>
             <span className="mask">
               <span style={{ animationDelay: '200ms' }}>
@@ -134,29 +143,34 @@ export default function HomePage() {
           </h1>
 
           <p className="anim-rise d-4 lede mt-7 max-w-xl !text-paper-200/85">
-            Every route is built around altitude, not a checklist &mdash;
-            permits handled, private 4×4s with Ladakhi drivers, oxygen on board,
-            and stays we have personally slept in. One planner from your
-            first message to your flight home.
+            From the lakes of Kashmir to the backwaters of Kerala, the high
+            passes of Ladakh to the Golden Triangle &mdash; and the world beyond
+            India. Run on the ground by a local who&rsquo;s been guiding since{' '}
+            {SITE.founder.since}.
           </p>
 
           <div className="anim-rise d-5 mt-9 flex flex-wrap gap-3">
-            <Link href="/packages" className="btn btn-gold btn-shine group">
-              Browse tour packages
+            <Link href="/destinations" className="btn btn-gold btn-shine group">
+              Explore Kashmir
               <ArrowRight className="arrow-slide size-4" strokeWidth={2.2} />
             </Link>
-            <Link href="/contact" className="btn btn-ghost-light">
-              Talk to a specialist
-            </Link>
+            <a
+              href={whatsAppLink('a trip with Falcon Trails')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost-light"
+            >
+              Enquire on WhatsApp
+            </a>
           </div>
 
           {/* floating stat strip */}
           <div className="anim-rise d-5 mt-14 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-paper-100/12 bg-paper-100/8 backdrop-blur-md sm:grid-cols-4">
             {[
-              ['3', 'regions: Kashmir, Ladakh, Jammu'],
-              [`Since ${SITE.founder.since}`, 'in Kashmir tourism'],
-              ['1', 'planner per trip'],
-              ['24×7', 'on-trip support'],
+              [`Since ${SITE.founder.since}`, 'guiding in Kashmir'],
+              [SITE.founder.countries, 'countries hosted'],
+              ['5', 'ways to travel with us'],
+              ['1', 'coordinator per trip'],
             ].map(([k, v]) => (
               <div key={v} className="bg-ink-950/25 px-5 py-4">
                 <p className="display text-[24px] leading-none text-gold-300">{k}</p>
@@ -183,8 +197,8 @@ export default function HomePage() {
           </div>
         </div>
         <p className="sr-only">
-          Srinagar-based Kashmir and Ladakh tour operator. Environmental fee and permits handled. Oxygen in every vehicle. 24×7
-          on-ground support.
+          Srinagar-based tour operator, local since 2010. Kashmir, pilgrimages, group departures,
+          visitors to India and international trips. Itemised quotes before you pay.
         </p>
       </section>
 
@@ -196,8 +210,8 @@ export default function HomePage() {
               kicker="Where we take you"
               title={
                 <>
-                  Four Ladakhs,
-                  <br className="hidden md:block" /> one journey.
+                  Kashmir, valley
+                  <br className="hidden md:block" /> by valley.
                 </>
               }
             />
@@ -213,7 +227,7 @@ export default function HomePage() {
 
           <div
             data-reveal-group
-            className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             {DESTINATIONS.map((d) => (
               <DestinationCard key={d.slug} d={d} />
@@ -226,9 +240,9 @@ export default function HomePage() {
       <section className="section border-t border-paper-200 bg-paper-100">
         <div className="wrap">
           <SectionHead
-            kicker="Most booked"
-            title="Itineraries that keep coming back."
-            lede="Every package below is a starting point — tell us your dates and group and we will reshape it around you. Prices are per person on twin-sharing."
+            kicker="Kashmir itineraries"
+            title="Starting points, not scripts."
+            lede="Every itinerary below is a starting point. Tell us your dates and group and we reshape it around you, with an itemised quote."
           />
 
           <div data-reveal-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -251,7 +265,7 @@ export default function HomePage() {
         <div
           aria-hidden
           className="blob right-[-8%] top-[6%] h-[460px] w-[460px]"
-          style={{ background: 'rgba(201,169,97,0.14)' }}
+          style={{ background: 'rgba(212,175,90,0.14)' }}
         />
         <div className="wrap relative">
           <SectionHead
@@ -262,7 +276,7 @@ export default function HomePage() {
                 Run by locals. Not by a <em className="text-gold-grad not-italic">call centre</em>.
               </>
             }
-            lede="Six reasons travellers book a Srinagar-based team directly, rather than a portal that forwards their enquiry to one."
+            lede="Six reasons to book a Srinagar-based team directly, rather than a portal that forwards your enquiry to one."
           />
 
           <div data-reveal-group className="mt-14 grid gap-x-10 gap-y-11 md:grid-cols-2 lg:grid-cols-3">
@@ -293,13 +307,13 @@ export default function HomePage() {
       <section className="section">
         <div className="wrap">
           <SectionHead
-            kicker="However you travel"
-            title="Same mountains. Very different trips."
-            lede="A honeymoon and a bike trip should not share an itinerary. Pick the shape of your trip and we build from there."
+            kicker="What we do"
+            title="Five ways to travel with us."
+            lede="Kashmir is home. From here we plan journeys across India, pilgrimages done right, fixed-date groups, trips for visitors to India, and holidays abroad."
           />
 
           <div data-reveal-group className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {TRAVEL_STYLES.map((s) => (
+            {FIVE_WAYS.map((w) => ({ ...w, s: TRAVEL_STYLES.find((t) => t.slug === w.slug)! })).map(({ s, label, items }) => (
               <Link
                 key={s.slug}
                 href={`/travel-styles/${s.slug}`}
@@ -307,14 +321,21 @@ export default function HomePage() {
               >
                 <div
                   className="zoom aspect-[4/5] bg-cover bg-center"
-                  style={{ background: s.hero }}
+                  style={{ background: s.tone ? TONE_BG[s.tone] : s.hero }}
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="display text-[22px] leading-none text-paper-50">
+                  <p
+                    className={`text-[10.5px] font-semibold uppercase tracking-[0.14em] ${
+                      label === 'Open now' ? 'text-teal-300' : 'text-gold-300/80'
+                    }`}
+                  >
+                    {label}
+                  </p>
+                  <h3 className="display mt-1.5 text-[22px] leading-none text-paper-50">
                     {s.name}
                   </h3>
-                  <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-paper-200/75">
-                    {s.headline}
+                  <p className="mt-2 line-clamp-3 text-[12px] leading-relaxed text-paper-200/75">
+                    {items}
                   </p>
                   <span className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-gold-300 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                     Explore
@@ -333,7 +354,7 @@ export default function HomePage() {
           <SectionHead
             kicker="Timing is everything"
             title="When to come, and what you get."
-            lede="Ladakh has a season, and the roads decide it. Here is the honest breakdown, month by month."
+            lede="Kashmir is open all year, and every season is a different trip. Here is the honest breakdown."
           />
 
           <div data-reveal-group className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-paper-300 bg-paper-300 sm:grid-cols-2 lg:grid-cols-3">
@@ -395,18 +416,58 @@ export default function HomePage() {
       </section>
       )}
 
+      {/* ══════════════════════════════════ THE OPERATOR */}
+      <section className="section border-t border-paper-200">
+        <div className="wrap grid items-center gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-7" data-reveal>
+            <p className="kicker">The operator</p>
+            <h2 className="display d2 mt-3 text-ink-900">Local since {SITE.founder.since}.</h2>
+            <p className="lede mt-5 max-w-xl">
+              Founded by {SITE.founder.name} &mdash; a Srinagar guide who&rsquo;s hosted
+              travellers from {SITE.founder.countries} countries. Real ground knowledge,
+              honest pricing.
+            </p>
+            <Link href="/about" className="link-sweep mt-6 inline-block text-[14px] font-medium text-gold-700">
+              Our story &rarr;
+            </Link>
+          </div>
+          <div className="lg:col-span-5" data-reveal="right">
+            <div className="rounded-2xl border border-teal-500/30 bg-pine-900 p-7 text-paper-100 shadow-lg">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-300">
+                Group departures are open now
+              </p>
+              <p className="display mt-3 text-[24px] leading-snug text-paper-50">
+                Don&rsquo;t wait to grab a seat.
+              </p>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-paper-200/75">
+                Fixed-date Kashmir groups and Amarnath group departures. Message us for the
+                next dates and seats left.
+              </p>
+              <a
+                href={whatsAppLink('the next group departure')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-gold btn-shine mt-5"
+              >
+                Enquire on WhatsApp &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══════════════════════════════════ ENQUIRY */}
       <section className="mesh-pine grain section relative isolate overflow-hidden">
         <div
           aria-hidden
           className="blob left-[-6%] bottom-[-10%] h-[420px] w-[420px]"
-          style={{ background: 'rgba(201,169,97,0.16)' }}
+          style={{ background: 'rgba(212,175,90,0.16)' }}
         />
         <div className="wrap relative grid items-start gap-14 lg:grid-cols-2">
           <div data-reveal>
             <p className="kicker kicker-light">Start planning</p>
             <h2 className="display d2 mt-3 text-paper-50">
-              Tell us what you&rsquo;re dreaming about.
+              What are you dreaming of?
             </h2>
             <p className="lede mt-5 max-w-md !text-paper-200/75">
               Send us your dates and the shape of the trip you are imagining.

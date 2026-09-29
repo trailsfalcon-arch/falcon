@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Menu, X, Phone, ChevronDown, ArrowRight } from 'lucide-react';
-import { SITE, inr } from '@/lib/site';
+import { SITE, priceText } from '@/lib/site';
 import { DESTINATIONS } from '@/lib/destinations';
 import { TRAVEL_STYLES } from '@/lib/travel-styles';
 import { Wordmark } from './logo';
@@ -165,7 +165,7 @@ export function SiteHeader() {
                     {d.regions.length} regions · {d.idealDuration}
                   </p>
                   <p className="mt-2 text-[12px] font-medium text-gold-700">
-                    from {inr(d.startingFrom)} pp
+                    {priceText(d.startingFrom, ' pp')}
                   </p>
                 </Link>
               ))}
@@ -221,7 +221,7 @@ export function SiteHeader() {
                   <MobileLink key={d.slug} href={`/destinations/${d.slug}`}>
                     {d.name}
                     <span className="text-[12px] text-ink-500">
-                      from {inr(d.startingFrom)}
+                      {priceText(d.startingFrom)}
                     </span>
                   </MobileLink>
                 ))}

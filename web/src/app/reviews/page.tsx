@@ -38,7 +38,7 @@ export default function ReviewsPage() {
         title="The reviews are the itinerary."
         lede="A few of the things travellers have told us after their trips. The full, unfiltered set lives on our Google Business Profile."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]}
-        background="linear-gradient(180deg, rgba(10,8,4,0.42) 0%, rgba(10,8,4,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #a8842f 0%, #634d22 46%, #120d04 100%)"
+        background="linear-gradient(180deg, rgba(10,8,4,0.42) 0%, rgba(10,8,4,0.92) 100%), radial-gradient(140% 120% at 30% 8%, #b8923e 0%, #6a5325 46%, #120d04 100%)"
       >
         {HAS_RATING && (
         <div className="flex items-center gap-3">

@@ -20,7 +20,7 @@ export const MANIFEST: ManifestPage[] = manifestData as unknown as ManifestPage[
 export const HOMEPAGE_ENTRY: ManifestPage = {
   url: '/',
   title: 'Kashmir & Ladakh Tour Packages | Falcon Trails — Srinagar-based Tour Operator',
-  h1: 'Kashmir & Ladakh, planned by locals.',
+  h1: 'Kashmir, planned by locals.',
   tier: 0,
   family: 'core-homepage',
   primary: 'ladakh tour package',

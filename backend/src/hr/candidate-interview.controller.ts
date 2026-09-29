@@ -1,46 +1,33 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Public } from '../common/decorators/public.decorator';
 import { InterviewAiService } from './interview-ai.service';
+import { SubmitAnswerDto } from './dto/submit-answer.dto';
 
+/**
+ * Candidate-facing AI interview. Public, but every route needs the invite
+ * token from the link HR sends (staff issue it from the interview screen).
+ * The token is unguessable, expires, and can be rotated; there is no lookup
+ * by phone number or interview id. Responses never include the candidate's
+ * phone or the AI's evaluation.
+ */
 @Public()
+@Throttle({ default: { limit: 20, ttl: 60000 } })
 @Controller('interviews/candidate')
 export class CandidateInterviewController {
   constructor(private readonly aiService: InterviewAiService) {}
 
-  /**
-   * Candidate login by mobile phone number.
-   * Finds the latest interview scheduled for this phone number.
-   */
-  @Post('login')
-  login(@Body() body: { phone: string }) {
-    return this.aiService.loginCandidateByPhone(body.phone);
+  @Get(':token/session')
+  getSession(@Param('token') token: string) {
+    return this.aiService.candidateSession(token);
   }
 
   /**
-   * Candidate retrieves interview session details and existing progress.
+   * Answer the current question. Answers are write-once and sequential; the
+   * reply is warm feedback and the next question, never a score.
    */
-  @Get(':id/session')
-  getSession(@Param('id') id: string) {
-    return this.aiService.startAiSession(id);
-  }
-
-  /**
-   * Candidate starts or generates the 5 easy-English questions for their role.
-   */
-  @Post(':id/start')
-  startSession(@Param('id') id: string) {
-    return this.aiService.startAiSession(id);
-  }
-
-  /**
-   * Candidate submits their answer for question #questionIndex.
-   * Returns warm turn feedback and the next question, or triggers evaluation if finished.
-   */
-  @Post(':id/answer')
-  submitAnswer(
-    @Param('id') id: string,
-    @Body() body: { questionIndex: number; answer: string },
-  ) {
-    return this.aiService.submitAnswer(id, body.questionIndex, body.answer);
+  @Post(':token/answer')
+  submitAnswer(@Param('token') token: string, @Body() body: SubmitAnswerDto) {
+    return this.aiService.candidateAnswer(token, body.questionIndex, body.answer);
   }
 }

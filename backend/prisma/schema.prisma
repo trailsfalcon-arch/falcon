@@ -426,6 +426,17 @@ model Interview {
   outcome       InterviewOutcome @default(PENDING)
   outcomeNote   String?
 
+  // --- candidate self-service AI interview ---
+  /// SHA-256 of the candidate's invite token. The raw token is only ever in
+  /// the link staff send; lookups hash the presented token and match here.
+  candidateTokenHash      String?   @unique
+  /// The same token, encrypted (INTEGRATION_KEY), so staff can re-copy the
+  /// active link without rotating it.
+  candidateTokenEnc       String?
+  candidateTokenExpiresAt DateTime?
+  /// Set when the last answer is submitted. Answers are locked from then on.
+  aiCompletedAt           DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

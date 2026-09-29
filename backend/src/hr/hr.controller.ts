@@ -24,6 +24,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { SalarySlipDocument } from './templates/salary-slip';
 import { InterviewSheetDocument } from './templates/interview-sheet';
 import { InterviewAiService } from './interview-ai.service';
+import { SubmitAnswerDto } from './dto/submit-answer.dto';
 
 /**
  * HR data is sensitive by default — salary components, home address,
@@ -203,11 +204,20 @@ export class HrController {
   }
 
   @Post('interviews/:id/ai/answer')
-  submitAiAnswer(
-    @Param('id') id: string,
-    @Body() body: { questionIndex: number; answer: string },
-  ) {
+  submitAiAnswer(@Param('id') id: string, @Body() body: SubmitAnswerDto) {
     return this.aiService.submitAnswer(id, body.questionIndex, body.answer);
+  }
+
+  /** The candidate's active invite link token, if any (does not rotate it). */
+  @Get('interviews/:id/candidate-link')
+  getCandidateLink(@Param('id') id: string) {
+    return this.aiService.getCandidateLink(id);
+  }
+
+  /** Issue a new invite link. Any link sent earlier stops working. */
+  @Post('interviews/:id/candidate-link')
+  issueCandidateLink(@Param('id') id: string) {
+    return this.aiService.issueCandidateLink(id);
   }
 
   @Post('interviews/:id/ai/evaluate')
@@ -215,20 +225,15 @@ export class HrController {
     const iv = await this.hr.findInterview(id);
     const questions = (iv.questionnaire as any) ?? [];
     const evaluation = await this.aiService.evaluateInterview(iv.role, iv.candidateName, questions);
-    return this.hr.updateInterview(id, {
-      overallRating: evaluation.overallRating,
-      strengths: evaluation.strengths,
-      concerns: evaluation.concerns,
-      outcome: evaluation.outcome,
-      outcomeNote: evaluation.outcomeNote,
-    } as any);
+    // The AI recommends; it never sets the hiring outcome. HR decides.
+    return this.hr.updateInterview(id, InterviewAiService.evaluationFields(evaluation) as any);
   }
 
   @Post('interviews/:id/ai/reset')
   async resetAiInterview(@Param('id') id: string) {
     const iv = await this.hr.findInterview(id);
     const freshQuestions = await this.aiService.generateQuestions(iv.role, iv.candidateName);
-    return this.hr.updateInterview(id, {
+    await this.hr.updateInterview(id, {
       questionnaire: freshQuestions as any,
       overallRating: null,
       strengths: null,
@@ -236,6 +241,8 @@ export class HrController {
       outcome: 'PENDING' as any,
       outcomeNote: null,
     } as any);
+    // A reset reopens the interview for fresh answers.
+    return this.hr.reopenAiInterview(id);
   }
 }
 

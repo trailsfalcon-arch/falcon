@@ -20,18 +20,20 @@ import {
   Clock,
   Briefcase,
 } from 'lucide-react';
-import { api, ApiError, type InterviewAiSession, type InterviewQuestionItem } from '@/lib/api';
+import { api, ApiError, type CandidateInterviewSession, type InterviewQuestionItem } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/select';
 
 export default function CandidateInterviewSessionPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ token: string }>;
 }) {
-  const { id } = use(params);
+  // The invite token from the link HR sent. It is the only credential.
+  const { token } = use(params);
+  const base = `/interviews/candidate/${encodeURIComponent(token)}`;
 
-  const [session, setSession] = useState<InterviewAiSession | null>(null);
+  const [session, setSession] = useState<CandidateInterviewSession | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +68,7 @@ export default function CandidateInterviewSessionPage({
     setLoading(true);
     setError(null);
     try {
-      const data = await api.get<InterviewAiSession>(`/interviews/candidate/${id}/session`);
+      const data = await api.get<CandidateInterviewSession>(`${base}/session`);
       setSession(data);
       if (data.isCompleted) {
         setIsCompleted(true);
@@ -88,7 +90,7 @@ export default function CandidateInterviewSessionPage({
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [base]);
 
   useEffect(() => {
     loadSession();
@@ -195,7 +197,7 @@ export default function CandidateInterviewSessionPage({
         nextIndex: number | null;
         nextQuestion: string | null;
         isCompleted: boolean;
-      }>(`/interviews/candidate/${id}/answer`, {
+      }>(`${base}/answer`, {
         questionIndex: currentIdx,
         answer: answerText.trim(),
       });
@@ -227,6 +229,12 @@ export default function CandidateInterviewSessionPage({
         setAnswerText(updatedQuestions[nextIdx]?.answer || '');
       }
     } catch (err) {
+      // 409: this answer was already saved (double tap, second tab). Reload
+      // the saved progress instead of letting the candidate retry blindly.
+      if (err instanceof ApiError && err.status === 409) {
+        await loadSession();
+        return;
+      }
       setError(
         err instanceof ApiError
           ? err.message
@@ -360,7 +368,7 @@ export default function CandidateInterviewSessionPage({
                   <CheckCircle2 className="size-4" /> Next Steps
                 </div>
                 <p className="text-xs text-ink-400 leading-relaxed">
-                  Our recruitment team will review your interview transcript and answers. If your profile matches our requirements, we will reach out to you via WhatsApp or phone at <strong className="text-ink-200">{session.candidatePhone}</strong>.
+                  Our recruitment team will review your interview transcript and answers. If your profile matches our requirements, we will reach out to you on the phone number you gave us.
                 </p>
               </div>
 

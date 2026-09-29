@@ -1085,6 +1085,31 @@ export interface InterviewAiSession {
   outcomeNote: string | null;
 }
 
+/** What a candidate sees: no phone number, no scorecard, no interviewer notes. */
+export interface CandidateInterviewSession {
+  candidateName: string;
+  role: string;
+  scheduledAt: string;
+  durationMinutes: number | null;
+  questions: Pick<InterviewQuestionItem, 'question' | 'answer' | 'feedback'>[];
+  currentQuestionIndex: number;
+  answeredCount: number;
+  totalQuestions: number;
+  isCompleted: boolean;
+}
+
+/** A candidate's active AI-interview invite link (staff only). */
+export interface CandidateInviteLink {
+  token: string | null;
+  expiresAt: string | null;
+  completedAt?: string | null;
+}
+
+export function candidateInviteUrl(token: string): string {
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://falcontrails.in';
+  return `${origin}/interview/session/${token}`;
+}
+
 export interface AiAnswerResponse {
   success: boolean;
   feedback: string;

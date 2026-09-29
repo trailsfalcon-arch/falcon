@@ -2,48 +2,34 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Mountain, Phone, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
-import { api, ApiError } from '@/lib/api';
+import { Mountain, Link2, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
 
+/**
+ * Pull the invite token out of whatever the candidate pastes: the full link
+ * HR sent, or just the code at its end.
+ */
+function extractToken(input: string): string | null {
+  const text = input.trim();
+  const fromLink = text.match(/\/interview\/session\/([A-Za-z0-9_-]{20,100})/);
+  if (fromLink) return fromLink[1];
+  return /^[A-Za-z0-9_-]{20,100}$/.test(text) ? text : null;
+}
+
 export default function CandidateLoginPage() {
   const router = useRouter();
-  const [phone, setPhone] = useState('');
-  const [busy, setBusy] = useState(false);
+  const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!phone.trim()) {
-      setError('Please enter your mobile phone number.');
+    const token = extractToken(code);
+    if (!token) {
+      setError('Please paste the full interview link that Falcon Trails HR sent you.');
       return;
     }
-
-    setBusy(true);
-    setError(null);
-
-    try {
-      const res = await api.post<{
-        interviewId: string;
-        candidateName: string;
-        role: string;
-      }>('/interviews/candidate/login', { phone: phone.trim() });
-
-      if (res?.interviewId) {
-        router.push(`/interview/session/${res.interviewId}`);
-      } else {
-        setError('No interview found. Please check your number.');
-      }
-    } catch (err) {
-      setError(
-        err instanceof ApiError
-          ? err.message
-          : 'Could not find your interview session. Please check your mobile number or contact HR.',
-      );
-    } finally {
-      setBusy(false);
-    }
+    router.push(`/interview/session/${token}`);
   }
 
   return (
@@ -67,7 +53,7 @@ export default function CandidateLoginPage() {
             AI Interview Portal
           </div>
           <p className="mt-3 text-sm text-ink-400">
-            Welcome! Enter your registered mobile number to access your friendly AI interview session.
+            Welcome! Open the interview link HR sent you on WhatsApp or email, or paste it below.
           </p>
         </div>
 
@@ -75,30 +61,29 @@ export default function CandidateLoginPage() {
         <div className="mt-8 rounded-2xl border border-ink-800/80 bg-ink-900/90 p-6 shadow-2xl backdrop-blur-md sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <Label htmlFor="phone" className="text-xs font-medium text-ink-300">
-                Registered Mobile Number
+              <Label htmlFor="invite" className="text-xs font-medium text-ink-300">
+                Your interview link
               </Label>
               <div className="relative mt-1.5">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-400">
-                  <Phone className="size-4" />
+                  <Link2 className="size-4" />
                 </div>
                 <Input
-                  id="phone"
-                  type="tel"
-                  autoComplete="tel"
+                  id="invite"
+                  type="text"
+                  autoComplete="off"
                   required
-                  disabled={busy}
-                  value={phone}
+                  value={code}
                   onChange={(e) => {
-                    setPhone(e.target.value);
+                    setCode(e.target.value);
                     if (error) setError(null);
                   }}
-                  placeholder="e.g. 9876543210"
+                  placeholder="https://falcontrails.in/interview/session/…"
                   className="pl-9 text-base bg-ink-950/60 border-ink-700/60 text-ink-100 placeholder:text-ink-600 focus:border-gold-500 focus:ring-gold-500/20"
                 />
               </div>
               <p className="mt-1.5 text-[11.5px] text-ink-500">
-                Enter the phone number you provided during your job application.
+                The link works only for you and expires after 7 days. Ask HR for a new one if it stops working.
               </p>
             </div>
 
@@ -113,17 +98,11 @@ export default function CandidateLoginPage() {
 
             <Button
               type="submit"
-              disabled={busy || !phone.trim()}
+              disabled={!code.trim()}
               className="w-full bg-gold-500 text-ink-950 hover:bg-gold-400 font-semibold shadow-lg shadow-gold-500/20 h-11"
             >
-              {busy ? (
-                'Connecting to AI Portal...'
-              ) : (
-                <>
-                  Start AI Interview Session
-                  <ArrowRight className="ml-2 size-4" />
-                </>
-              )}
+              Start AI Interview Session
+              <ArrowRight className="ml-2 size-4" />
             </Button>
           </form>
 

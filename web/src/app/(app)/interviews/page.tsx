@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Briefcase, Plus, X, Bot, Copy, Check, Sparkles } from 'lucide-react';
-import { api, ApiError, type InterviewRow } from '@/lib/api';
+import { api, ApiError, candidateInviteUrl, type CandidateInviteLink, type InterviewRow } from '@/lib/api';
 import { Panel, PanelBody, PanelHeader, PanelTitle } from '@/components/ui/panel';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
@@ -167,12 +167,20 @@ export default function InterviewsPage() {
                     <div className="flex items-center gap-1">
                       <button
                         type="button"
-                        onClick={() => {
+                        onClick={async () => {
                           if (typeof window === 'undefined') return;
-                          const url = `${window.location.origin}/interview/session/${iv.id}`;
-                          navigator.clipboard.writeText(url);
-                          setCopiedId(iv.id);
-                          setTimeout(() => setCopiedId(null), 2000);
+                          try {
+                            // Re-copy the active invite; issue one only if none exists.
+                            let link = await api.get<CandidateInviteLink>(`/interviews/${iv.id}/candidate-link`);
+                            if (!link.token) {
+                              link = await api.post<CandidateInviteLink>(`/interviews/${iv.id}/candidate-link`, {});
+                            }
+                            await navigator.clipboard.writeText(candidateInviteUrl(link.token!));
+                            setCopiedId(iv.id);
+                            setTimeout(() => setCopiedId(null), 2000);
+                          } catch {
+                            window.alert('Could not copy the candidate link. Open the interview and try again.');
+                          }
                         }}
                         title="Copy candidate AI interview link"
                         className="rounded p-1 text-ink-400 hover:bg-ink-800 hover:text-gold-400"
